@@ -1,7 +1,6 @@
 package it.unicam.ids.backend;
 
 import jakarta.persistence.Embeddable;
-
 import java.io.Serializable;
 
 @Embeddable

@@ -13,24 +13,16 @@ public class AziendaService {
     public List<Azienda> getAllAziende() {
         return aziendaRepository.findAll();
     }
-
     public Azienda getAzienda(Integer id) {
         Optional<Azienda> azienda = this.aziendaRepository.findById(id);
-        if (azienda.isPresent()) {
-            return azienda.get();
-        } else {
-            return null;
-        }
+        return azienda.orElse(null);
     }
-
     public void addAzienda(Azienda azienda) {
         aziendaRepository.save(azienda);
     }
-
     public void updateAzienda(Integer id, Azienda azienda) {
         aziendaRepository.save(azienda);
     }
-
     public void deleteAzienda(Integer id) {
         aziendaRepository.deleteById(id);
     }

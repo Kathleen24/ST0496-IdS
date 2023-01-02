@@ -15,11 +15,7 @@ public class StabilimentoService {
 
     public Stabilimento getStabilimento(StabilimentoID id) {
         Optional<Stabilimento> stabilimento = this.stabilimentoRepository.findById(id);
-        if (stabilimento.isPresent()) {
-            return stabilimento.get();
-        } else {
-            return null;
-        }
+        return stabilimento.orElse(null);
     }
 
     public void addStabilimento(Stabilimento stabilimento) {
