@@ -1,5 +1,8 @@
-package it.unicam.ids.backend;
+package it.unicam.ids.backend.service;
 
+import it.unicam.ids.backend.entity.ProgrammaFedelta;
+import it.unicam.ids.backend.id.ProgrammaFedeltaID;
+import it.unicam.ids.backend.repository.ProgrammaFedeltaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

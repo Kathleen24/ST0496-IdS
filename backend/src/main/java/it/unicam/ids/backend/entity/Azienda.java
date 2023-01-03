@@ -1,4 +1,4 @@
-package it.unicam.ids.backend;
+package it.unicam.ids.backend.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

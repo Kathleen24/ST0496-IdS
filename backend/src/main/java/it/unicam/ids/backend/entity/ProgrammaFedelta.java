@@ -1,6 +1,10 @@
-package it.unicam.ids.backend;
+package it.unicam.ids.backend.entity;
 
-import jakarta.persistence.*;
+import it.unicam.ids.backend.id.ProgrammaFedeltaID;
+import jakarta.persistence.EmbeddedId;
+import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Table;
 
 import java.util.Set;
 

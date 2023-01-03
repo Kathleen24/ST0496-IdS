@@ -1,10 +1,11 @@
-package it.unicam.ids.backend;
+package it.unicam.ids.backend.entity;
 
 import jakarta.persistence.*;
 
 import java.util.Set;
 
 @Entity
+@Table(name = "Cliente")
 public class Cliente {
 
     @Id

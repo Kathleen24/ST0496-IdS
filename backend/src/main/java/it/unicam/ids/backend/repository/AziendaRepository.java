@@ -1,5 +1,6 @@
-package it.unicam.ids.backend;
+package it.unicam.ids.backend.repository;
 
+import it.unicam.ids.backend.entity.Azienda;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

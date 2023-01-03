@@ -1,5 +1,8 @@
-package it.unicam.ids.backend;
+package it.unicam.ids.backend.controller;
 
+import it.unicam.ids.backend.entity.Stabilimento;
+import it.unicam.ids.backend.id.StabilimentoID;
+import it.unicam.ids.backend.service.StabilimentoService;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;

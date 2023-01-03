@@ -1,5 +1,6 @@
-package it.unicam.ids.backend;
+package it.unicam.ids.backend.entity;
 
+import it.unicam.ids.backend.id.StabilimentoID;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;

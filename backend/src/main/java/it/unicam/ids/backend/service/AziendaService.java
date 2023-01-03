@@ -1,5 +1,7 @@
-package it.unicam.ids.backend;
+package it.unicam.ids.backend.service;
 
+import it.unicam.ids.backend.entity.Azienda;
+import it.unicam.ids.backend.repository.AziendaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
