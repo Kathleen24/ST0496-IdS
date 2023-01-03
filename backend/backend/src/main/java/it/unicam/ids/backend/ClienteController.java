@@ -1,26 +1,36 @@
 package it.unicam.ids.backend;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
+
 @RestController
 public class ClienteController {
-    @Autowired
-    private ClienteService clienteService;
+
+    private final ClienteService clienteService;
+
+
+    public ClienteController(ClienteService clienteService) {
+        this.clienteService = clienteService;
+    }
+
+
     public List<Cliente> getAllClienti() {
         return clienteService.getAllClienti();
     }
-    public Cliente getAzienda(Integer tessera) {
+
+    public Cliente getCliente(Integer tessera) {
         return clienteService.getCliente(tessera);
     }
-    public void addAzienda(Cliente cliente) {
+
+    public void addCliente(Cliente cliente) {
         clienteService.addCliente(cliente);
     }
-    public void updateAzienda(Integer tessera, Cliente cliente) {
-        clienteService.updateCliente(tessera,cliente); //in teoria senza id tra parentesi
-    }
-    public void deleteAzienda(Integer tessera) {
-        clienteService.deleteCliente(tessera);
+
+    public void updateCliente(Cliente cliente) {
+        clienteService.updateCliente(cliente);
     }
 
+    public void deleteCliente(Integer tessera) {
+        clienteService.deleteCliente(tessera);
+    }
 }

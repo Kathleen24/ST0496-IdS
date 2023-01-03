@@ -9,6 +9,8 @@ public class ProgrammaFedeltaID implements Serializable{
     private Integer aziendaID;
     private Integer id;
 
+
+    //region Costruttori
     public ProgrammaFedeltaID() {
     }
 
@@ -17,14 +19,18 @@ public class ProgrammaFedeltaID implements Serializable{
         this.id = id;
     }
 
-    public ProgrammaFedeltaID(ProgrammaFedeltaID programmaFedeltaID){
+    public ProgrammaFedeltaID(ProgrammaFedeltaID programmaFedeltaID) {
         this.aziendaID = programmaFedeltaID.getAziendaID();
         this.id = programmaFedeltaID.getId();
     }
+    //endregion
 
+
+    //region Getter e Setter
     public Integer getAziendaID() {
         return aziendaID;
     }
+
     public void setAziendaID(Integer aziendaID) {
         this.aziendaID = aziendaID;
     }
@@ -36,4 +42,5 @@ public class ProgrammaFedeltaID implements Serializable{
     public void setId(Integer id) {
         this.id = id;
     }
+    //endregion
 }

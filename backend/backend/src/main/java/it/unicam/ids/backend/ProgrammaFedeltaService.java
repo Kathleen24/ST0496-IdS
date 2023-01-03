@@ -1,6 +1,5 @@
 package it.unicam.ids.backend;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -8,10 +7,18 @@ import java.util.Optional;
 
 @Service
 public class ProgrammaFedeltaService {
-    @Autowired
-    private ProgrammaFedeltaRepository programmaFedeltaRepository;
 
-    public List<ProgrammaFedelta> getAllProgrammiFedelta() { return programmaFedeltaRepository.findAll();}
+    private final ProgrammaFedeltaRepository programmaFedeltaRepository;
+
+
+    public ProgrammaFedeltaService(ProgrammaFedeltaRepository programmaFedeltaRepository) {
+        this.programmaFedeltaRepository = programmaFedeltaRepository;
+    }
+
+
+    public List<ProgrammaFedelta> getAllProgrammiFedelta() {
+        return programmaFedeltaRepository.findAll();
+    }
 
     public ProgrammaFedelta getProgrammaFedelta(ProgrammaFedeltaID programmaFedeltaID) {
         Optional<ProgrammaFedelta> programmaFedelta = this.programmaFedeltaRepository.findById(programmaFedeltaID);
@@ -22,8 +29,11 @@ public class ProgrammaFedeltaService {
         programmaFedeltaRepository.save(programmaFedelta);
     }
 
-    public void updateProgrammaFedelta(ProgrammaFedeltaID programmaFedeltaID, ProgrammaFedelta programmaFedelta){
+    public void updateProgrammaFedelta(ProgrammaFedelta programmaFedelta) {
         programmaFedeltaRepository.save(programmaFedelta);
     }
-    public void deleteProgrammaFedelta(ProgrammaFedeltaID programmaFedeltaID){ programmaFedeltaRepository.deleteById(programmaFedeltaID);}
+
+    public void deleteProgrammaFedelta(ProgrammaFedeltaID programmaFedeltaID) {
+        programmaFedeltaRepository.deleteById(programmaFedeltaID);
+    }
 }

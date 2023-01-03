@@ -1,14 +1,19 @@
 package it.unicam.ids.backend;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
 public class ProgrammaFedeltaController {
-    @Autowired
-    private ProgrammaFedeltaService programmaFedeltaService;
+
+    private final ProgrammaFedeltaService programmaFedeltaService;
+
+
+    public ProgrammaFedeltaController(ProgrammaFedeltaService programmaFedeltaService) {
+        this.programmaFedeltaService = programmaFedeltaService;
+    }
+
 
     public List<ProgrammaFedelta> getAllProgrammiFedelta() {
         return programmaFedeltaService.getAllProgrammiFedelta();
@@ -22,8 +27,8 @@ public class ProgrammaFedeltaController {
         programmaFedeltaService.addProgrammaFedelta(programmaFedelta);
     }
 
-    public void updateProgrammaFedelta(ProgrammaFedeltaID programmaFedeltaID, ProgrammaFedelta programmaFedelta) {
-        programmaFedeltaService.updateProgrammaFedelta(programmaFedeltaID, programmaFedelta);
+    public void updateProgrammaFedelta(ProgrammaFedelta programmaFedelta) {
+        programmaFedeltaService.updateProgrammaFedelta(programmaFedelta);
     }
 
     public void deleteProgrammaFedelta(ProgrammaFedeltaID programmaFedeltaID) {

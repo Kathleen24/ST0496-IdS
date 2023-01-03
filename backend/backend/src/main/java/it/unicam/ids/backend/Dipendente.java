@@ -1,15 +1,14 @@
 package it.unicam.ids.backend;
 
 import jakarta.persistence.*;
-import org.jetbrains.annotations.NotNull;
 
 @Entity
 @Table(name="Dipendente")
-public class Dipendete {
+public class Dipendente {
 
     @Id
     private String nomeUtente;
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "persona", referencedColumnName = "id")
     private Persona persona;
 
@@ -18,36 +17,40 @@ public class Dipendete {
     private Azienda azienda;
 
     private Boolean gestorePunti;
-    private Boolean gestoreDipendeti;
+    private Boolean gestoreDipendenti;
     private Boolean gestoreInformazioni;
-    private Boolean gestoreProgrammiFedeltà;
+    private Boolean gestoreProgrammiFedelta;
     private Boolean responsabile;
 
-    public Dipendete() {
+
+    //region Costruttori
+    public Dipendente() {
     }
 
-    public Dipendete(String nomeUtente, Persona persona, Azienda azienda, Boolean gestorePunti, Boolean gestoreDipendeti, Boolean gestoreInformazioni, Boolean gestoreProgrammiFedeltà, Boolean responsabile) {
+    public Dipendente(String nomeUtente, Persona persona, Azienda azienda, Boolean gestorePunti, Boolean gestoreDipendenti, Boolean gestoreInformazioni, Boolean gestoreProgrammiFedelta, Boolean responsabile) {
         this.nomeUtente = nomeUtente;
         this.persona = persona;
         this.azienda = azienda;
         this.gestorePunti = gestorePunti;
-        this.gestoreDipendeti = gestoreDipendeti;
+        this.gestoreDipendenti = gestoreDipendenti;
         this.gestoreInformazioni = gestoreInformazioni;
-        this.gestoreProgrammiFedeltà = gestoreProgrammiFedeltà;
+        this.gestoreProgrammiFedelta = gestoreProgrammiFedelta;
         this.responsabile = responsabile;
     }
 
-    public Dipendete(@NotNull Dipendete d){
+    public Dipendente(Dipendente d) {
         this.nomeUtente = d.getNomeUtente();
         this.persona = d.getPersona();
         this.azienda = d.getAzienda();
         this.gestorePunti = d.getGestorePunti();
-        this.gestoreDipendeti = d.getGestoreDipendeti();
+        this.gestoreDipendenti = d.getGestoreDipendenti();
         this.gestoreInformazioni = d.getGestoreInformazioni();
-        this.gestoreProgrammiFedeltà = d.getGestoreProgrammiFedeltà();
+        this.gestoreProgrammiFedelta = d.getGestoreProgrammiFedelta();
         this.responsabile = d.getResponsabile();
     }
+    //endregion
 
+    //region Getter
     public String getNomeUtente() {
         return nomeUtente;
     }
@@ -64,19 +67,20 @@ public class Dipendete {
         return gestorePunti;
     }
 
-    public Boolean getGestoreDipendeti() {
-        return gestoreDipendeti;
+    public Boolean getGestoreDipendenti() {
+        return gestoreDipendenti;
     }
 
     public Boolean getGestoreInformazioni() {
         return gestoreInformazioni;
     }
 
-    public Boolean getGestoreProgrammiFedeltà() {
-        return gestoreProgrammiFedeltà;
+    public Boolean getGestoreProgrammiFedelta() {
+        return gestoreProgrammiFedelta;
     }
 
     public Boolean getResponsabile() {
         return responsabile;
     }
+    //endregion
 }

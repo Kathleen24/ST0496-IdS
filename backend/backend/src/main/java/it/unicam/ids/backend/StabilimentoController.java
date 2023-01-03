@@ -1,32 +1,37 @@
 package it.unicam.ids.backend;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
 public class StabilimentoController {
-    @Autowired
-    private StabilimentoService stabilimentoServiceDB;
+
+    private final StabilimentoService stabilimentoService;
+
+
+    public StabilimentoController(StabilimentoService stabilimentoService) {
+        this.stabilimentoService = stabilimentoService;
+    }
+
 
     public List<Stabilimento> getAllStabilimenti() {
-        return stabilimentoServiceDB.getAllStabilimenti();
+        return stabilimentoService.getAllStabilimenti();
     }
 
     public Stabilimento getStabilimento(StabilimentoID id) {
-        return stabilimentoServiceDB.getStabilimento(id);
+        return stabilimentoService.getStabilimento(id);
     }
 
     public void addStabilimento(Stabilimento stabilimento) {
-        stabilimentoServiceDB.addStabilimento(stabilimento);
+        stabilimentoService.addStabilimento(stabilimento);
     }
 
-    public void updateStabilimento(StabilimentoID id, Stabilimento stabilimento) {
-        stabilimentoServiceDB.updateStabilimento(id,stabilimento); //in teoria senza id tra parentesi
+    public void updateStabilimento(Stabilimento stabilimento) {
+        stabilimentoService.updateStabilimento(stabilimento);
     }
 
     public void deleteStabilimento(StabilimentoID id) {
-        stabilimentoServiceDB.deleteStabilimento(id);
+        stabilimentoService.deleteStabilimento(id);
     }
 }

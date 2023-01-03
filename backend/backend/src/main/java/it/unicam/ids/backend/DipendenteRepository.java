@@ -4,5 +4,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface DipendeteRepository extends JpaRepository<Dipendete, String> {
+public interface DipendenteRepository extends JpaRepository<Dipendente, String> {
 }

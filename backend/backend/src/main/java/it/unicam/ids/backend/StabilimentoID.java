@@ -5,17 +5,23 @@ import java.io.Serializable;
 
 @Embeddable
 public class StabilimentoID implements Serializable {
+
     private Integer aziendaID;
     private Integer id;
 
-    public StabilimentoID(){
-    };
+
+    //region Costruttori
+    public StabilimentoID() {
+    }
 
     public StabilimentoID(Integer aziendaID, Integer id) {
         this.aziendaID = aziendaID;
         this.id = id;
     }
+    //endregion
 
+
+    //region Getter e Setter
     public Integer getAziendaID() {
         return aziendaID;
     }
@@ -31,4 +37,5 @@ public class StabilimentoID implements Serializable {
     public void setId(Integer id) {
         this.id = id;
     }
+    //endregion
 }

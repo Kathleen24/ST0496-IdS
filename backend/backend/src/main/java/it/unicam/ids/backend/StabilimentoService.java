@@ -1,13 +1,20 @@
 package it.unicam.ids.backend;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class StabilimentoService {
-    @Autowired
-    private StabilimentoRepository stabilimentoRepository;
+
+    private final StabilimentoRepository stabilimentoRepository;
+
+
+    public StabilimentoService(StabilimentoRepository stabilimentoRepository) {
+        this.stabilimentoRepository = stabilimentoRepository;
+    }
+
 
     public List<Stabilimento> getAllStabilimenti() {
         return stabilimentoRepository.findAll();
@@ -22,7 +29,7 @@ public class StabilimentoService {
         stabilimentoRepository.save(stabilimento);
     }
 
-    public void updateStabilimento(StabilimentoID id, Stabilimento stabilimento) {
+    public void updateStabilimento(Stabilimento stabilimento) {
         stabilimentoRepository.save(stabilimento);
     }
 
