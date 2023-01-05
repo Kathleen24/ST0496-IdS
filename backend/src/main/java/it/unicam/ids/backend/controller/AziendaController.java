@@ -9,31 +9,31 @@ import java.util.List;
 @RestController
 public class AziendaController {
 
-    private final AziendaService aziendaServiceDB;
+    private final AziendaService aziendaService;
 
 
     public AziendaController(AziendaService aziendaServiceDB) {
-        this.aziendaServiceDB = aziendaServiceDB;
+        this.aziendaService = aziendaServiceDB;
     }
 
 
     public List<Azienda> getAllAziende() {
-        return aziendaServiceDB.getAllAziende();
+        return aziendaService.getAllAziende();
     }
 
     public Azienda getAzienda(Integer id) {
-        return aziendaServiceDB.getAzienda(id);
+        return aziendaService.getAzienda(id);
     }
 
     public void addAzienda(Azienda azienda) {
-        aziendaServiceDB.addAzienda(azienda);
+        aziendaService.addAzienda(azienda);
     }
 
     public void updateAzienda(Azienda azienda) {
-        aziendaServiceDB.updateAzienda(azienda);
+        aziendaService.updateAzienda(azienda);
     }
 
     public void deleteAzienda(Integer id) {
-        aziendaServiceDB.deleteAzienda(id);
+        aziendaService.deleteAzienda(id);
     }
 }
