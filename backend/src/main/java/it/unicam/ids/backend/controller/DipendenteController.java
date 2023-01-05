@@ -16,7 +16,7 @@ public class DipendenteController {
     }
 
 
-    public List<Dipendente> getAllAziende() {
+    public List<Dipendente> getAllDipendenti() {
         return dipendenteService.getAllDipendente();
     }
 
