@@ -8,6 +8,8 @@ public class Dipendente {
 
     @Id
     private String nomeUtente;
+
+    private String password;
     @ManyToOne
     @JoinColumn(name = "persona", referencedColumnName = "id")
     private Persona persona;
@@ -27,8 +29,9 @@ public class Dipendente {
     public Dipendente() {
     }
 
-    public Dipendente(String nomeUtente, Persona persona, Azienda azienda, Boolean gestorePunti, Boolean gestoreDipendenti, Boolean gestoreInformazioni, Boolean gestoreProgrammiFedelta, Boolean responsabile) {
+    public Dipendente(String nomeUtente, String password, Persona persona, Azienda azienda, Boolean gestorePunti, Boolean gestoreDipendenti, Boolean gestoreInformazioni, Boolean gestoreProgrammiFedelta, Boolean responsabile) {
         this.nomeUtente = nomeUtente;
+        this.password = password;
         this.persona = persona;
         this.azienda = azienda;
         this.gestorePunti = gestorePunti;
@@ -40,6 +43,7 @@ public class Dipendente {
 
     public Dipendente(Dipendente d) {
         this.nomeUtente = d.getNomeUtente();
+        this.password = d.getPassword();
         this.persona = d.getPersona();
         this.azienda = d.getAzienda();
         this.gestorePunti = d.getGestorePunti();
@@ -53,6 +57,10 @@ public class Dipendente {
     //region Getter
     public String getNomeUtente() {
         return nomeUtente;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public Persona getPersona() {
