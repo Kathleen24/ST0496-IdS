@@ -3,7 +3,7 @@ package it.unicam.ids.backend.entity;
 import it.unicam.ids.backend.id.ProgrammaFedeltaID;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 import java.util.Set;
@@ -14,15 +14,15 @@ public class ProgrammaFedelta {
 
     @EmbeddedId
     private ProgrammaFedeltaID id;
-    @ManyToMany
-    private Set<Cliente> clientiIscritti;
+    @OneToMany(mappedBy = "cliente")
+    private Set<ProgrammaFedeltaDelCliente> clientiIscritti;
 
 
     //region Costruttori
     public ProgrammaFedelta() {
     }
 
-    public ProgrammaFedelta(ProgrammaFedeltaID id, Set<Cliente> clientiIscritti) {
+    public ProgrammaFedelta(ProgrammaFedeltaID id, Set<ProgrammaFedeltaDelCliente> clientiIscritti) {
         this.id = id;
         this.clientiIscritti = clientiIscritti;
     }
@@ -43,11 +43,11 @@ public class ProgrammaFedelta {
         this.id = id;
     }
 
-    public Set<Cliente> getClientiIscritti() {
+    public Set<ProgrammaFedeltaDelCliente> getClientiIscritti() {
         return clientiIscritti;
     }
 
-    public void setClientiIscritti(Set<Cliente> clientiIscritti) {
+    public void setClientiIscritti(Set<ProgrammaFedeltaDelCliente> clientiIscritti) {
         this.clientiIscritti = clientiIscritti;
     }
     //endregion

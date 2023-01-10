@@ -17,15 +17,15 @@ public class Cliente {
     private String nomeUtente;
     private String password;
     private String email;
-    @ManyToMany
-    private Set<ProgrammaFedelta> programmiFedelta;
+    @OneToMany(mappedBy = "programmaFedelta")
+    private Set<ProgrammaFedeltaDelCliente> programmiFedelta;
 
 
     //region Costruttori
     public Cliente() {
     }
 
-    public Cliente(Integer tessera, Persona persona, String nomeUtente, String password, String email, Set<ProgrammaFedelta> programmiFedelta) {
+    public Cliente(Integer tessera, Persona persona, String nomeUtente, String password, String email, Set<ProgrammaFedeltaDelCliente> programmiFedelta) {
         this.tessera = tessera;
         this.persona = persona;
         this.nomeUtente = nomeUtente;
@@ -86,17 +86,12 @@ public class Cliente {
         this.email = email;
     }
 
-    public Set<ProgrammaFedelta> getProgrammiFedelta() {
+    public Set<ProgrammaFedeltaDelCliente> getProgrammiFedelta() {
         return programmiFedelta;
     }
 
-    public void setProgrammiFedelta(Set<ProgrammaFedelta> programmiFedelta) {
+    public void setProgrammiFedelta(Set<ProgrammaFedeltaDelCliente> programmiFedelta) {
         this.programmiFedelta = programmiFedelta;
     }
     //endregion
-
-    public boolean verificaEmail() {
-        // TODO: 28/12/22
-        return false;
-    }
 }
