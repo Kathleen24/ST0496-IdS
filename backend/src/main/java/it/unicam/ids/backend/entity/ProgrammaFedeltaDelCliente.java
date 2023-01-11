@@ -1,14 +1,12 @@
 package it.unicam.ids.backend.entity;
 
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.MapsId;
+import it.unicam.ids.backend.id.ProgrammaFedeltaDelClienteID;
+import jakarta.persistence.*;
 
 import java.util.Objects;
 
 @Entity
+@Table(name="ProgrammaFedeltaDelCliente")
 public class ProgrammaFedeltaDelCliente {
 
     @EmbeddedId
