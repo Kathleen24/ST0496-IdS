@@ -11,17 +11,46 @@ public class ProgrammaFedeltaDelCliente {
 
     @EmbeddedId
     private ProgrammaFedeltaDelClienteID id;
+
     @ManyToOne
     @MapsId("tessera")
     @JoinColumn(name = "tessera")
     private Cliente cliente;
     @ManyToOne
     @MapsId("programmaFedeltaID")
-    @JoinColumn(name = "programmaFedeltaID")
+    @JoinColumns({
+            @JoinColumn(name = "programmaFedeltaID", referencedColumnName = "id"),
+            @JoinColumn(name = "aziendaID", referencedColumnName = "aziendaID")
+    })
     private ProgrammaFedelta programmaFedelta;
+
     private Integer puntiRaccolti;
     private boolean sonoXp;
 
+
+    //region Costruttori
+    public ProgrammaFedeltaDelCliente() {
+    }
+
+    public ProgrammaFedeltaDelCliente(ProgrammaFedeltaDelClienteID id) {
+        this.id = id;
+        this.puntiRaccolti = 0;
+        this.sonoXp = false;
+    }
+
+    public ProgrammaFedeltaDelCliente(ProgrammaFedeltaDelClienteID id, Cliente cliente, ProgrammaFedelta programmaFedelta, Integer puntiRaccolti, boolean sonoXp) {
+        this.id = id;
+        this.cliente = cliente;
+        this.programmaFedelta = programmaFedelta;
+        this.puntiRaccolti = puntiRaccolti;
+        this.sonoXp = sonoXp;
+    }
+    //endregion
+
+
+    public void addPunti(int punti) {
+        puntiRaccolti += punti;
+    }
 
     //region Getter e Setter
     public ProgrammaFedeltaDelClienteID getId() {

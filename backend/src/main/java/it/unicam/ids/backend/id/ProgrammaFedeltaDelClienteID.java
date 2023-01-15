@@ -1,13 +1,16 @@
 package it.unicam.ids.backend.id;
 
 import jakarta.persistence.Embeddable;
+
 import java.io.Serializable;
 import java.util.Objects;
 
 @Embeddable
 public class ProgrammaFedeltaDelClienteID implements Serializable {
+
     private ProgrammaFedeltaID programmaFedeltaID;
     private Integer tessera;
+
 
     //region Costruttori
     public ProgrammaFedeltaDelClienteID() {

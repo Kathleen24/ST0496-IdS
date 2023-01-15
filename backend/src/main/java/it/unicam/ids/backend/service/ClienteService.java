@@ -1,7 +1,11 @@
 package it.unicam.ids.backend.service;
 
 import it.unicam.ids.backend.entity.Cliente;
+import it.unicam.ids.backend.entity.ProgrammaFedeltaDelCliente;
+import it.unicam.ids.backend.id.ProgrammaFedeltaDelClienteID;
+import it.unicam.ids.backend.id.ProgrammaFedeltaID;
 import it.unicam.ids.backend.repository.ClienteRepository;
+import it.unicam.ids.backend.repository.ProgrammaFedeltaDelClienteRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,10 +15,15 @@ import java.util.Optional;
 public class ClienteService {
 
     private final ClienteRepository clienteRepository;
+    private final ProgrammaFedeltaDelClienteRepository programmaFedeltaDelClienteRepository;
 
 
-    public ClienteService(ClienteRepository clienteRepository) {
+    public ClienteService(
+            ClienteRepository clienteRepository,
+            ProgrammaFedeltaDelClienteRepository programmaFedeltaDelClienteRepository
+    ) {
         this.clienteRepository = clienteRepository;
+        this.programmaFedeltaDelClienteRepository = programmaFedeltaDelClienteRepository;
     }
 
 
@@ -37,5 +46,22 @@ public class ClienteService {
 
     public void deleteCliente(Integer tessera) {
         clienteRepository.deleteById(tessera);
+    }
+
+    public void addProgrammaFedelta(Integer tessera, ProgrammaFedeltaID pfId) {
+        //getCliente(tessera).getProgrammiFedelta().add(
+        programmaFedeltaDelClienteRepository.save(new ProgrammaFedeltaDelCliente(
+                new ProgrammaFedeltaDelClienteID(pfId, tessera)
+        ));
+        //);
+    }
+
+    public void addPunti(Integer tessera, ProgrammaFedeltaID pfId, int punti) {
+        Cliente cliente = getCliente(tessera);
+
+        cliente.getProgrammiFedelta().stream()
+                .filter(pf -> pf.getId().getProgrammaFedeltaID().equals(pfId))
+                .findFirst().orElseThrow().addPunti(punti);
+        updateCliente(cliente);
     }
 }
