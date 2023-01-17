@@ -6,6 +6,7 @@ import it.unicam.ids.backend.id.ProgrammaFedeltaDelClienteID;
 import it.unicam.ids.backend.id.ProgrammaFedeltaID;
 import it.unicam.ids.backend.repository.ClienteRepository;
 import it.unicam.ids.backend.repository.ProgrammaFedeltaDelClienteRepository;
+import it.unicam.ids.backend.repository.ProgrammaFedeltaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,14 +17,17 @@ public class ClienteService {
 
     private final ClienteRepository clienteRepository;
     private final ProgrammaFedeltaDelClienteRepository programmaFedeltaDelClienteRepository;
+    private final ProgrammaFedeltaRepository programmaFedeltaRepository;
 
 
     public ClienteService(
             ClienteRepository clienteRepository,
-            ProgrammaFedeltaDelClienteRepository programmaFedeltaDelClienteRepository
+            ProgrammaFedeltaDelClienteRepository programmaFedeltaDelClienteRepository,
+            ProgrammaFedeltaRepository programmaFedeltaRepository
     ) {
         this.clienteRepository = clienteRepository;
         this.programmaFedeltaDelClienteRepository = programmaFedeltaDelClienteRepository;
+        this.programmaFedeltaRepository = programmaFedeltaRepository;
     }
 
 
@@ -37,11 +41,11 @@ public class ClienteService {
     }
 
     public void addCliente(Cliente cliente) {
-        clienteRepository.save(cliente);
+        clienteRepository.saveAndFlush(cliente);
     }
 
     public void updateCliente(Cliente cliente) {
-        clienteRepository.save(cliente);
+        clienteRepository.saveAndFlush(cliente);
     }
 
     public void deleteCliente(Integer tessera) {
@@ -51,7 +55,9 @@ public class ClienteService {
     public void addProgrammaFedelta(Integer tessera, ProgrammaFedeltaID pfId) {
         //getCliente(tessera).getProgrammiFedelta().add(
         programmaFedeltaDelClienteRepository.save(new ProgrammaFedeltaDelCliente(
-                new ProgrammaFedeltaDelClienteID(pfId, tessera)
+                new ProgrammaFedeltaDelClienteID(pfId, tessera),
+                getCliente(tessera),
+                programmaFedeltaRepository.findById(pfId).orElseThrow()
         ));
         //);
     }

@@ -10,12 +10,14 @@ import java.util.Objects;
 @Entity
 @Table(name="Bonus")
 public class Bonus {
+
     @Id
     @GeneratedValue
     private Integer id;
     private Integer valore;
     private String descrizione;
     private enum Tipo{PUNTI,CASHBACK,SCONTO};
+
 
     //region Costruttori
     public Bonus() {
@@ -27,6 +29,7 @@ public class Bonus {
         this.descrizione = descrizione;
     }
     //endregion
+
 
     //region Getter e Setter
 
@@ -49,7 +52,6 @@ public class Bonus {
     //endregion
 
     //region Equals and HashCode
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -62,6 +64,5 @@ public class Bonus {
     public int hashCode() {
         return Objects.hash(id, valore, descrizione);
     }
-
     //endregion
 }

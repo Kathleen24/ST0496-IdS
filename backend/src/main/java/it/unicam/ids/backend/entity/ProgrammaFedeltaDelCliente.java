@@ -32,8 +32,10 @@ public class ProgrammaFedeltaDelCliente {
     public ProgrammaFedeltaDelCliente() {
     }
 
-    public ProgrammaFedeltaDelCliente(ProgrammaFedeltaDelClienteID id) {
+    public ProgrammaFedeltaDelCliente(ProgrammaFedeltaDelClienteID id, Cliente cliente, ProgrammaFedelta programmaFedelta) {
         this.id = id;
+        this.cliente = cliente;
+        this.programmaFedelta = programmaFedelta;
         this.puntiRaccolti = 0;
         this.sonoXp = false;
     }

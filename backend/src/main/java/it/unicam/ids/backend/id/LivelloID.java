@@ -7,8 +7,10 @@ import java.util.Objects;
 
 @Embeddable
 public class LivelloID implements Serializable {
+
     private ProgrammaFedeltaID programmaFedeltaID;
     private Integer bonusID;
+
 
     //region Costruttori
     public LivelloID() {
@@ -38,7 +40,6 @@ public class LivelloID implements Serializable {
         this.bonusID = bonusID;
     }
     //endregion
-
 
     @Override
     public boolean equals(Object o) {
