@@ -16,17 +16,18 @@ public class Bonus {
     private Integer id;
     private Integer valore;
     private String descrizione;
-    private enum Tipo{PUNTI,CASHBACK,SCONTO};
+    private Tipo type;
 
 
     //region Costruttori
     public Bonus() {
     }
 
-    public Bonus(Integer id, Integer valore, String descrizione) {
+    public Bonus(Integer id, Integer valore, String descrizione,Tipo type) {
         this.id = id;
         this.valore = valore;
         this.descrizione = descrizione;
+        this.type=type;
     }
     //endregion
 
@@ -49,6 +50,16 @@ public class Bonus {
         this.descrizione = descrizione;
     }
 
+    public Tipo getType() {
+        return type;
+    }
+
+    public void setType(Tipo type) {
+        this.type = type;
+    }
+
+
+
     //endregion
 
     //region Equals and HashCode
@@ -65,4 +76,22 @@ public class Bonus {
         return Objects.hash(id, valore, descrizione);
     }
     //endregion
+
+    public enum Tipo {
+        PUNTI {
+            @Override
+            public String toString() {
+                return "Punti";}
+        },
+        CASHBACK{
+            @Override
+            public String toString() {
+                return "Cashback";}
+        },
+        SCONTO {
+            @Override
+            public String toString() {
+                return "Sconto";}
+        }
+    }
 }
