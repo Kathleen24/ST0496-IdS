@@ -1,5 +1,6 @@
 package it.unicam.ids.backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import it.unicam.ids.backend.id.ProgrammaFedeltaDelClienteID;
 import jakarta.persistence.*;
 
@@ -11,17 +12,48 @@ public class ProgrammaFedeltaDelCliente {
 
     @EmbeddedId
     private ProgrammaFedeltaDelClienteID id;
+
     @ManyToOne
     @MapsId("tessera")
     @JoinColumn(name = "tessera")
     private Cliente cliente;
     @ManyToOne
     @MapsId("programmaFedeltaID")
-    @JoinColumn(name = "programmaFedeltaID")
+    @JoinColumns({
+            @JoinColumn(name = "programmaFedeltaID", referencedColumnName = "id"),
+            @JoinColumn(name = "aziendaID", referencedColumnName = "aziendaID")
+    })
     private ProgrammaFedelta programmaFedelta;
+
     private Integer puntiRaccolti;
     private boolean sonoXp;
 
+
+    //region Costruttori
+    public ProgrammaFedeltaDelCliente() {
+    }
+
+    public ProgrammaFedeltaDelCliente(ProgrammaFedeltaDelClienteID id, Cliente cliente, ProgrammaFedelta programmaFedelta) {
+        this.id = id;
+        this.cliente = cliente;
+        this.programmaFedelta = programmaFedelta;
+        this.puntiRaccolti = 0;
+        this.sonoXp = false;
+    }
+
+    public ProgrammaFedeltaDelCliente(ProgrammaFedeltaDelClienteID id, Cliente cliente, ProgrammaFedelta programmaFedelta, Integer puntiRaccolti, boolean sonoXp) {
+        this.id = id;
+        this.cliente = cliente;
+        this.programmaFedelta = programmaFedelta;
+        this.puntiRaccolti = puntiRaccolti;
+        this.sonoXp = sonoXp;
+    }
+    //endregion
+
+
+    public void addPunti(int punti) {
+        puntiRaccolti += punti;
+    }
 
     //region Getter e Setter
     public ProgrammaFedeltaDelClienteID getId() {
@@ -32,6 +64,7 @@ public class ProgrammaFedeltaDelCliente {
         this.id = id;
     }
 
+    @JsonIgnore
     public Cliente getCliente() {
         return cliente;
     }
@@ -40,6 +73,7 @@ public class ProgrammaFedeltaDelCliente {
         this.cliente = cliente;
     }
 
+    @JsonIgnore
     public ProgrammaFedelta getProgrammaFedelta() {
         return programmaFedelta;
     }

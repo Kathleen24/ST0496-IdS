@@ -6,14 +6,16 @@ import jakarta.persistence.*;
 @Entity
 @Table(name="Livello")
 public class Livello {
+
     @EmbeddedId
     private LivelloID id;
-
     @ManyToOne
     @MapsId("programmaFedeltaID")
-    @JoinColumn(name = "programmaFedeltaID")
+    @JoinColumns({
+            @JoinColumn(name = "programmaFedeltaID", referencedColumnName = "id"),
+            @JoinColumn(name = "aziendaID", referencedColumnName = "aziendaID")
+    })
     private ProgrammaFedelta programmaFedelta;
-
     @ManyToOne
     @MapsId("bonusID")
     @JoinColumn(name = "bonusID")
@@ -21,6 +23,7 @@ public class Livello {
 
     private int soglia;
     private String descrizione;
+
 
     //region Costruttori
     public Livello() {
@@ -34,6 +37,7 @@ public class Livello {
         this.descrizione = descrizione;
     }
     //endregion
+
 
     //region Getter e Setter
     public LivelloID getId() {

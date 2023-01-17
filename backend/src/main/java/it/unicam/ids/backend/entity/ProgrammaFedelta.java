@@ -14,7 +14,7 @@ public class ProgrammaFedelta {
 
     @EmbeddedId
     private ProgrammaFedeltaID id;
-    @OneToMany(mappedBy = "cliente")
+    @OneToMany(mappedBy = "programmaFedelta")
     private Set<ProgrammaFedeltaDelCliente> clientiIscritti;
 
 

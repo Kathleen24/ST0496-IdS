@@ -2,6 +2,7 @@ package it.unicam.ids.backend.id;
 
 import jakarta.persistence.Embeddable;
 import java.io.Serializable;
+import java.util.Objects;
 
 @Embeddable
 public class ProgrammaFedeltaID implements Serializable{
@@ -43,4 +44,17 @@ public class ProgrammaFedeltaID implements Serializable{
         this.id = id;
     }
     //endregion
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ProgrammaFedeltaID that)) return false;
+        return aziendaID.equals(that.aziendaID) && id.equals(that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(aziendaID, id);
+    }
 }

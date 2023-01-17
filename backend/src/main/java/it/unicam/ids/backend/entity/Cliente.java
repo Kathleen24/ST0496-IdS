@@ -17,7 +17,7 @@ public class Cliente {
     private String nomeUtente;
     private String password;
     private String email;
-    @OneToMany(mappedBy = "programmaFedelta")
+    @OneToMany(mappedBy = "cliente")
     private Set<ProgrammaFedeltaDelCliente> programmiFedelta;
 
 
