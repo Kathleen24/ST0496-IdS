@@ -19,6 +19,7 @@ public class ClienteController {
     }
 
 
+    @GetMapping("/all")
     public List<Cliente> getAllClienti() {
         return clienteService.getAllClienti();
     }

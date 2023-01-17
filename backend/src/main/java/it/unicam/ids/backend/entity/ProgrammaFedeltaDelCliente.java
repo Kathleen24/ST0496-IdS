@@ -1,5 +1,6 @@
 package it.unicam.ids.backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import it.unicam.ids.backend.id.ProgrammaFedeltaDelClienteID;
 import jakarta.persistence.*;
 
@@ -63,6 +64,7 @@ public class ProgrammaFedeltaDelCliente {
         this.id = id;
     }
 
+    @JsonIgnore
     public Cliente getCliente() {
         return cliente;
     }
@@ -71,6 +73,7 @@ public class ProgrammaFedeltaDelCliente {
         this.cliente = cliente;
     }
 
+    @JsonIgnore
     public ProgrammaFedelta getProgrammaFedelta() {
         return programmaFedelta;
     }
