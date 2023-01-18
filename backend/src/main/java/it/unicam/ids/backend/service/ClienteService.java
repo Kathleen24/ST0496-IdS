@@ -78,6 +78,7 @@ public class ClienteService {
         return cliente.getProgrammiFedelta();
     }
 
+    //Per il sequence diagram Visualizza progressi programma fedeltà
     public ProgrammaFedeltaDelCliente getProgrammaFedeltaOf(Integer tessera, ProgrammaFedeltaID programmaFedeltaID){
         Cliente cliente=getCliente(tessera);
         return cliente.getProgrammiFedelta().stream()
@@ -89,5 +90,6 @@ public class ClienteService {
         Cliente cliente = getCliente(tessera);
         cliente.addProgrammaFedelta(getProgrammaFedeltaOf(tessera, programmaFedeltaID));
     }
+
 
 }

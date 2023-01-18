@@ -49,4 +49,9 @@ public class ClienteController {
     public void addPunti(@RequestParam Integer tessera, @RequestParam ProgrammaFedeltaID pfId, @RequestParam int punti) {
         clienteService.addPunti(tessera, pfId, punti);
     }
+
+    //Per sequence diagram Visualizza dati personali
+    public void visualizzaDatiPersonali(Integer tessera){
+        getCliente(tessera).toString();
+    }
 }
