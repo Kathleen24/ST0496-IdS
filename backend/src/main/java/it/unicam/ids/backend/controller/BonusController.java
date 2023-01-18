@@ -36,7 +36,7 @@ public class BonusController {
         bonusService.deleteBonus(id);
     }
 
-    //Per sequence diagram Creazione livello
+    //Per sequence diagram Creazione bonus
     public void creaBonus(String nome, String descrizione){
         System.out.println(getAllBonusType());
         //utente sceglie tipo e valore
@@ -51,5 +51,11 @@ public class BonusController {
         return s;
     }
 
+    //Per sequence diagram Eliminazione bonus
+    public void  eliminaBonus(Integer id){
+        //"Vuoi procedere all'eliminazione?" S/N
+        if(true)
+            deleteBonus(id);
+    }
 
 }

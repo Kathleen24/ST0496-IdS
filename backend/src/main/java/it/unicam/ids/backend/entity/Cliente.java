@@ -1,5 +1,6 @@
 package it.unicam.ids.backend.entity;
 
+import it.unicam.ids.backend.id.ProgrammaFedeltaID;
 import jakarta.persistence.*;
 
 import java.util.Set;
@@ -94,4 +95,8 @@ public class Cliente {
         this.programmiFedelta = programmiFedelta;
     }
     //endregion
+
+    public void addProgrammaFedelta(ProgrammaFedeltaDelCliente pf){
+        programmiFedelta.add(pf);
+    }
 }

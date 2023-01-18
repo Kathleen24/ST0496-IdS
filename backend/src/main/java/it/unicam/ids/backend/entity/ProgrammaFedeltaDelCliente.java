@@ -2,6 +2,7 @@ package it.unicam.ids.backend.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import it.unicam.ids.backend.id.ProgrammaFedeltaDelClienteID;
+import it.unicam.ids.backend.id.ProgrammaFedeltaID;
 import jakarta.persistence.*;
 
 import java.util.Objects;
@@ -99,7 +100,6 @@ public class ProgrammaFedeltaDelCliente {
     }
     //endregion
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -114,5 +114,16 @@ public class ProgrammaFedeltaDelCliente {
     @Override
     public int hashCode() {
         return Objects.hash(id, cliente, programmaFedelta, puntiRaccolti, sonoXp);
+    }
+
+    @Override
+    public String toString() {
+        return "ProgrammaFedeltaDelCliente{" +
+                "id=" + id +
+                ", cliente=" + cliente +
+                ", programmaFedelta=" + programmaFedelta +
+                ", puntiRaccolti=" + puntiRaccolti +
+                ", sonoXp=" + sonoXp +
+                '}';
     }
 }

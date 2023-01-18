@@ -1,6 +1,7 @@
 package it.unicam.ids.backend.service;
 
 import it.unicam.ids.backend.entity.Cliente;
+import it.unicam.ids.backend.entity.ProgrammaFedelta;
 import it.unicam.ids.backend.entity.ProgrammaFedeltaDelCliente;
 import it.unicam.ids.backend.id.ProgrammaFedeltaDelClienteID;
 import it.unicam.ids.backend.id.ProgrammaFedeltaID;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class ClienteService {
@@ -70,4 +72,22 @@ public class ClienteService {
                 .findFirst().orElseThrow().addPunti(punti);
         updateCliente(cliente);
     }
+
+    public Set<ProgrammaFedeltaDelCliente> getAllProgrammiFedeltaOf(Integer tessera){
+        Cliente cliente = getCliente(tessera);
+        return cliente.getProgrammiFedelta();
+    }
+
+    public ProgrammaFedeltaDelCliente getProgrammaFedeltaOf(Integer tessera, ProgrammaFedeltaID programmaFedeltaID){
+        Cliente cliente=getCliente(tessera);
+        return cliente.getProgrammiFedelta().stream()
+                .filter(pf -> pf.getId().getProgrammaFedeltaID().equals(programmaFedeltaID))
+                .findFirst().orElse(null);
+    }
+
+    public void addProgrammaFedeltaToCliente(Integer tessera, ProgrammaFedeltaID programmaFedeltaID){
+        Cliente cliente = getCliente(tessera);
+        cliente.addProgrammaFedelta(getProgrammaFedeltaOf(tessera, programmaFedeltaID));
+    }
+
 }
