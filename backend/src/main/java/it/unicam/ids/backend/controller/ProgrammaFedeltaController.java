@@ -1,9 +1,5 @@
 package it.unicam.ids.backend.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import it.unicam.ids.backend.entity.ProgrammaFedelta;
 import it.unicam.ids.backend.id.LivelloID;
 import it.unicam.ids.backend.id.ProgrammaFedeltaID;
@@ -16,6 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static it.unicam.ids.backend.entity.Bonus.Tipo.PUNTI;
 
 @RestController
 @RequestMapping("/programmiFedelta")
@@ -62,4 +60,12 @@ public class ProgrammaFedeltaController {
     public void deleteProgrammaFedelta(ProgrammaFedeltaID pfID) {
         programmaFedeltaService.deleteProgrammaFedelta(pfID);
     }
+
+    //Per sequence diagram Elimina Programma Fedeltà, leggermente diverso dal sequence diagram
+    public void eliminaProgrammaFedelta(ProgrammaFedeltaID id){
+        System.out.println("Sei sicuro di voler eliminare il livello? S/N");
+        if(true)
+            deleteProgrammaFedelta(id);
+    }
+
 }
