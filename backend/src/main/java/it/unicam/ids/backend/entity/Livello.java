@@ -1,5 +1,6 @@
 package it.unicam.ids.backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import it.unicam.ids.backend.id.LivelloID;
 import jakarta.persistence.*;
 
@@ -9,14 +10,15 @@ public class Livello {
 
     @EmbeddedId
     private LivelloID id;
-    @ManyToOne
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("programmaFedeltaID")
     @JoinColumns({
             @JoinColumn(name = "programmaFedeltaID", referencedColumnName = "id"),
             @JoinColumn(name = "aziendaID", referencedColumnName = "aziendaID")
     })
     private ProgrammaFedelta programmaFedelta;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("bonusID")
     @JoinColumn(name = "bonusID")
     private Bonus bonus;
@@ -48,6 +50,7 @@ public class Livello {
         this.id = id;
     }
 
+    @JsonIgnore
     public ProgrammaFedelta getProgrammaFedelta() {
         return programmaFedelta;
     }
@@ -56,6 +59,7 @@ public class Livello {
         this.programmaFedelta = programmaFedelta;
     }
 
+    @JsonIgnore
     public Bonus getBonus() {
         return bonus;
     }

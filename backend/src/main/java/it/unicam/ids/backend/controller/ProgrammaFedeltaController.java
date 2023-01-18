@@ -1,13 +1,24 @@
 package it.unicam.ids.backend.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import it.unicam.ids.backend.entity.ProgrammaFedelta;
+import it.unicam.ids.backend.id.LivelloID;
 import it.unicam.ids.backend.id.ProgrammaFedeltaID;
 import it.unicam.ids.backend.service.ProgrammaFedeltaService;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@RequestMapping("/programmiFedelta")
 public class ProgrammaFedeltaController {
 
     private final ProgrammaFedeltaService programmaFedeltaService;
@@ -18,23 +29,37 @@ public class ProgrammaFedeltaController {
     }
 
 
+    @GetMapping("/all")
     public List<ProgrammaFedelta> getAllProgrammiFedelta() {
         return programmaFedeltaService.getAllProgrammiFedelta();
     }
 
-    public ProgrammaFedelta getProgrammaFedelta(ProgrammaFedeltaID programmaFedeltaID) {
-        return programmaFedeltaService.getProgrammaFedelta(programmaFedeltaID);
+    public ProgrammaFedelta getProgrammaFedelta(ProgrammaFedeltaID pfID) {
+        return programmaFedeltaService.getProgrammaFedelta(pfID);
     }
 
-    public void addProgrammaFedelta(ProgrammaFedelta programmaFedelta) {
-        programmaFedeltaService.addProgrammaFedelta(programmaFedelta);
+    @PostMapping("/add")
+    public void addProgrammaFedelta(@RequestBody ObjectNode node) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        ProgrammaFedeltaID pfID = mapper.treeToValue(node.get("pfID"), ProgrammaFedeltaID.class);
+
+        List<LivelloID> livelli = new ArrayList<>();
+        for (JsonNode arrNode : node.get("livelli")) {
+            livelli.add(mapper.treeToValue(arrNode, LivelloID.class));
+        }
+
+        programmaFedeltaService.addProgrammaFedelta(pfID, livelli);
     }
 
-    public void updateProgrammaFedelta(ProgrammaFedelta programmaFedelta) {
-        programmaFedeltaService.updateProgrammaFedelta(programmaFedelta);
+    public void addProgrammaFedelta(ProgrammaFedelta pf) {
+        programmaFedeltaService.addProgrammaFedelta(pf);
     }
 
-    public void deleteProgrammaFedelta(ProgrammaFedeltaID programmaFedeltaID) {
-        programmaFedeltaService.deleteProgrammaFedelta(programmaFedeltaID);
+    public void updateProgrammaFedelta(ProgrammaFedelta pf) {
+        programmaFedeltaService.updateProgrammaFedelta(pf);
+    }
+
+    public void deleteProgrammaFedelta(ProgrammaFedeltaID pfID) {
+        programmaFedeltaService.deleteProgrammaFedelta(pfID);
     }
 }

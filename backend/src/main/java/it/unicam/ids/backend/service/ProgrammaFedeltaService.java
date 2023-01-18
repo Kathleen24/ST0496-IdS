@@ -1,7 +1,9 @@
 package it.unicam.ids.backend.service;
 
 import it.unicam.ids.backend.entity.ProgrammaFedelta;
+import it.unicam.ids.backend.id.LivelloID;
 import it.unicam.ids.backend.id.ProgrammaFedeltaID;
+import it.unicam.ids.backend.repository.LivelloRepository;
 import it.unicam.ids.backend.repository.ProgrammaFedeltaRepository;
 import org.springframework.stereotype.Service;
 
@@ -12,10 +14,15 @@ import java.util.Optional;
 public class ProgrammaFedeltaService {
 
     private final ProgrammaFedeltaRepository programmaFedeltaRepository;
+    private final LivelloRepository livelloRepository;
 
 
-    public ProgrammaFedeltaService(ProgrammaFedeltaRepository programmaFedeltaRepository) {
+    public ProgrammaFedeltaService(
+            ProgrammaFedeltaRepository programmaFedeltaRepository,
+            LivelloRepository livelloRepository
+    ) {
         this.programmaFedeltaRepository = programmaFedeltaRepository;
+        this.livelloRepository = livelloRepository;
     }
 
 
@@ -23,20 +30,30 @@ public class ProgrammaFedeltaService {
         return programmaFedeltaRepository.findAll();
     }
 
-    public ProgrammaFedelta getProgrammaFedelta(ProgrammaFedeltaID programmaFedeltaID) {
-        Optional<ProgrammaFedelta> programmaFedelta = this.programmaFedeltaRepository.findById(programmaFedeltaID);
+    public ProgrammaFedelta getProgrammaFedelta(ProgrammaFedeltaID pfID) {
+        Optional<ProgrammaFedelta> programmaFedelta = this.programmaFedeltaRepository.findById(pfID);
         return programmaFedelta.orElse(null);
     }
 
-    public void addProgrammaFedelta(ProgrammaFedelta programmaFedelta) {
-        programmaFedeltaRepository.save(programmaFedelta);
+    public void addProgrammaFedelta(ProgrammaFedeltaID pfID, List<LivelloID> livelli) {
+        ProgrammaFedelta pf = new ProgrammaFedelta(
+                pfID,
+                livelli.stream().map(livelloRepository::findById)
+                        .map(Optional::orElseThrow)
+                        .toList()
+        );
+        addProgrammaFedelta(pf);
     }
 
-    public void updateProgrammaFedelta(ProgrammaFedelta programmaFedelta) {
-        programmaFedeltaRepository.save(programmaFedelta);
+    public void addProgrammaFedelta(ProgrammaFedelta pf) {
+        programmaFedeltaRepository.save(pf);
     }
 
-    public void deleteProgrammaFedelta(ProgrammaFedeltaID programmaFedeltaID) {
-        programmaFedeltaRepository.deleteById(programmaFedeltaID);
+    public void updateProgrammaFedelta(ProgrammaFedelta pf) {
+        programmaFedeltaRepository.save(pf);
+    }
+
+    public void deleteProgrammaFedelta(ProgrammaFedeltaID pfID) {
+        programmaFedeltaRepository.deleteById(pfID);
     }
 }

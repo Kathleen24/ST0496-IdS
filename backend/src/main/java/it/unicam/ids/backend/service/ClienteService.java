@@ -54,7 +54,7 @@ public class ClienteService {
 
     public void addProgrammaFedelta(Integer tessera, ProgrammaFedeltaID pfId) {
         //getCliente(tessera).getProgrammiFedelta().add(
-        programmaFedeltaDelClienteRepository.save(new ProgrammaFedeltaDelCliente(
+        programmaFedeltaDelClienteRepository.saveAndFlush(new ProgrammaFedeltaDelCliente(
                 new ProgrammaFedeltaDelClienteID(pfId, tessera),
                 getCliente(tessera),
                 programmaFedeltaRepository.findById(pfId).orElseThrow()
