@@ -18,7 +18,6 @@ public class Bonus {
     private String descrizione;
     private Tipo type;
 
-
     //region Costruttori
     public Bonus() {
     }
@@ -81,17 +80,20 @@ public class Bonus {
         PUNTI {
             @Override
             public String toString() {
-                return "Punti";}
+                return "Punti";
+            }
         },
-        CASHBACK{
+        CASHBACK {
             @Override
             public String toString() {
-                return "Cashback";}
+                return "Cashback";
+            }
         },
         SCONTO {
             @Override
             public String toString() {
-                return "Sconto";}
+                return "Sconto";
+            }
         }
     }
 }

@@ -57,5 +57,4 @@ public class BonusController {
         if(true)
             deleteBonus(id);
     }
-
 }
