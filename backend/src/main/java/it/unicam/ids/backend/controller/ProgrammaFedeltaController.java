@@ -4,6 +4,12 @@ import it.unicam.ids.backend.entity.ProgrammaFedelta;
 import it.unicam.ids.backend.id.LivelloID;
 import it.unicam.ids.backend.id.ProgrammaFedeltaID;
 import it.unicam.ids.backend.service.ProgrammaFedeltaService;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
