@@ -6,11 +6,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import java.sql.Date;
-import java.sql.Timestamp;
 import java.util.List;
 
 @Repository
-public interface AziendaRepository extends JpaRepository<Azienda,Integer> {
+public interface AziendaRepository extends JpaRepository<Azienda, Integer> {
 
     /**
      * Questa query restituisce le aziende iscritte alla piattaforma nel intervallo

@@ -1,9 +1,6 @@
 package it.unicam.ids.backend.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.util.Objects;
 
@@ -14,25 +11,44 @@ public class Bonus {
     @Id
     @GeneratedValue
     private Integer id;
+
+    @ManyToOne
+    @JoinColumn(name = "aziendaID", referencedColumnName = "id")
+    private Azienda azienda;
     private Integer valore;
     private String descrizione;
-    private Tipo type;
+    private Tipo tipo;
 
 
     //region Costruttori
     public Bonus() {
     }
 
-    public Bonus(Integer id, Integer valore, String descrizione,Tipo type) {
-        this.id = id;
+    public Bonus(Azienda azienda, Integer valore, String descrizione, Tipo tipo) {
+        this.azienda = azienda;
         this.valore = valore;
         this.descrizione = descrizione;
-        this.type=type;
+        this.tipo = tipo;
     }
     //endregion
 
 
     //region Getter e Setter
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Azienda getAzienda() {
+        return azienda;
+    }
+
+    public void setAzienda(Azienda azienda) {
+        this.azienda = azienda;
+    }
 
     public Integer getValore() {
         return valore;
@@ -50,30 +66,30 @@ public class Bonus {
         this.descrizione = descrizione;
     }
 
-    public Tipo getType() {
-        return type;
+    public Tipo getTipo() {
+        return tipo;
     }
 
-    public void setType(Tipo type) {
-        this.type = type;
+    public void setTipo(Tipo type) {
+        this.tipo = type;
     }
-
-
-
     //endregion
 
     //region Equals and HashCode
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Bonus bonus = (Bonus) o;
-        return Objects.equals(id, bonus.id) && Objects.equals(valore, bonus.valore) && Objects.equals(descrizione, bonus.descrizione);
+        if (!(o instanceof Bonus bonus)) return false;
+        return id.equals(bonus.id) &&
+                azienda.equals(bonus.azienda) &&
+                valore.equals(bonus.valore) &&
+                Objects.equals(descrizione, bonus.descrizione) &&
+                tipo == bonus.tipo;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, valore, descrizione);
+        return Objects.hash(id, azienda, valore, descrizione, tipo);
     }
     //endregion
 

@@ -1,7 +1,6 @@
 package it.unicam.ids.backend.controller;
 
 import it.unicam.ids.backend.entity.Cliente;
-import it.unicam.ids.backend.id.ProgrammaFedeltaID;
 import it.unicam.ids.backend.service.ClienteService;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,12 +40,12 @@ public class ClienteController {
     }
 
     @PostMapping("/addProgrammaFedelta")
-    public void addProgrammaFedelta(@RequestParam Integer tessera, @RequestBody ProgrammaFedeltaID pfId) {
+    public void addProgrammaFedelta(@RequestParam Integer tessera, @RequestParam Integer pfId) {
         clienteService.addProgrammaFedelta(tessera, pfId);
     }
 
     @PostMapping("/addPunti")
-    public void addPunti(@RequestParam Integer tessera, @RequestParam ProgrammaFedeltaID pfId, @RequestParam int punti) {
+    public void addPunti(@RequestParam Integer tessera, @RequestParam Integer pfId, @RequestParam int punti) {
         clienteService.addPunti(tessera, pfId, punti);
     }
 

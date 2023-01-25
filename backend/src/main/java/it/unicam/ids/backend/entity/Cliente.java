@@ -1,8 +1,9 @@
 package it.unicam.ids.backend.entity;
 
-import it.unicam.ids.backend.id.ProgrammaFedeltaID;
 import jakarta.persistence.*;
 
+import java.sql.Date;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -10,10 +11,13 @@ import java.util.Set;
 public class Cliente {
 
     @Id
+    @GeneratedValue
     private Integer tessera;
+
     @OneToOne
-    @JoinColumn(name = "persona", referencedColumnName = "id")
-    private Persona persona;
+    @JoinColumn(name = "utentePiattaforma", referencedColumnName = "id")
+    private UtentePiattaforma utentePiattaforma;
+
     @Column(name = "nomeUtente", unique = true)
     private String nomeUtente;
     private String password;
@@ -21,30 +25,37 @@ public class Cliente {
     @OneToMany(mappedBy = "cliente")
     private Set<ProgrammaFedeltaDelCliente> programmiFedelta;
 
+    private Date dataIscrizionePiattaforma;
+
 
     //region Costruttori
     public Cliente() {
     }
 
-    public Cliente(Integer tessera, Persona persona, String nomeUtente, String password, String email, Set<ProgrammaFedeltaDelCliente> programmiFedelta) {
-        this.tessera = tessera;
-        this.persona = persona;
+    public Cliente(UtentePiattaforma utentePiattaforma, String nomeUtente, String password, String email, Set<ProgrammaFedeltaDelCliente> programmiFedelta, Date dataIscrizionePiattaforma) {
+        this.utentePiattaforma = utentePiattaforma;
         this.nomeUtente = nomeUtente;
         this.password = password;
         this.email = email;
         this.programmiFedelta = programmiFedelta;
+        this.dataIscrizionePiattaforma = dataIscrizionePiattaforma;
     }
 
     public Cliente(Cliente cliente) {
         this.tessera = cliente.getTessera();
-        this.persona = cliente.getPersona();
+        this.utentePiattaforma = cliente.getUtentePiattaforma();
         this.nomeUtente = cliente.getNomeUtente();
         this.password = cliente.getPassword();
         this.email = cliente.getEmail();
         this.programmiFedelta = Set.copyOf(cliente.getProgrammiFedelta());
+        this.dataIscrizionePiattaforma = cliente.getDataIscrizionePiattaforma();
     }
     //endregion
 
+
+    public void addProgrammaFedelta(ProgrammaFedeltaDelCliente pf) {
+        programmiFedelta.add(pf);
+    }
 
     //region Getter e Setter
     public Integer getTessera() {
@@ -55,12 +66,12 @@ public class Cliente {
         this.tessera = tessera;
     }
 
-    public Persona getPersona() {
-        return persona;
+    public UtentePiattaforma getUtentePiattaforma() {
+        return utentePiattaforma;
     }
 
-    public void setPersona(Persona persona) {
-        this.persona = persona;
+    public void setUtentePiattaforma(UtentePiattaforma utentePiattaforma) {
+        this.utentePiattaforma = utentePiattaforma;
     }
 
     public String getNomeUtente() {
@@ -94,9 +105,33 @@ public class Cliente {
     public void setProgrammiFedelta(Set<ProgrammaFedeltaDelCliente> programmiFedelta) {
         this.programmiFedelta = programmiFedelta;
     }
+
+    public Date getDataIscrizionePiattaforma() {
+        return dataIscrizionePiattaforma;
+    }
+
+    public void setDataIscrizionePiattaforma(Date dataIscrizione) {
+        this.dataIscrizionePiattaforma = dataIscrizione;
+    }
     //endregion
 
-    public void addProgrammaFedelta(ProgrammaFedeltaDelCliente pf){
-        programmiFedelta.add(pf);
+
+    //region equals e hashCode
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Cliente cliente)) return false;
+        return tessera.equals(cliente.tessera) &&
+                utentePiattaforma.equals(cliente.utentePiattaforma) &&
+                nomeUtente.equals(cliente.nomeUtente) &&
+                password.equals(cliente.password) &&
+                email.equals(cliente.email) &&
+                programmiFedelta.equals(cliente.programmiFedelta);
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(tessera, utentePiattaforma, nomeUtente, password, email, programmiFedelta);
+    }
+    //endregion
 }

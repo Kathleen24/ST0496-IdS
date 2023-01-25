@@ -5,7 +5,6 @@ import it.unicam.ids.backend.repository.AziendaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class AziendaService {
@@ -23,8 +22,7 @@ public class AziendaService {
     }
 
     public Azienda getAzienda(Integer id) {
-        Optional<Azienda> azienda = this.aziendaRepository.findById(id);
-        return azienda.orElse(null);
+        return aziendaRepository.findById(id).orElse(null);
     }
 
     public void addAzienda(Azienda azienda) {

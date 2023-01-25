@@ -10,11 +10,14 @@ import static it.unicam.ids.backend.entity.Bonus.Tipo.PUNTI;
 
 @RestController
 public class BonusController {
+
     private final BonusService bonusService;
+
 
     public BonusController(BonusService bonusService) {
         this.bonusService = bonusService;
     }
+
 
     public List<Bonus> getAllBonus() {
         return bonusService.getAllBonus();
@@ -32,7 +35,9 @@ public class BonusController {
         bonusService.updateBonus(bonus);
     }
 
+    //Per sequence diagram Eliminazione bonus
     public void deleteBonus(Integer id) {
+        //"Vuoi procedere all'eliminazione?" S/N
         bonusService.deleteBonus(id);
     }
 
@@ -40,8 +45,8 @@ public class BonusController {
     public void creaBonus(String nome, String descrizione){
         System.out.println(getAllBonusType());
         //utente sceglie tipo e valore
-        Bonus bonus=new Bonus(1,10,"Primo bonus",PUNTI);
-        addBonus(bonus);
+        //Bonus bonus = new Bonus(1, azienda, 10,"Primo bonus",PUNTI);
+        //addBonus(bonus);
     }
 
     public String getAllBonusType() { //da controllare
@@ -49,12 +54,5 @@ public class BonusController {
         s += Bonus.Tipo.CASHBACK.toString() + "\n";
         s += Bonus.Tipo.SCONTO.toString();
         return s;
-    }
-
-    //Per sequence diagram Eliminazione bonus
-    public void  eliminaBonus(Integer id){
-        //"Vuoi procedere all'eliminazione?" S/N
-        if(true)
-            deleteBonus(id);
     }
 }

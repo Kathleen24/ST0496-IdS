@@ -1,9 +1,8 @@
 package it.unicam.ids.backend.service;
 
 import it.unicam.ids.backend.entity.ProgrammaFedelta;
-import it.unicam.ids.backend.id.LivelloID;
-import it.unicam.ids.backend.id.ProgrammaFedeltaID;
-import it.unicam.ids.backend.repository.LivelloRepository;
+import it.unicam.ids.backend.repository.AziendaRepository;
+import it.unicam.ids.backend.repository.BonusRepository;
 import it.unicam.ids.backend.repository.ProgrammaFedeltaRepository;
 import org.springframework.stereotype.Service;
 
@@ -14,15 +13,18 @@ import java.util.Optional;
 public class ProgrammaFedeltaService {
 
     private final ProgrammaFedeltaRepository programmaFedeltaRepository;
-    private final LivelloRepository livelloRepository;
+    private final AziendaRepository aziendaRepository;
+    private final BonusRepository bonusRepository;
 
 
     public ProgrammaFedeltaService(
             ProgrammaFedeltaRepository programmaFedeltaRepository,
-            LivelloRepository livelloRepository
+            AziendaRepository aziendaRepository,
+            BonusRepository bonusRepository
     ) {
         this.programmaFedeltaRepository = programmaFedeltaRepository;
-        this.livelloRepository = livelloRepository;
+        this.aziendaRepository = aziendaRepository;
+        this.bonusRepository = bonusRepository;
     }
 
 
@@ -30,17 +32,17 @@ public class ProgrammaFedeltaService {
         return programmaFedeltaRepository.findAll();
     }
 
-    public ProgrammaFedelta getProgrammaFedelta(ProgrammaFedeltaID pfID) {
-        Optional<ProgrammaFedelta> programmaFedelta = this.programmaFedeltaRepository.findById(pfID);
-        return programmaFedelta.orElse(null);
+    public ProgrammaFedelta getProgrammaFedelta(Integer pfID) {
+        return programmaFedeltaRepository.findById(pfID).orElse(null);
     }
 
-    public void addProgrammaFedelta(ProgrammaFedeltaID pfID, List<LivelloID> livelli) {
+    public void addProgrammaFedelta(Integer aziendaID, List<Integer> bonus, List<Integer> soglie) {
         ProgrammaFedelta pf = new ProgrammaFedelta(
-                pfID,
-                livelli.stream().map(livelloRepository::findById)
+                aziendaRepository.findById(aziendaID).orElseThrow(),
+                bonus.stream().map(bonusRepository::findById)
                         .map(Optional::orElseThrow)
-                        .toList()
+                        .toList(),
+                soglie
         );
         addProgrammaFedelta(pf);
     }
@@ -53,7 +55,7 @@ public class ProgrammaFedeltaService {
         programmaFedeltaRepository.save(pf);
     }
 
-    public void deleteProgrammaFedelta(ProgrammaFedeltaID pfID) {
+    public void deleteProgrammaFedelta(Integer pfID) {
         programmaFedeltaRepository.deleteById(pfID);
     }
 }

@@ -7,6 +7,7 @@ import it.unicam.ids.backend.repository.CouponRepository;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
+import java.util.List;
 
 @Service
 public class CouponService {
@@ -27,6 +28,14 @@ public class CouponService {
     }
 
 
+    public List<Coupon> getAllCoupon() {
+        return couponRepository.findAll();
+    }
+
+    public Coupon getCoupon(Integer id) {
+        return couponRepository.findById(id).orElse(null);
+    }
+
     public Coupon addCoupon(Integer aziendaID, Integer tessera, Integer valore, Date dataScadenza) {
         Coupon coupon = new Coupon(
                 aziendaRepository.findById(aziendaID).orElseThrow(),
@@ -34,5 +43,13 @@ public class CouponService {
                 valore, dataScadenza
         );
         return couponRepository.save(coupon);
+    }
+
+    public void updateCoupon(Coupon coupon) {
+        couponRepository.save(coupon);
+    }
+
+    public void deleteCoupon(Integer id) {
+        couponRepository.deleteById(id);
     }
 }

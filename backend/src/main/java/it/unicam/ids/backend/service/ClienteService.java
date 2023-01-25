@@ -1,17 +1,14 @@
 package it.unicam.ids.backend.service;
 
 import it.unicam.ids.backend.entity.Cliente;
-import it.unicam.ids.backend.entity.ProgrammaFedelta;
 import it.unicam.ids.backend.entity.ProgrammaFedeltaDelCliente;
 import it.unicam.ids.backend.id.ProgrammaFedeltaDelClienteID;
-import it.unicam.ids.backend.id.ProgrammaFedeltaID;
 import it.unicam.ids.backend.repository.ClienteRepository;
 import it.unicam.ids.backend.repository.ProgrammaFedeltaDelClienteRepository;
 import it.unicam.ids.backend.repository.ProgrammaFedeltaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -38,8 +35,7 @@ public class ClienteService {
     }
 
     public Cliente getCliente(Integer tessera) {
-        Optional<Cliente> cliente = this.clienteRepository.findById(tessera);
-        return cliente.orElse(null);
+        return clienteRepository.findById(tessera).orElse(null);
     }
 
     public void addCliente(Cliente cliente) {
@@ -54,42 +50,41 @@ public class ClienteService {
         clienteRepository.deleteById(tessera);
     }
 
-    public void addProgrammaFedelta(Integer tessera, ProgrammaFedeltaID pfId) {
-        //getCliente(tessera).getProgrammiFedelta().add(
-        programmaFedeltaDelClienteRepository.saveAndFlush(new ProgrammaFedeltaDelCliente(
-                new ProgrammaFedeltaDelClienteID(pfId, tessera),
-                getCliente(tessera),
-                programmaFedeltaRepository.findById(pfId).orElseThrow()
-        ));
-        //);
+    public void addProgrammaFedelta(Integer tessera, Integer pfId) {
+        Cliente cliente = getCliente(tessera);
+        cliente.getProgrammiFedelta().add(
+            programmaFedeltaDelClienteRepository.saveAndFlush(new ProgrammaFedeltaDelCliente(
+                    new ProgrammaFedeltaDelClienteID(pfId, tessera),
+                    programmaFedeltaRepository.findById(pfId).orElseThrow()
+            ))
+        );
+        clienteRepository.saveAndFlush(cliente);
+        // TODO: 25/01/23 Test
     }
 
-    public void addPunti(Integer tessera, ProgrammaFedeltaID pfId, int punti) {
+    public void addPunti(Integer tessera, Integer pfID, int punti) {
         Cliente cliente = getCliente(tessera);
 
         cliente.getProgrammiFedelta().stream()
-                .filter(pf -> pf.getId().getProgrammaFedeltaID().equals(pfId))
-                .findFirst().orElseThrow().addPunti(punti);
+                .filter(pf -> pf.getId().getProgrammaFedeltaID().equals(pfID))
+                .findFirst().orElseThrow()
+                .addPunti(punti);
         updateCliente(cliente);
     }
 
-    public Set<ProgrammaFedeltaDelCliente> getAllProgrammiFedeltaOf(Integer tessera){
-        Cliente cliente = getCliente(tessera);
-        return cliente.getProgrammiFedelta();
+    public Set<ProgrammaFedeltaDelCliente> getAllProgrammiFedeltaOf(Integer tessera) {
+        return getCliente(tessera).getProgrammiFedelta();
     }
 
     //Per il sequence diagram Visualizza progressi programma fedeltà
-    public ProgrammaFedeltaDelCliente getProgrammaFedeltaOf(Integer tessera, ProgrammaFedeltaID programmaFedeltaID){
-        Cliente cliente=getCliente(tessera);
+    public ProgrammaFedeltaDelCliente getProgrammaFedeltaOf(Integer tessera, Integer pfID) {
+        Cliente cliente = getCliente(tessera);
         return cliente.getProgrammiFedelta().stream()
-                .filter(pf -> pf.getId().getProgrammaFedeltaID().equals(programmaFedeltaID))
+                .filter(pf -> pf.getId().getProgrammaFedeltaID().equals(pfID))
                 .findFirst().orElse(null);
     }
 
-    public void addProgrammaFedeltaToCliente(Integer tessera, ProgrammaFedeltaID programmaFedeltaID){
-        Cliente cliente = getCliente(tessera);
-        cliente.addProgrammaFedelta(getProgrammaFedeltaOf(tessera, programmaFedeltaID));
+    public void addProgrammaFedeltaToCliente(Integer tessera, Integer pfID){
+        getCliente(tessera).addProgrammaFedelta(getProgrammaFedeltaOf(tessera, pfID));
     }
-
-
 }

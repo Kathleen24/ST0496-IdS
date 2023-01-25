@@ -12,12 +12,14 @@ public class Coupon {
     @Id
     @GeneratedValue
     private Integer id;
+
     @ManyToOne
     @JoinColumn(name = "aziendaID", referencedColumnName = "id")
     private Azienda azienda;
     @ManyToOne
     @JoinColumn(name = "tessera", referencedColumnName = "tessera")
     private Cliente cliente;
+
     private Integer valore;
     private Boolean usato;
     private Date dataScadenza;
@@ -100,8 +102,7 @@ public class Coupon {
     }
     //endregion
 
-
-    //region Equals e HashCode
+    //region equals e hashCode
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

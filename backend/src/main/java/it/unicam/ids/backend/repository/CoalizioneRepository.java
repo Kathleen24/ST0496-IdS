@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 import java.util.Collection;
 
 @Repository
-public interface CoalizioneRepository extends JpaRepository<Coalizione,Integer> {
+public interface CoalizioneRepository extends JpaRepository<Coalizione, Integer> {
 
 }

@@ -1,22 +1,13 @@
 package it.unicam.ids.backend.controller;
 
 import it.unicam.ids.backend.entity.ProgrammaFedelta;
-import it.unicam.ids.backend.id.LivelloID;
-import it.unicam.ids.backend.id.ProgrammaFedeltaID;
 import it.unicam.ids.backend.service.ProgrammaFedeltaService;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -36,21 +27,17 @@ public class ProgrammaFedeltaController {
         return programmaFedeltaService.getAllProgrammiFedelta();
     }
 
-    public ProgrammaFedelta getProgrammaFedelta(ProgrammaFedeltaID pfID) {
+    public ProgrammaFedelta getProgrammaFedelta(Integer pfID) {
         return programmaFedeltaService.getProgrammaFedelta(pfID);
     }
 
     @PostMapping("/add")
-    public void addProgrammaFedelta(@RequestBody ObjectNode node) throws JsonProcessingException {
-        ObjectMapper mapper = new ObjectMapper();
-        ProgrammaFedeltaID pfID = mapper.treeToValue(node.get("pfID"), ProgrammaFedeltaID.class);
-
-        List<LivelloID> livelli = new ArrayList<>();
-        for (JsonNode arrNode : node.get("livelli")) {
-            livelli.add(mapper.treeToValue(arrNode, LivelloID.class));
-        }
-
-        programmaFedeltaService.addProgrammaFedelta(pfID, livelli);
+    public void addProgrammaFedelta(
+            @RequestParam Integer aziendaID,
+            @RequestParam List<Integer> bonus,
+            @RequestParam List<Integer> soglie
+    ) {
+        programmaFedeltaService.addProgrammaFedelta(aziendaID, bonus, soglie);
     }
 
     public void addProgrammaFedelta(ProgrammaFedelta pf) {
@@ -61,14 +48,9 @@ public class ProgrammaFedeltaController {
         programmaFedeltaService.updateProgrammaFedelta(pf);
     }
 
-    public void deleteProgrammaFedelta(ProgrammaFedeltaID pfID) {
-        programmaFedeltaService.deleteProgrammaFedelta(pfID);
-    }
-
     //Per sequence diagram Elimina Programma Fedeltà, leggermente diverso dal sequence diagram
-    public void eliminaProgrammaFedelta(ProgrammaFedeltaID id){
-        System.out.println("Sei sicuro di voler eliminare il livello? S/N");
-        if(true)
-            deleteProgrammaFedelta(id);
+    public void deleteProgrammaFedelta(Integer pfID) {
+        //"Vuoi procedere all'eliminazione?" S/N
+        programmaFedeltaService.deleteProgrammaFedelta(pfID);
     }
 }

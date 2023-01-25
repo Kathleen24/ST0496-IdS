@@ -1,75 +1,98 @@
 package it.unicam.ids.backend.entity;
 
-import it.unicam.ids.backend.id.ProgrammaFedeltaID;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
+import java.util.Objects;
 
 @Entity
 @Table(name = "ProgrammaFedelta")
 public class ProgrammaFedelta {
 
-    @EmbeddedId
-    private ProgrammaFedeltaID id;
-    @OneToMany(mappedBy = "programmaFedelta")
-    private Set<ProgrammaFedeltaDelCliente> clientiIscritti;
-    @OneToMany(mappedBy = "programmaFedelta", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Livello> livelli;
+    @Id
+    @GeneratedValue
+    private Integer id;
+
+    @ManyToOne
+    @JoinColumn(name = "aziendaID", referencedColumnName = "id")
+    private Azienda azienda;
+    @OneToMany
+    @JoinColumns({
+            @JoinColumn(name = "programmaFedeltaID", referencedColumnName = "id"),
+            @JoinColumn(name = "aziendaID", referencedColumnName = "aziendaID")
+    })
+    private List<Bonus> bonus = new ArrayList<>();
+    @ElementCollection
+    private List<Integer> soglie = new ArrayList<>();
 
 
     //region Costruttori
-    public ProgrammaFedelta() {
-    }
+    public ProgrammaFedelta() {}
 
-    public ProgrammaFedelta(ProgrammaFedeltaID id, List<Livello> livelli) {
-        this.id = id;
-        this.clientiIscritti = Set.of();
-        this.livelli = livelli;
-    }
+    public ProgrammaFedelta(Azienda azienda, List<Bonus> bonus, List<Integer> soglie) {
+        if (bonus.size() != soglie.size())
+            throw new IllegalArgumentException("Liste non parallele");
 
-    public ProgrammaFedelta(ProgrammaFedeltaID id, Set<ProgrammaFedeltaDelCliente> clientiIscritti, List<Livello> livelli) {
-        this.id = id;
-        this.clientiIscritti = clientiIscritti;
-        this.livelli = livelli;
+        this.azienda = azienda;
+        this.bonus = bonus;
+        this.soglie = soglie;
     }
 
     public ProgrammaFedelta(ProgrammaFedelta programmaFedelta) {
         this.id = programmaFedelta.getId();
-        this.clientiIscritti = Set.copyOf(programmaFedelta.getClientiIscritti());
-        this.livelli = List.copyOf(programmaFedelta.getLivelli());
+        this.azienda = programmaFedelta.getAzienda();
+        this.bonus.addAll(programmaFedelta.getBonus());
+        this.soglie.addAll(programmaFedelta.getSoglie());
     }
     //endregion
 
 
     //region Getter e Setter
-    public ProgrammaFedeltaID getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(ProgrammaFedeltaID id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public Set<ProgrammaFedeltaDelCliente> getClientiIscritti() {
-        return clientiIscritti;
+    public Azienda getAzienda() {
+        return azienda;
     }
 
-    public void setClientiIscritti(Set<ProgrammaFedeltaDelCliente> clientiIscritti) {
-        this.clientiIscritti = clientiIscritti;
+    public void setAzienda(Azienda azienda) {
+        this.azienda = azienda;
     }
 
-    public List<Livello> getLivelli() {
-        return livelli;
+    public List<Bonus> getBonus() {
+        return bonus;
     }
 
-    public void setLivelli(List<Livello> livelli) {
-        this.livelli = livelli;
+    public void setBonus(List<Bonus> livelli) {
+        this.bonus = livelli;
     }
 
-    @Transient
     public List<Integer> getSoglie() {
-        return livelli.stream().map(Livello::getSoglia).toList();
+        return soglie;
+    }
+
+    public void setSoglie(List<Integer> soglie) {
+        this.soglie = soglie;
+    }
+    //endregion
+
+    //region equals e hashCode
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ProgrammaFedelta that)) return false;
+        return id.equals(that.id) && azienda.equals(that.azienda) && bonus.equals(that.bonus) && soglie.equals(that.soglie);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, azienda, bonus, soglie);
     }
     //endregion
 }

@@ -2,9 +2,10 @@ package it.unicam.ids.backend.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import it.unicam.ids.backend.id.ProgrammaFedeltaDelClienteID;
-import it.unicam.ids.backend.id.ProgrammaFedeltaID;
 import jakarta.persistence.*;
 
+import java.sql.Date;
+import java.time.Instant;
 import java.util.Objects;
 
 @Entity
@@ -15,10 +16,6 @@ public class ProgrammaFedeltaDelCliente {
     private ProgrammaFedeltaDelClienteID id;
 
     @ManyToOne
-    @MapsId("tessera")
-    @JoinColumn(name = "tessera")
-    private Cliente cliente;
-    @ManyToOne
     @MapsId("programmaFedeltaID")
     @JoinColumns({
             @JoinColumn(name = "programmaFedeltaID", referencedColumnName = "id"),
@@ -28,26 +25,26 @@ public class ProgrammaFedeltaDelCliente {
 
     private Integer puntiRaccolti;
     private boolean sonoXp;
+    private Date dataIscrizione;
 
 
     //region Costruttori
-    public ProgrammaFedeltaDelCliente() {
-    }
+    public ProgrammaFedeltaDelCliente() {}
 
-    public ProgrammaFedeltaDelCliente(ProgrammaFedeltaDelClienteID id, Cliente cliente, ProgrammaFedelta programmaFedelta) {
+    public ProgrammaFedeltaDelCliente(ProgrammaFedeltaDelClienteID id, ProgrammaFedelta programmaFedelta) {
         this.id = id;
-        this.cliente = cliente;
         this.programmaFedelta = programmaFedelta;
         this.puntiRaccolti = 0;
         this.sonoXp = false;
+        this.dataIscrizione = new Date(Instant.now().toEpochMilli());
     }
 
-    public ProgrammaFedeltaDelCliente(ProgrammaFedeltaDelClienteID id, Cliente cliente, ProgrammaFedelta programmaFedelta, Integer puntiRaccolti, boolean sonoXp) {
+    public ProgrammaFedeltaDelCliente(ProgrammaFedeltaDelClienteID id, ProgrammaFedelta programmaFedelta, Integer puntiRaccolti, boolean sonoXp, Date dataIscrizione) {
         this.id = id;
-        this.cliente = cliente;
         this.programmaFedelta = programmaFedelta;
         this.puntiRaccolti = puntiRaccolti;
         this.sonoXp = sonoXp;
+        this.dataIscrizione = dataIscrizione;
     }
     //endregion
 
@@ -63,15 +60,6 @@ public class ProgrammaFedeltaDelCliente {
 
     public void setId(ProgrammaFedeltaDelClienteID id) {
         this.id = id;
-    }
-
-    @JsonIgnore
-    public Cliente getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
     }
 
     @JsonIgnore
@@ -98,32 +86,31 @@ public class ProgrammaFedeltaDelCliente {
     public void setSonoXp(boolean sonoXp) {
         this.sonoXp = sonoXp;
     }
+
+    public Date getDataIscrizione() {
+        return dataIscrizione;
+    }
+
+    public void setDataIscrizione(Date dataIscrizione) {
+        this.dataIscrizione = dataIscrizione;
+    }
     //endregion
 
+    //region equals e hashCode
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof ProgrammaFedeltaDelCliente that)) return false;
-        return sonoXp == that.sonoXp
-                && id.equals(that.id)
-                && cliente.equals(that.cliente)
-                && programmaFedelta.equals(that.programmaFedelta)
-                && puntiRaccolti.equals(that.puntiRaccolti);
+        return sonoXp == that.sonoXp &&
+                id.equals(that.id) &&
+                programmaFedelta.equals(that.programmaFedelta) &&
+                puntiRaccolti.equals(that.puntiRaccolti) &&
+                dataIscrizione.equals(that.dataIscrizione);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, cliente, programmaFedelta, puntiRaccolti, sonoXp);
+        return Objects.hash(id, programmaFedelta, puntiRaccolti, sonoXp, dataIscrizione);
     }
-
-    @Override
-    public String toString() {
-        return "ProgrammaFedeltaDelCliente{" +
-                "id=" + id +
-                ", cliente=" + cliente +
-                ", programmaFedelta=" + programmaFedelta +
-                ", puntiRaccolti=" + puntiRaccolti +
-                ", sonoXp=" + sonoXp +
-                '}';
-    }
+    //endregion
 }
