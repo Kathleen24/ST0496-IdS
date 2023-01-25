@@ -2,7 +2,6 @@ package it.unicam.ids.backend.controller;
 
 import it.unicam.ids.backend.entity.ProgrammaFedelta;
 import it.unicam.ids.backend.id.LivelloID;
-import it.unicam.ids.backend.id.ProgrammaFedeltaID;
 import it.unicam.ids.backend.service.ProgrammaFedeltaService;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -36,21 +35,21 @@ public class ProgrammaFedeltaController {
         return programmaFedeltaService.getAllProgrammiFedelta();
     }
 
-    public ProgrammaFedelta getProgrammaFedelta(ProgrammaFedeltaID pfID) {
+    public ProgrammaFedelta getProgrammaFedelta(Integer pfID) {
         return programmaFedeltaService.getProgrammaFedelta(pfID);
     }
 
     @PostMapping("/add")
     public void addProgrammaFedelta(@RequestBody ObjectNode node) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
-        ProgrammaFedeltaID pfID = mapper.treeToValue(node.get("pfID"), ProgrammaFedeltaID.class);
+        //ProgrammaFedeltaID pfID = mapper.treeToValue(node.get("pfID"), ProgrammaFedeltaID.class);
 
         List<LivelloID> livelli = new ArrayList<>();
         for (JsonNode arrNode : node.get("livelli")) {
             livelli.add(mapper.treeToValue(arrNode, LivelloID.class));
         }
 
-        programmaFedeltaService.addProgrammaFedelta(pfID, livelli);
+        programmaFedeltaService.addProgrammaFedelta(node.get("pfID").asInt(), livelli);
     }
 
     public void addProgrammaFedelta(ProgrammaFedelta pf) {
@@ -61,15 +60,14 @@ public class ProgrammaFedeltaController {
         programmaFedeltaService.updateProgrammaFedelta(pf);
     }
 
-    public void deleteProgrammaFedelta(ProgrammaFedeltaID pfID) {
+    public void deleteProgrammaFedelta(Integer pfID) {
         programmaFedeltaService.deleteProgrammaFedelta(pfID);
     }
 
     //Per sequence diagram Elimina Programma Fedeltà, leggermente diverso dal sequence diagram
-    public void eliminaProgrammaFedelta(ProgrammaFedeltaID id){
+    public void eliminaProgrammaFedelta(Integer id){
         System.out.println("Sei sicuro di voler eliminare il livello? S/N");
         if(true)
             deleteProgrammaFedelta(id);
     }
-
 }

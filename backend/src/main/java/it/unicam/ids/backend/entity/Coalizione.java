@@ -1,54 +1,57 @@
 package it.unicam.ids.backend.entity;
 
-import it.unicam.ids.backend.id.ProgrammaFedeltaID;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
-import java.util.GregorianCalendar;
+import java.sql.Date;
 
 @Entity
 @Table(name="Coalizione")
 public class Coalizione {
+
     @Id
     @GeneratedValue
     private Integer id;
-    private ProgrammaFedeltaID programmaFedeltaID;
-    private Azienda aziendaMittente;
+
+    @ManyToOne
+    @JoinColumn(name = "programmaFedeltaID", referencedColumnName = "id")
+    private ProgrammaFedelta programmaFedelta;
+    @ManyToOne
+    @JoinColumn(name = "aziendaDestinataria", referencedColumnName = "id")
     private Azienda aziendaDestinataria;
-    private GregorianCalendar dataInizio;
-    private GregorianCalendar dataFine;
+
+    @Transient
+    private Azienda aziendaMittente;
+    private Date dataInizio;
+    private Date dataFine;
     private Stato stato;
-    public enum Stato{ACCETTATA_ATTIVA,ACCETTATA_INATTIVA,ACCETTATA_SCADUTA,INATTESA_INATTIVA,RIFIUTATA_INATTIVA}
+
 
     //region Costruttori
+    public Coalizione() {}
 
-    //non è possibile creare un costruttore vuoto, se vi chiedete il motivo fatemelo sapere e ve lo spiego
-
-    public Coalizione(Integer id, ProgrammaFedeltaID programmaFedeltaID, Azienda aziendaMittente, Azienda aziendaDestinataria, GregorianCalendar dataInizio, GregorianCalendar dataFine) {
+    public Coalizione(Integer id, ProgrammaFedelta programmaFedelta, Azienda aziendaDestinataria, Date dataInizio, Date dataFine) {
         this.id = id;
-        this.programmaFedeltaID = programmaFedeltaID;
-        this.aziendaMittente = aziendaMittente;
+        this.programmaFedelta = programmaFedelta;
         this.aziendaDestinataria = aziendaDestinataria;
+        this.aziendaMittente = programmaFedelta.getAzienda();
         this.dataInizio = dataInizio;
         this.dataFine = dataFine;
-        this.stato=Stato.INATTESA_INATTIVA;
+        this.stato = Stato.INATTESA_INATTIVA;
     }
 
-    public Coalizione(Integer id, ProgrammaFedeltaID programmaFedeltaID, Azienda aziendaMittente, Azienda aziendaDestinataria, GregorianCalendar dataInizio, GregorianCalendar dataFine, Stato stato) {
+    public Coalizione(Integer id, ProgrammaFedelta programmaFedelta, Azienda aziendaDestinataria, Date dataInizio, Date dataFine, Stato stato) {
         this.id = id;
-        this.programmaFedeltaID = programmaFedeltaID;
-        this.aziendaMittente = aziendaMittente;
+        this.programmaFedelta = programmaFedelta;
         this.aziendaDestinataria = aziendaDestinataria;
+        this.aziendaMittente = programmaFedelta.getAzienda();
         this.dataInizio = dataInizio;
         this.dataFine = dataFine;
         this.stato = stato;
     }
     //endregion
 
-    //region Getter e Setter
 
+    //region Getter e Setter
     public Integer getId() {
         return id;
     }
@@ -57,20 +60,12 @@ public class Coalizione {
         this.id = id;
     }
 
-    public ProgrammaFedeltaID getProgrammaFedeltaID() {
-        return programmaFedeltaID;
+    public ProgrammaFedelta getProgrammaFedelta() {
+        return programmaFedelta;
     }
 
-    public void setProgrammaFedeltaID(ProgrammaFedeltaID programmaFedeltaID) {
-        this.programmaFedeltaID = programmaFedeltaID;
-    }
-
-    public Azienda getAziendaMittente() {
-        return aziendaMittente;
-    }
-
-    public void setAziendaMittente(Azienda aziendaMittente) {
-        this.aziendaMittente = aziendaMittente;
+    public void setProgrammaFedelta(ProgrammaFedelta programmaFedelta) {
+        this.programmaFedelta = programmaFedelta;
     }
 
     public Azienda getAziendaDestinataria() {
@@ -81,19 +76,27 @@ public class Coalizione {
         this.aziendaDestinataria = aziendaDestinataria;
     }
 
-    public GregorianCalendar getDataInizio() {
+    public Azienda getAziendaMittente() {
+        return aziendaMittente;
+    }
+
+    public void setAziendaMittente(Azienda aziendaMittente) {
+        this.aziendaMittente = aziendaMittente;
+    }
+
+    public Date getDataInizio() {
         return dataInizio;
     }
 
-    public void setDataInizio(GregorianCalendar dataInizio) {
+    public void setDataInizio(Date dataInizio) {
         this.dataInizio = dataInizio;
     }
 
-    public GregorianCalendar getDataFine() {
+    public Date getDataFine() {
         return dataFine;
     }
 
-    public void setDataFine(GregorianCalendar dataFine) {
+    public void setDataFine(Date dataFine) {
         this.dataFine = dataFine;
     }
 
@@ -104,8 +107,10 @@ public class Coalizione {
     public void setStato(Stato stato) {
         this.stato = stato;
     }
-
     //endregion
 
 
+    public enum Stato {
+        ACCETTATA_ATTIVA, ACCETTATA_INATTIVA, ACCETTATA_SCADUTA, INATTESA_INATTIVA, RIFIUTATA_INATTIVA
+    }
 }

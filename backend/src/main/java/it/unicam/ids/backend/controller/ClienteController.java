@@ -41,12 +41,12 @@ public class ClienteController {
     }
 
     @PostMapping("/addProgrammaFedelta")
-    public void addProgrammaFedelta(@RequestParam Integer tessera, @RequestBody ProgrammaFedeltaID pfId) {
+    public void addProgrammaFedelta(@RequestParam Integer tessera, @RequestParam Integer pfId) {
         clienteService.addProgrammaFedelta(tessera, pfId);
     }
 
     @PostMapping("/addPunti")
-    public void addPunti(@RequestParam Integer tessera, @RequestParam ProgrammaFedeltaID pfId, @RequestParam int punti) {
+    public void addPunti(@RequestParam Integer tessera, @RequestParam Integer pfId, @RequestParam int punti) {
         clienteService.addPunti(tessera, pfId, punti);
     }
 

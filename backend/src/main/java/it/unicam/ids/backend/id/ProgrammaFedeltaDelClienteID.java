@@ -8,7 +8,7 @@ import java.util.Objects;
 @Embeddable
 public class ProgrammaFedeltaDelClienteID implements Serializable {
 
-    private ProgrammaFedeltaID programmaFedeltaID;
+    private Integer programmaFedeltaID;
     private Integer tessera;
 
 
@@ -16,18 +16,19 @@ public class ProgrammaFedeltaDelClienteID implements Serializable {
     public ProgrammaFedeltaDelClienteID() {
     }
 
-    public ProgrammaFedeltaDelClienteID(ProgrammaFedeltaID programmaFedeltaID, Integer tessera) {
+    public ProgrammaFedeltaDelClienteID(Integer programmaFedeltaID, Integer tessera) {
         this.programmaFedeltaID = programmaFedeltaID;
         this.tessera = tessera;
     }
     //endregion
 
+
     //region Getter e Setter
-    public ProgrammaFedeltaID getProgrammaFedeltaID() {
+    public Integer getProgrammaFedeltaID() {
         return programmaFedeltaID;
     }
 
-    public void setProgrammaFedeltaID(ProgrammaFedeltaID programmaFedeltaID) {
+    public void setProgrammaFedeltaID(Integer programmaFedeltaID) {
         this.programmaFedeltaID = programmaFedeltaID;
     }
 
@@ -40,7 +41,7 @@ public class ProgrammaFedeltaDelClienteID implements Serializable {
     }
     //endregion
 
-
+    //region equals e hashCode
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -53,4 +54,5 @@ public class ProgrammaFedeltaDelClienteID implements Serializable {
     public int hashCode() {
         return Objects.hash(programmaFedeltaID, tessera);
     }
+    //endregion
 }
