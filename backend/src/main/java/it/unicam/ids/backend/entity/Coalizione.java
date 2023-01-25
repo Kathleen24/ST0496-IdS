@@ -3,6 +3,7 @@ package it.unicam.ids.backend.entity;
 import jakarta.persistence.*;
 
 import java.sql.Date;
+import java.util.Objects;
 
 @Entity
 @Table(name="Coalizione")
@@ -108,7 +109,26 @@ public class Coalizione {
         this.stato = stato;
     }
     //endregion
+    
+    //region equals e hashCode
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Coalizione that)) return false;
+        return id.equals(that.id) &&
+                programmaFedelta.equals(that.programmaFedelta) &&
+                aziendaDestinataria.equals(that.aziendaDestinataria) &&
+                aziendaMittente.equals(that.aziendaMittente) &&
+                dataInizio.equals(that.dataInizio) &&
+                dataFine.equals(that.dataFine) &&
+                stato == that.stato;
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, programmaFedelta, aziendaDestinataria, aziendaMittente, dataInizio, dataFine, stato);
+    }
+    //endregion
 
     public enum Stato {
         ACCETTATA_ATTIVA, ACCETTATA_INATTIVA, ACCETTATA_SCADUTA, INATTESA_INATTIVA, RIFIUTATA_INATTIVA

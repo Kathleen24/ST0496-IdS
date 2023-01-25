@@ -3,8 +3,8 @@ package it.unicam.ids.backend.service;
 import it.unicam.ids.backend.entity.Dipendente;
 import it.unicam.ids.backend.repository.DipendenteRepository;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class DipendenteService {
@@ -22,8 +22,7 @@ public class DipendenteService {
     }
 
     public Dipendente getDipendente(String nomeUtente) {
-        Optional<Dipendente> dipendente = this.dipendenteRepository.findById(nomeUtente);
-        return dipendente.orElse(null);
+        return dipendenteRepository.findById(nomeUtente).orElse(null);
     }
 
     public void addDipendente(Dipendente dipendente) {

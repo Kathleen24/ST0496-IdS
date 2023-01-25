@@ -40,7 +40,7 @@ public class StabilimentoID implements Serializable {
     }
     //endregion
 
-
+    //region equals e hashCode
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -52,4 +52,5 @@ public class StabilimentoID implements Serializable {
     public int hashCode() {
         return Objects.hash(aziendaID, id);
     }
+    //endregion
 }

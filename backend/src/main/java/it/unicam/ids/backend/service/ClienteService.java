@@ -1,7 +1,6 @@
 package it.unicam.ids.backend.service;
 
 import it.unicam.ids.backend.entity.Cliente;
-import it.unicam.ids.backend.entity.ProgrammaFedelta;
 import it.unicam.ids.backend.entity.ProgrammaFedeltaDelCliente;
 import it.unicam.ids.backend.id.ProgrammaFedeltaDelClienteID;
 import it.unicam.ids.backend.repository.ClienteRepository;
@@ -10,7 +9,6 @@ import it.unicam.ids.backend.repository.ProgrammaFedeltaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -37,8 +35,7 @@ public class ClienteService {
     }
 
     public Cliente getCliente(Integer tessera) {
-        Optional<Cliente> cliente = this.clienteRepository.findById(tessera);
-        return cliente.orElse(null);
+        return clienteRepository.findById(tessera).orElse(null);
     }
 
     public void addCliente(Cliente cliente) {
@@ -76,8 +73,7 @@ public class ClienteService {
     }
 
     public Set<ProgrammaFedeltaDelCliente> getAllProgrammiFedeltaOf(Integer tessera) {
-        Cliente cliente = getCliente(tessera);
-        return cliente.getProgrammiFedelta();
+        return getCliente(tessera).getProgrammiFedelta();
     }
 
     //Per il sequence diagram Visualizza progressi programma fedeltà
@@ -89,7 +85,6 @@ public class ClienteService {
     }
 
     public void addProgrammaFedeltaToCliente(Integer tessera, Integer pfID){
-        Cliente cliente = getCliente(tessera);
-        cliente.addProgrammaFedelta(getProgrammaFedeltaOf(tessera, pfID));
+        getCliente(tessera).addProgrammaFedelta(getProgrammaFedeltaOf(tessera, pfID));
     }
 }

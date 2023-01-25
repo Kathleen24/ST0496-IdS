@@ -1,7 +1,6 @@
 package it.unicam.ids.backend.controller;
 
 import it.unicam.ids.backend.entity.Cliente;
-import it.unicam.ids.backend.id.ProgrammaFedeltaID;
 import it.unicam.ids.backend.service.ClienteService;
 import org.springframework.web.bind.annotation.*;
 
