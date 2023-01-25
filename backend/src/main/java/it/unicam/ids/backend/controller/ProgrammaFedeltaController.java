@@ -71,5 +71,4 @@ public class ProgrammaFedeltaController {
         if(true)
             deleteProgrammaFedelta(id);
     }
-
 }
