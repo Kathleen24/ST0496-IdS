@@ -100,7 +100,6 @@ public class Coupon {
     }
     //endregion
 
-
     //region Equals e HashCode
     @Override
     public boolean equals(Object o) {
