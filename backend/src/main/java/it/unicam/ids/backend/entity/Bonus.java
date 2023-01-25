@@ -18,6 +18,7 @@ public class Bonus {
     private String descrizione;
     private Tipo type;
 
+
     //region Costruttori
     public Bonus() {
     }
@@ -75,6 +76,7 @@ public class Bonus {
         return Objects.hash(id, valore, descrizione);
     }
     //endregion
+
 
     public enum Tipo {
         PUNTI {

@@ -19,8 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 import java.util.List;
 
-import static it.unicam.ids.backend.entity.Bonus.Tipo.PUNTI;
-
 @RestController
 @RequestMapping("/programmiFedelta")
 public class ProgrammaFedeltaController {

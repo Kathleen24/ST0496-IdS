@@ -1,6 +1,5 @@
 package it.unicam.ids.backend.service;
 
-import it.unicam.ids.backend.entity.Cliente;
 import it.unicam.ids.backend.entity.ProgrammaFedelta;
 import it.unicam.ids.backend.id.LivelloID;
 import it.unicam.ids.backend.id.ProgrammaFedeltaID;
@@ -57,6 +56,4 @@ public class ProgrammaFedeltaService {
     public void deleteProgrammaFedelta(ProgrammaFedeltaID pfID) {
         programmaFedeltaRepository.deleteById(pfID);
     }
-
-
 }

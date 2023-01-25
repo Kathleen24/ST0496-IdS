@@ -1,8 +1,6 @@
 package it.unicam.ids.backend.controller;
 
-
 import it.unicam.ids.backend.entity.Bonus;
-import it.unicam.ids.backend.entity.Dipendente;
 import it.unicam.ids.backend.entity.Livello;
 import it.unicam.ids.backend.id.LivelloID;
 import it.unicam.ids.backend.service.LivelloService;
@@ -12,17 +10,18 @@ import java.util.List;
 
 import static it.unicam.ids.backend.entity.Bonus.Tipo.PUNTI;
 
-
 @RestController
 public class LivelloController {
     private final LivelloService livelloService;
+
 
     public LivelloController(LivelloService livelloService) {
         this.livelloService = livelloService;
     }
 
-    public List<Livello> getAllLivello() {
-        return livelloService.getAllLivello();
+
+    public List<Livello> getAllLivelli() {
+        return livelloService.getAllLivelli();
     }
 
     public Livello getLivello(LivelloID id) {
@@ -34,7 +33,7 @@ public class LivelloController {
     }
 
     public void updateLivello(Livello livello) {
-        bonusService.updateLivello(bonus);
+        livelloService.updateLivello(livello);
     }
 
     public void deleteLivello(LivelloID id) {
@@ -43,10 +42,10 @@ public class LivelloController {
 
     //Per sequence diagram Creazione livello
     public void creaLivello(String identificativoLivello, String descrizione){
-        System.out.println(getAllBonus());
+        System.out.println(getAllLivelli());
         //utente sceglie tipo e valore
         Bonus bonus=new Bonus(1,10,"Primo bonus",PUNTI);
-        addBonus(bonus);
+        //addLivello(bonus);
     }
 
 
