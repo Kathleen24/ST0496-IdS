@@ -2,38 +2,48 @@ package it.unicam.ids.backend.controller;
 
 import it.unicam.ids.backend.entity.Azienda;
 import it.unicam.ids.backend.service.AziendaService;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("/azienda")
 public class AziendaController {
 
     private final AziendaService aziendaService;
 
 
-    public AziendaController(AziendaService aziendaServiceDB) {
-        this.aziendaService = aziendaServiceDB;
+    public AziendaController(AziendaService aziendaService) {
+        this.aziendaService = aziendaService;
     }
 
 
+    @GetMapping("/all")
     public List<Azienda> getAllAziende() {
         return aziendaService.getAllAziende();
     }
 
-    public Azienda getAzienda(Integer id) {
+    @GetMapping("/{id}")
+    public Azienda getAzienda(@PathVariable Integer id) {
         return aziendaService.getAzienda(id);
     }
 
-    public void addAzienda(Azienda azienda) {
-        aziendaService.addAzienda(azienda);
+    @PostMapping("/add")
+    public void addAzienda(
+            @RequestParam String nome,
+            @RequestParam String terminiLegali,
+            @RequestParam(defaultValue = "") String infoAttivita,
+            @RequestParam(defaultValue = "") String link
+    ) {
+        Azienda azienda = aziendaService.addAzienda(nome, terminiLegali, infoAttivita, link);
     }
 
     public void updateAzienda(Azienda azienda) {
         aziendaService.updateAzienda(azienda);
     }
 
-    public void deleteAzienda(Integer id) {
+    @DeleteMapping("/{id}")
+    public void deleteAzienda(@PathVariable Integer id) {
         aziendaService.deleteAzienda(id);
     }
 }
