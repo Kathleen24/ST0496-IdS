@@ -4,8 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import it.unicam.ids.backend.id.ProgrammaFedeltaDelClienteID;
 import jakarta.persistence.*;
 
-import java.sql.Date;
-import java.time.Instant;
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -36,7 +35,7 @@ public class ProgrammaFedeltaDelCliente {
         this.programmaFedelta = programmaFedelta;
         this.puntiRaccolti = 0;
         this.sonoXp = false;
-        this.dataIscrizione = new Date(Instant.now().toEpochMilli());
+        this.dataIscrizione = new Date();
     }
 
     public ProgrammaFedeltaDelCliente(ProgrammaFedeltaDelClienteID id, ProgrammaFedelta programmaFedelta, Integer puntiRaccolti, boolean sonoXp, Date dataIscrizione) {
