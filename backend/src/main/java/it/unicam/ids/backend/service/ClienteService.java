@@ -2,7 +2,6 @@ package it.unicam.ids.backend.service;
 
 import it.unicam.ids.backend.entity.Cliente;
 import it.unicam.ids.backend.entity.ProgrammaFedeltaDelCliente;
-import it.unicam.ids.backend.id.ProgrammaFedeltaDelClienteID;
 import it.unicam.ids.backend.repository.ClienteRepository;
 import it.unicam.ids.backend.repository.ProgrammaFedeltaDelClienteRepository;
 import it.unicam.ids.backend.repository.ProgrammaFedeltaRepository;
@@ -54,7 +53,7 @@ public class ClienteService {
         Cliente cliente = getCliente(tessera);
         cliente.getProgrammiFedelta().add(
             programmaFedeltaDelClienteRepository.saveAndFlush(new ProgrammaFedeltaDelCliente(
-                    new ProgrammaFedeltaDelClienteID(pfId, tessera),
+                    pfId, tessera,
                     programmaFedeltaRepository.findById(pfId).orElseThrow()
             ))
         );
@@ -66,7 +65,7 @@ public class ClienteService {
         Cliente cliente = getCliente(tessera);
 
         cliente.getProgrammiFedelta().stream()
-                .filter(pf -> pf.getId().getProgrammaFedeltaID().equals(pfID))
+                .filter(pf -> pf.getProgrammaFedeltaID().equals(pfID))
                 .findFirst().orElseThrow()
                 .addPunti(punti);
         updateCliente(cliente);
@@ -78,13 +77,12 @@ public class ClienteService {
 
     //Per il sequence diagram Visualizza progressi programma fedeltà
     public ProgrammaFedeltaDelCliente getProgrammaFedeltaOf(Integer tessera, Integer pfID) {
-        Cliente cliente = getCliente(tessera);
-        return cliente.getProgrammiFedelta().stream()
-                .filter(pf -> pf.getId().getProgrammaFedeltaID().equals(pfID))
+        return getCliente(tessera).getProgrammiFedelta().stream()
+                .filter(pf -> pf.getProgrammaFedeltaID().equals(pfID))
                 .findFirst().orElse(null);
     }
 
-    public void addProgrammaFedeltaToCliente(Integer tessera, Integer pfID){
+    public void addProgrammaFedeltaToCliente(Integer tessera, Integer pfID) {
         getCliente(tessera).addProgrammaFedelta(getProgrammaFedeltaOf(tessera, pfID));
     }
 }

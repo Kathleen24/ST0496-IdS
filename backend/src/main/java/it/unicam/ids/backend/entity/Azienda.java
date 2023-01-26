@@ -14,6 +14,7 @@ public class Azienda {
     @Id
     @GeneratedValue
     private Integer id;
+
     private String nomeAzienda;
     private String terminiLegali;
     private String infoAttivita;

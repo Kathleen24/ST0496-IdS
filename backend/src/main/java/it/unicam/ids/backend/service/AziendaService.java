@@ -25,8 +25,8 @@ public class AziendaService {
         return aziendaRepository.findById(id).orElse(null);
     }
 
-    public void addAzienda(Azienda azienda) {
-        aziendaRepository.save(azienda);
+    public Azienda addAzienda(String nome, String terminiLegali, String infoAttivita, String link) {
+        return aziendaRepository.save(new Azienda(nome, terminiLegali, infoAttivita, link));
     }
 
     public void updateAzienda(Azienda azienda) {

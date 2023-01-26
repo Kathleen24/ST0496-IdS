@@ -21,8 +21,7 @@ public class Bonus {
 
 
     //region Costruttori
-    public Bonus() {
-    }
+    public Bonus() {}
 
     public Bonus(Azienda azienda, Integer valore, String descrizione, Tipo tipo) {
         this.azienda = azienda;
