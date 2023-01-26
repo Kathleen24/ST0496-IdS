@@ -4,16 +4,18 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import it.unicam.ids.backend.id.ProgrammaFedeltaDelClienteID;
 import jakarta.persistence.*;
 
-import java.sql.Date;
-import java.time.Instant;
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
+@IdClass(ProgrammaFedeltaDelClienteID.class)
 @Table(name="ProgrammaFedeltaDelCliente")
 public class ProgrammaFedeltaDelCliente {
 
-    @EmbeddedId
-    private ProgrammaFedeltaDelClienteID id;
+    @Id
+    private Integer programmaFedeltaID;
+    @Id
+    private Integer tessera;
 
     @ManyToOne
     @MapsId("programmaFedeltaID")
@@ -31,16 +33,18 @@ public class ProgrammaFedeltaDelCliente {
     //region Costruttori
     public ProgrammaFedeltaDelCliente() {}
 
-    public ProgrammaFedeltaDelCliente(ProgrammaFedeltaDelClienteID id, ProgrammaFedelta programmaFedelta) {
-        this.id = id;
+    public ProgrammaFedeltaDelCliente(Integer programmaFedeltaID, Integer tessera, ProgrammaFedelta programmaFedelta) {
+        this.programmaFedeltaID = programmaFedeltaID;
+        this.tessera = tessera;
         this.programmaFedelta = programmaFedelta;
         this.puntiRaccolti = 0;
         this.sonoXp = false;
-        this.dataIscrizione = new Date(Instant.now().toEpochMilli());
+        this.dataIscrizione = new Date();
     }
 
-    public ProgrammaFedeltaDelCliente(ProgrammaFedeltaDelClienteID id, ProgrammaFedelta programmaFedelta, Integer puntiRaccolti, boolean sonoXp, Date dataIscrizione) {
-        this.id = id;
+    public ProgrammaFedeltaDelCliente(Integer programmaFedeltaID, Integer tessera, ProgrammaFedelta programmaFedelta, Integer puntiRaccolti, boolean sonoXp, Date dataIscrizione) {
+        this.programmaFedeltaID = programmaFedeltaID;
+        this.tessera = tessera;
         this.programmaFedelta = programmaFedelta;
         this.puntiRaccolti = puntiRaccolti;
         this.sonoXp = sonoXp;
@@ -54,12 +58,20 @@ public class ProgrammaFedeltaDelCliente {
     }
 
     //region Getter e Setter
-    public ProgrammaFedeltaDelClienteID getId() {
-        return id;
+    public Integer getProgrammaFedeltaID() {
+        return programmaFedeltaID;
     }
 
-    public void setId(ProgrammaFedeltaDelClienteID id) {
-        this.id = id;
+    public void setProgrammaFedeltaID(Integer programmaFedeltaID) {
+        this.programmaFedeltaID = programmaFedeltaID;
+    }
+
+    public Integer getTessera() {
+        return tessera;
+    }
+
+    public void setTessera(Integer tessera) {
+        this.tessera = tessera;
     }
 
     @JsonIgnore
@@ -101,16 +113,14 @@ public class ProgrammaFedeltaDelCliente {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof ProgrammaFedeltaDelCliente that)) return false;
-        return sonoXp == that.sonoXp &&
-                id.equals(that.id) &&
-                programmaFedelta.equals(that.programmaFedelta) &&
-                puntiRaccolti.equals(that.puntiRaccolti) &&
-                dataIscrizione.equals(that.dataIscrizione);
+        return programmaFedeltaID.equals(that.programmaFedeltaID) &&
+                tessera.equals(that.tessera) &&
+                programmaFedelta.equals(that.programmaFedelta);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, programmaFedelta, puntiRaccolti, sonoXp, dataIscrizione);
+        return Objects.hash(programmaFedeltaID, tessera, programmaFedelta);
     }
     //endregion
 }

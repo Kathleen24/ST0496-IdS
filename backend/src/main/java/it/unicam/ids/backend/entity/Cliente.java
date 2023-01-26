@@ -15,14 +15,15 @@ public class Cliente {
     private Integer tessera;
 
     @OneToOne
-    @JoinColumn(name = "utentePiattaforma", referencedColumnName = "id")
+    @JoinColumn(name = "utentePiattaformaID", referencedColumnName = "id")
     private UtentePiattaforma utentePiattaforma;
 
     @Column(name = "nomeUtente", unique = true)
     private String nomeUtente;
     private String password;
     private String email;
-    @OneToMany(mappedBy = "cliente")
+    @OneToMany
+    @JoinColumn(name = "tessera") // tessera sta nella tabella ProgrammaFedeltaDelCliente
     private Set<ProgrammaFedeltaDelCliente> programmiFedelta;
 
     private Date dataIscrizionePiattaforma;
