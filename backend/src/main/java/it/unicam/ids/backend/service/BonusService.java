@@ -1,6 +1,7 @@
 package it.unicam.ids.backend.service;
 
 import it.unicam.ids.backend.entity.Bonus;
+import it.unicam.ids.backend.repository.AziendaRepository;
 import it.unicam.ids.backend.repository.BonusRepository;
 import org.springframework.stereotype.Service;
 
@@ -8,11 +9,17 @@ import java.util.List;
 
 @Service
 public class BonusService {
+
     private final BonusRepository bonusRepository;
+    private final AziendaRepository aziendaRepository;
 
 
-    public BonusService(BonusRepository bonusRepository) {
+    public BonusService(
+            BonusRepository bonusRepository,
+            AziendaRepository aziendaRepository
+    ) {
         this.bonusRepository = bonusRepository;
+        this.aziendaRepository = aziendaRepository;
     }
 
 
@@ -24,8 +31,11 @@ public class BonusService {
         return bonusRepository.findById(id).orElse(null);
     }
 
-    public void addBonus(Bonus bonus) {
-        bonusRepository.save(bonus);
+    public Bonus addBonus(Integer aziendaID, Integer valore, String descrizione, Bonus.Tipo tipo) {
+        return bonusRepository.save(new Bonus(
+                aziendaRepository.findById(aziendaID).orElseThrow(),
+                valore, descrizione, tipo
+        ));
     }
 
     public void updateBonus(Bonus bonus) {
