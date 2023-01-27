@@ -44,7 +44,6 @@ public class Azienda {
     }
     //endregion
 
-
     //region Getter e Setter
     public Integer getId() {
         return id;
