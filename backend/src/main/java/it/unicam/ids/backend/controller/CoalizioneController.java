@@ -43,10 +43,19 @@ public class CoalizioneController {
             System.out.println("Non puoi eseguire questa operazione");
     }
 
+    /**
+     * Determina se la coalizione è nello stato INATTESA_INATTIVA
+     * @param id
+     * @return true se ci si trova. false altrimenti
+     */
     public boolean isInAttesaEAccettabile(Integer id) {
         return getCoalizione(id).getStato().equals(Coalizione.Stato.INATTESA_INATTIVA);
     }
 
+    /**
+     * Cambia lo stato della coalizione in ACCETTATA_INATTIVA se è possibile
+     * @param id
+     */
     public void accettaCoalizione(Integer id) {
         if (isInAttesaEAccettabile(id)) {
             getCoalizione(id).setStato(Coalizione.Stato.ACCETTATA_INATTIVA);
@@ -57,6 +66,10 @@ public class CoalizioneController {
             System.out.println("Non puoi eseguire questa operazione");
     }
 
+    /**
+     * Cambia lo stato della coalizione in RIFIUTATA_INATTIVA se è possibile
+     * @param id
+     */
     public void rifiutaCoalizione(Integer id) {
         if (isInAttesaEAccettabile(id)) {
             getCoalizione(id).setStato(Coalizione.Stato.RIFIUTATA_INATTIVA);
