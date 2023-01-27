@@ -13,6 +13,11 @@ public class AmministratorePiattaforma {
     private Integer username;
     private Integer password;
 
+    /**
+     * Costruisce un amministratore piattaforma i cui dati di accesso sono codificati
+     * @param username
+     * @param password
+     */
     public AmministratorePiattaforma(String username, String password) {
         this.username = username.hashCode();
         this.password = password.hashCode();
@@ -35,6 +40,12 @@ public class AmministratorePiattaforma {
     }
 
 
+    /**
+     * Determina se i parametri inseriti sono corretti e corrispondono ad un account
+     * @param username
+     * @param password
+     * @return true se sono corretti, false altrimenti
+     */
     public boolean login(String username,String password){
         return this.username==username.hashCode()&&this.password==password.hashCode();
     }
