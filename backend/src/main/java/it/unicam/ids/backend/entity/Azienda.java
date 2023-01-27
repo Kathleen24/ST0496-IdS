@@ -5,6 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -14,7 +15,7 @@ public class Azienda {
     @Id
     @GeneratedValue
     private Integer id;
-
+    private Date dataIscrizionePiattoforma;
     private String nomeAzienda;
     private String terminiLegali;
     private String infoAttivita;
@@ -26,6 +27,7 @@ public class Azienda {
     }
 
     public Azienda(String nomeAzienda, String terminiLegali, String infoAttivita, String link) {
+        this.dataIscrizionePiattoforma = new Date();
         this.nomeAzienda = nomeAzienda;
         this.terminiLegali = terminiLegali;
         this.infoAttivita = infoAttivita;
@@ -34,13 +36,13 @@ public class Azienda {
 
     public Azienda(Azienda azienda) {
         this.id = azienda.getId();
+        this.dataIscrizionePiattoforma = azienda.getDataIscrizionePiattoforma();
         this.nomeAzienda = azienda.getNomeAzienda();
         this.terminiLegali = azienda.getNomeAzienda();
         this.infoAttivita = azienda.getInfoAttivita();
         this.link = azienda.getLink();
     }
     //endregion
-
 
     //region Getter e Setter
     public Integer getId() {
@@ -49,6 +51,14 @@ public class Azienda {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Date getDataIscrizionePiattoforma() {
+        return dataIscrizionePiattoforma;
+    }
+
+    public void setDataIscrizionePiattoforma(Date dataIscrizionePiattoforma) {
+        this.dataIscrizionePiattoforma = dataIscrizionePiattoforma;
     }
 
     public String getNomeAzienda() {

@@ -21,7 +21,7 @@ public interface ClienteRepository extends JpaRepository<Cliente, Integer> {
      *
      * @return la lista di clienti
      */
-    @Query("SELECT c FROM Cliente c WHERE c.dataIscrizione BETWEEN :start AND :end")
+    @Query("SELECT c FROM Cliente c WHERE c.dataIscrizionePiattaforma BETWEEN :start AND :end")
     List<Cliente> findClientiNellIntervalloDiTempo(@Param("start") Date start, @Param("end") Date end);
 
     /**
@@ -34,7 +34,10 @@ public interface ClienteRepository extends JpaRepository<Cliente, Integer> {
      *
      * @return la lista di clienti.
      */
-    @Query("SELECT pfdc.cliente FROM ProgrammaFedeltaDelCliente pfdc WHERE pfdc.programmaFedelta.id = :programmaFedeltaID AND pfdc.dataIscrizione BETWEEN :start AND :end")
+    @Query("SELECT c FROM Cliente c, ProgrammaFedeltaDelCliente pfdc " +
+            "WHERE pfdc.programmaFedelta.id = :programmaFedeltaID " +
+            "AND pfdc.id.tessera = c.tessera " +
+            "AND pfdc.dataIscrizione BETWEEN :start AND :end")
     List<Cliente> findClientiIscrittiAlProgrammaFedeltaNellIntervalloDiTempo(@Param("start") Date start, @Param("end") Date end,
                                                         @Param("programmaFedeltaID")  Integer programmaFedeltaID);
 
