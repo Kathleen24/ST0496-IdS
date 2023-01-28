@@ -53,7 +53,7 @@ public class AbbonamentoController {
 
     @PostMapping("/update")
     public void updateAbbonamento(@RequestParam PianoTariffario pianoTariffario,
-                                  @RequestParam String descrizione,
+                                  @RequestParam(defaultValue = "") String descrizione,
                                   @RequestParam Boolean attivo){
         abbonamentoService.addAbbonamento(pianoTariffario, descrizione, attivo);
     }
