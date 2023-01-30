@@ -7,13 +7,12 @@ import java.util.Objects;
 @Embeddable
 public class StabilimentoID implements Serializable {
 
-    private Integer aziendaID;
     private Integer id;
+    private Integer aziendaID;
 
 
     //region Costruttori
-    public StabilimentoID() {
-    }
+    public StabilimentoID() {}
 
     public StabilimentoID(Integer aziendaID, Integer id) {
         this.aziendaID = aziendaID;
@@ -23,20 +22,20 @@ public class StabilimentoID implements Serializable {
 
 
     //region Getter e Setter
-    public Integer getAziendaID() {
-        return aziendaID;
-    }
-
-    public void setAziendaID(Integer aziendaID) {
-        this.aziendaID = aziendaID;
-    }
-
     public Integer getId() {
         return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getAziendaID() {
+        return aziendaID;
+    }
+
+    public void setAziendaID(Integer aziendaID) {
+        this.aziendaID = aziendaID;
     }
     //endregion
 
@@ -45,12 +44,12 @@ public class StabilimentoID implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof StabilimentoID that)) return false;
-        return aziendaID.equals(that.aziendaID) && id.equals(that.id);
+        return id.equals(that.id) && aziendaID.equals(that.aziendaID);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(aziendaID, id);
+        return Objects.hash(id, aziendaID);
     }
     //endregion
 }
