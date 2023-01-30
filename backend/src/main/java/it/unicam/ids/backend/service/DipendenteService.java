@@ -1,6 +1,7 @@
 package it.unicam.ids.backend.service;
 
 import it.unicam.ids.backend.entity.Dipendente;
+import it.unicam.ids.backend.id.DipendenteID;
 import it.unicam.ids.backend.repository.DipendenteRepository;
 import org.springframework.stereotype.Service;
 
@@ -21,8 +22,8 @@ public class DipendenteService {
         return dipendenteRepository.findAll();
     }
 
-    public Dipendente getDipendente(String nomeUtente) {
-        return dipendenteRepository.findById(nomeUtente).orElse(null);
+    public Dipendente getDipendente(DipendenteID id) {
+        return dipendenteRepository.findById(id).orElse(null);
     }
 
     public void addDipendente(Dipendente dipendente) {
@@ -33,7 +34,7 @@ public class DipendenteService {
         dipendenteRepository.save(dipendente);
     }
 
-    public void deleteDipendente(String nomeUtente) {
-        dipendenteRepository.deleteById(nomeUtente);
+    public void deleteDipendente(DipendenteID id) {
+        dipendenteRepository.deleteById(id);
     }
 }

@@ -74,7 +74,7 @@ public class Bonus {
     }
     //endregion
 
-    //region Equals and HashCode
+    //region equals and hashCode
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

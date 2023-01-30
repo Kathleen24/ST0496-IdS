@@ -9,20 +9,40 @@ import java.util.Objects;
 @Entity
 @Table(name="AmministratorePiattaforma")
 public class AmministratorePiattaforma {
+
     @Id
     private Integer username;
     private Integer password;
 
+
+    //region Costruttori
+    public AmministratorePiattaforma() {}
+
     /**
      * Costruisce un amministratore piattaforma i cui dati di accesso sono codificati
-     * @param username
-     * @param password
+     *
+     * @param username lo username
+     * @param password la password
      */
     public AmministratorePiattaforma(String username, String password) {
         this.username = username.hashCode();
         this.password = password.hashCode();
     }
+    //endregion
 
+
+    /**
+     * Determina se i parametri inseriti sono corretti e corrispondono ad un account
+     *
+     * @param username lo username
+     * @param password la password
+     * @return true se sono corretti, false altrimenti
+     */
+    public boolean login(String username, String password) {
+        return this.username == username.hashCode() && this.password == password.hashCode();
+    }
+
+    //region Getter e Setter
     public int getUsername() {
         return username;
     }
@@ -38,16 +58,19 @@ public class AmministratorePiattaforma {
     public void setPassword(String password) {
         this.password =password.hashCode();
     }
+    //endregion
 
-
-    /**
-     * Determina se i parametri inseriti sono corretti e corrispondono ad un account
-     * @param username
-     * @param password
-     * @return true se sono corretti, false altrimenti
-     */
-    public boolean login(String username,String password){
-        return this.username==username.hashCode()&&this.password==password.hashCode();
+    //region equals e hashCode
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof AmministratorePiattaforma that)) return false;
+        return username.equals(that.username) && password.equals(that.password);
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(username, password);
+    }
+    //endregion
 }

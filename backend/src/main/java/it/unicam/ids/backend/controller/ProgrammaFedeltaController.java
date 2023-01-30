@@ -2,11 +2,7 @@ package it.unicam.ids.backend.controller;
 
 import it.unicam.ids.backend.entity.ProgrammaFedelta;
 import it.unicam.ids.backend.service.ProgrammaFedeltaService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,8 +23,9 @@ public class ProgrammaFedeltaController {
         return programmaFedeltaService.getAllProgrammiFedelta();
     }
 
-    public ProgrammaFedelta getProgrammaFedelta(Integer pfID) {
-        return programmaFedeltaService.getProgrammaFedelta(pfID);
+    @GetMapping("/{id}")
+    public ProgrammaFedelta getProgrammaFedelta(@PathVariable Integer id) {
+        return programmaFedeltaService.getProgrammaFedelta(id);
     }
 
     @PostMapping("/add")
@@ -40,17 +37,14 @@ public class ProgrammaFedeltaController {
         programmaFedeltaService.addProgrammaFedelta(aziendaID, bonus, soglie);
     }
 
-    public void addProgrammaFedelta(ProgrammaFedelta pf) {
-        programmaFedeltaService.addProgrammaFedelta(pf);
-    }
-
     public void updateProgrammaFedelta(ProgrammaFedelta pf) {
         programmaFedeltaService.updateProgrammaFedelta(pf);
     }
 
     //Per sequence diagram Elimina Programma Fedeltà, leggermente diverso dal sequence diagram
-    public void deleteProgrammaFedelta(Integer pfID) {
+    @DeleteMapping("/{id}")
+    public void deleteProgrammaFedelta(@PathVariable Integer id) {
         //"Vuoi procedere all'eliminazione?" S/N
-        programmaFedeltaService.deleteProgrammaFedelta(pfID);
+        programmaFedeltaService.deleteProgrammaFedelta(id);
     }
 }

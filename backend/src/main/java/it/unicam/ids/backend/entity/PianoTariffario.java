@@ -8,14 +8,17 @@ import java.util.Objects;
 
 @Entity
 public class PianoTariffario {
+
     @Id
     @GeneratedValue
     private Integer id;
+
     private Double costo;
     private Boolean newsLetterService;
     private Boolean emailService;
     private Boolean calendarService;
     private Boolean smsService;
+
 
     //region Costruttori
     public PianoTariffario() {
@@ -40,6 +43,7 @@ public class PianoTariffario {
         this.smsService = getSmsService();
     }
     //endregion
+
 
     //region Getter e Setter
     public Integer getId() {
@@ -92,7 +96,7 @@ public class PianoTariffario {
 
     //endregion
 
-
+    //region equals, hashCode e toString
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -132,4 +136,5 @@ public class PianoTariffario {
                 ", smsService=" + smsService +
                 '.';
     }
+    //endregion
 }
