@@ -6,8 +6,11 @@ import it.unicam.ids.backend.service.AziendaService;
 import it.unicam.ids.backend.service.ClienteService;
 import it.unicam.ids.backend.service.CouponService;
 import it.unicam.ids.backend.util.EntityValidator;
+import it.unicam.ids.backend.util.QRCodeService;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.ResponseEntity;
 
+import java.awt.image.BufferedImage;
 import java.sql.Date;
 import java.util.List;
 
@@ -18,10 +21,11 @@ public class CouponController implements EntityValidator<Coupon> {
     private final CouponService couponService;
     private AziendaService aziendaService;
     private ClienteService clienteService;
+    private final QRCodeService qrCodeService;
 
-
-    public CouponController(CouponService couponService) {
+    public CouponController(CouponService couponService, QRCodeService qrCodeService) {
         this.couponService = couponService;
+        this.qrCodeService = qrCodeService;
     }
 
 
@@ -55,6 +59,7 @@ public class CouponController implements EntityValidator<Coupon> {
         Coupon coupon = couponService.addCoupon(aziendaID, tessera, valore, dataScadenza);
     }
 
+    @PostMapping("/update")
     public void updateCoupon(Coupon coupon) {
         couponService.updateCoupon(coupon);
     }
@@ -62,5 +67,16 @@ public class CouponController implements EntityValidator<Coupon> {
     @DeleteMapping("/{id}")
     public void deleteCoupon(@PathVariable Integer id) {
         couponService.deleteCoupon(id);
+    }
+
+    /**
+     * Questo metodo genera un QRCode contente l' id dell'coupon.
+     * @param id - l' id del coupon.
+     * @return - il QRCode in formato PNG (250x250).
+     * @throws Exception - Eccezioni generiche
+     */
+    @GetMapping("/qrcode/{id}")
+    public ResponseEntity<BufferedImage> qrCodeGenerate(@RequestParam ("id") String id) throws Exception {
+        return qrCodeService.qrCodeGenerator(id);
     }
 }

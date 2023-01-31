@@ -4,8 +4,11 @@ import it.unicam.ids.backend.entity.Abbonamento;
 import it.unicam.ids.backend.entity.Cliente;
 import it.unicam.ids.backend.service.ClienteService;
 import it.unicam.ids.backend.util.EntityValidator;
+import it.unicam.ids.backend.util.QRCodeService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.awt.image.BufferedImage;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -14,10 +17,11 @@ import java.util.regex.Pattern;
 public class ClienteController implements EntityValidator<Cliente> {
 
     private final ClienteService clienteService;
+    private final QRCodeService qrCodeService;
 
-
-    public ClienteController(ClienteService clienteService) {
+    public ClienteController(ClienteService clienteService, QRCodeService qrCodeService) {
         this.clienteService = clienteService;
+        this.qrCodeService = qrCodeService;
     }
 
     public void validateEntity(Cliente cliente) {
@@ -65,7 +69,19 @@ public class ClienteController implements EntityValidator<Cliente> {
     }
 
     //Per sequence diagram Visualizza dati personali
-    public void visualizzaDatiPersonali(Integer tessera){
-        getCliente(tessera).toString();
+    public String visualizzaDatiPersonali(Integer tessera){
+        return getCliente(tessera).toString();
+    }
+
+    /**
+     * Questo metodo genera un QRCode contenente il link per invitare nuovi utenti.
+     * @param tessera - il numero della tessera di chi genera il QRCode.
+     * @return - il QRCode in formato PNG(250x250).
+     * @throws Exception - Eccezioni generiche.
+     */
+    @GetMapping("/qrcode/{id}")
+    public ResponseEntity<BufferedImage> linkInviti(@RequestParam ("tessera") String tessera) throws Exception{
+        //TODO Aggiungere il formato del link da comporre con la tessera.
+        return qrCodeService.qrCodeGenerator(tessera);
     }
 }
