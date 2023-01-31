@@ -10,8 +10,8 @@ import java.util.Objects;
 @Table(name="AmministratorePiattaforma")
 public class AmministratorePiattaforma {
     @Id
-    private Integer username;
-    private Integer password;
+    private String username;
+    private String password;
 
     /**
      * Costruisce un amministratore piattaforma i cui dati di accesso sono codificati
@@ -19,8 +19,8 @@ public class AmministratorePiattaforma {
      * @param password
      */
     public AmministratorePiattaforma(String username, String password) {
-        this.username = username.hashCode();
-        this.password = password.hashCode();
+        this.username = username.hashCode() + "";
+        this.password = password.hashCode() + "";
     }
 
     public int getUsername() {
@@ -28,15 +28,15 @@ public class AmministratorePiattaforma {
     }
 
     public void setUsername(String username) {
-        this.username = username.hashCode();
+        this.username = username.hashCode()+"";
     }
 
-    public int getPassword() {
+    public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
-        this.password =password.hashCode();
+        this.password =password.hashCode()+"";
     }
 
 

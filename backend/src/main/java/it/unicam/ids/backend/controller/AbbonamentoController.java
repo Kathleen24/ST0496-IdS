@@ -4,19 +4,32 @@ import it.unicam.ids.backend.entity.Abbonamento;
 import it.unicam.ids.backend.entity.PianoTariffario;
 import it.unicam.ids.backend.service.AbbonamentoService;
 import it.unicam.ids.backend.service.PianoTariffarioService;
+import it.unicam.ids.backend.util.EntityValidator;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping
-public class AbbonamentoController {
+@RequestMapping("/abbonamento")
+public class AbbonamentoController implements EntityValidator<Abbonamento> {
+
     private final AbbonamentoService abbonamentoService;
     private final PianoTariffarioService pianoTariffarioService;
 
     public AbbonamentoController(AbbonamentoService abbonamentoService, PianoTariffarioService pianoTariffarioService) {
         this.abbonamentoService = abbonamentoService;
         this.pianoTariffarioService = pianoTariffarioService;
+    }
+
+
+    @Override
+    public void validateEntity(Abbonamento abbonamento) {
+        if (abbonamento==null)
+            throw new NullPointerException("L'oggetto abbonamento è nullo");
+        if(pianoTariffarioService.getPianoTariffario(abbonamento.getPianoTariffario().getId())==null)
+            throw new IllegalArgumentException("Il piano tariffario inserito non è esistente");
+        if(abbonamento.getDataUltimoPagamento().before(abbonamento.getDataIscrizione()))
+            throw new IllegalArgumentException("Il pagamento non può avvenire prima dell'iscrizione");
     }
 
     @GetMapping("/all")
