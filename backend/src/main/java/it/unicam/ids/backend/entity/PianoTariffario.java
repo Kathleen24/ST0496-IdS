@@ -21,11 +21,22 @@ public class PianoTariffario {
 
 
     //region Costruttori
-    public PianoTariffario() {
+    public PianoTariffario() {}
+
+    public PianoTariffario(
+            Double costo, Boolean newsLetterService, Boolean emailService, Boolean calendarService, Boolean smsService
+    ) {
+        this.costo = costo;
+        this.newsLetterService = newsLetterService;
+        this.emailService = emailService;
+        this.calendarService = calendarService;
+        this.smsService = smsService;
     }
 
-    public PianoTariffario(Integer id, Double costo, Boolean newsLetterService,
-                           Boolean emailService, Boolean calendarService, Boolean smsService) {
+    public PianoTariffario(
+            Integer id, Double costo, Boolean newsLetterService,
+            Boolean emailService, Boolean calendarService, Boolean smsService
+    ) {
         this.id = id;
         this.costo = costo;
         this.newsLetterService = newsLetterService;
@@ -35,12 +46,12 @@ public class PianoTariffario {
     }
 
     public PianoTariffario(PianoTariffario pianoTariffario) {
-        this.id = getId();
-        this.costo = getCosto();
-        this.newsLetterService = getNewsLetterService();
-        this.emailService = getEmailService();
-        this.calendarService = getCalendarService();
-        this.smsService = getSmsService();
+        this.id = pianoTariffario.getId();
+        this.costo = pianoTariffario.getCosto();
+        this.newsLetterService = pianoTariffario.getNewsLetterService();
+        this.emailService = pianoTariffario.getEmailService();
+        this.calendarService = pianoTariffario.getCalendarService();
+        this.smsService = pianoTariffario.getSmsService();
     }
     //endregion
 

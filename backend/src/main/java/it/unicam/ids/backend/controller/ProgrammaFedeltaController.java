@@ -29,12 +29,12 @@ public class ProgrammaFedeltaController {
     }
 
     @PostMapping("/add")
-    public void addProgrammaFedelta(
+    public ProgrammaFedelta addProgrammaFedelta(
             @RequestParam Integer aziendaID,
             @RequestParam List<Integer> bonus,
             @RequestParam List<Integer> soglie
     ) {
-        programmaFedeltaService.addProgrammaFedelta(aziendaID, bonus, soglie);
+        return programmaFedeltaService.addProgrammaFedelta(aziendaID, bonus, soglie);
     }
 
     public void updateProgrammaFedelta(ProgrammaFedelta pf) {

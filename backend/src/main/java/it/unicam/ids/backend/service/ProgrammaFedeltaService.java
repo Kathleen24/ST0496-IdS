@@ -36,19 +36,14 @@ public class ProgrammaFedeltaService {
         return programmaFedeltaRepository.findById(id).orElse(null);
     }
 
-    public void addProgrammaFedelta(Integer aziendaID, List<Integer> bonus, List<Integer> soglie) {
-        ProgrammaFedelta pf = new ProgrammaFedelta(
+    public ProgrammaFedelta addProgrammaFedelta(Integer aziendaID, List<Integer> bonus, List<Integer> soglie) {
+        return programmaFedeltaRepository.save(new ProgrammaFedelta(
                 aziendaRepository.findById(aziendaID).orElseThrow(),
                 bonus.stream().map(bonusRepository::findById)
                         .map(Optional::orElseThrow)
                         .toList(),
                 soglie
-        );
-        addProgrammaFedelta(pf);
-    }
-
-    public void addProgrammaFedelta(ProgrammaFedelta pf) {
-        programmaFedeltaRepository.save(pf);
+        ));
     }
 
     public void updateProgrammaFedelta(ProgrammaFedelta pf) {

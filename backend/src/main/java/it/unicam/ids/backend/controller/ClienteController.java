@@ -23,19 +23,23 @@ public class ClienteController {
         return clienteService.getAllClienti();
     }
 
-    public Cliente getCliente(Integer tessera) {
+    @GetMapping("/{tessera}")
+    public Cliente getCliente(@PathVariable Integer tessera) {
         return clienteService.getCliente(tessera);
     }
 
-    public void addCliente(Cliente cliente) {
-        clienteService.addCliente(cliente);
+    @PostMapping("/add")
+    public Cliente addCliente(@RequestBody Cliente cliente) {
+        return clienteService.addCliente(cliente);
     }
 
-    public void updateCliente(Cliente cliente) {
-        clienteService.updateCliente(cliente);
+    @PostMapping("/update")
+    public Cliente updateCliente(@RequestBody Cliente cliente) {
+        return clienteService.updateCliente(cliente);
     }
 
-    public void deleteCliente(Integer tessera) {
+    @DeleteMapping("/{tessera}")
+    public void deleteCliente(@PathVariable Integer tessera) {
         clienteService.deleteCliente(tessera);
     }
 
@@ -47,10 +51,5 @@ public class ClienteController {
     @PostMapping("/addPunti")
     public void addPunti(@RequestParam Integer tessera, @RequestParam Integer pfId, @RequestParam int punti) {
         clienteService.addPunti(tessera, pfId, punti);
-    }
-
-    //Per sequence diagram Visualizza dati personali
-    public void visualizzaDatiPersonali(Integer tessera){
-        getCliente(tessera).toString();
     }
 }

@@ -30,20 +30,12 @@ public class AbbonamentoService {
         return abbonamentoRepository.findById(id).orElseThrow();
     }
 
-    public Abbonamento addAbbonamento(Abbonamento abbonamento) {
-        return abbonamentoRepository.save(abbonamento);
-    }
-
     public Abbonamento addAbbonamento(PianoTariffario pianoTariffario, String descrizione, Boolean attivo) {
         return abbonamentoRepository.save(new Abbonamento(pianoTariffario, descrizione, attivo));
     }
 
     public void updateAbbonamento(Abbonamento abbonamento) {
         abbonamentoRepository.save(abbonamento);
-    }
-
-    public void updateAbbonamento(PianoTariffario pianoTariffario, String descrizione, Boolean attivo) {
-        abbonamentoRepository.save(new Abbonamento(pianoTariffario, descrizione, attivo));
     }
 
     public void deleteAbbonamento(Integer id) {

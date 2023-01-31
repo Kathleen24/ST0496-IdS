@@ -24,7 +24,7 @@ public class AbbonamentoController {
         return abbonamentoService.getAllAbbonamenti();
     }
 
-    @GetMapping("/all")
+    @GetMapping("/attivi")
     public List<Abbonamento> getAllAbbonamenti(@RequestParam Boolean attivo) {
         return abbonamentoService.getAllAbbonamenti(attivo);
     }
@@ -32,11 +32,6 @@ public class AbbonamentoController {
     @GetMapping("/{id}")
     public Abbonamento getAbbonamento(@PathVariable Integer id) {
         return abbonamentoService.getAbbonamento(id);
-    }
-
-    @PostMapping("/add")
-    public Abbonamento addAbbonamento(@RequestBody Abbonamento abbonamento) {
-        return abbonamentoService.addAbbonamento(abbonamento);
     }
 
     @PostMapping("/add")
@@ -51,15 +46,6 @@ public class AbbonamentoController {
     @PostMapping("/update")
     public void updateAbbonamento(@RequestBody Abbonamento abbonamento) {
         abbonamentoService.updateAbbonamento(abbonamento);
-    }
-
-    @PostMapping("/update")
-    public void updateAbbonamento(
-            @RequestParam PianoTariffario pianoTariffario,
-            @RequestParam(defaultValue = "") String descrizione,
-            @RequestParam Boolean attivo
-    ) {
-        abbonamentoService.updateAbbonamento(pianoTariffario, descrizione, attivo);
     }
 
     @DeleteMapping("/{id}")

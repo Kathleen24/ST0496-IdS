@@ -30,16 +30,17 @@ public class CouponController {
     }
 
     @PostMapping("/add")
-    public void addCoupon(
+    public Coupon addCoupon(
             @RequestParam Integer aziendaID,
             @RequestParam(defaultValue = "-1") Integer tessera,
             @RequestParam Integer valore, @RequestParam Date dataScadenza
     ) {
-        Coupon coupon = couponService.addCoupon(aziendaID, tessera, valore, dataScadenza);
+        return couponService.addCoupon(aziendaID, tessera, valore, dataScadenza);
     }
 
-    public void updateCoupon(Coupon coupon) {
-        couponService.updateCoupon(coupon);
+    @PostMapping("/update")
+    public Coupon updateCoupon(Coupon coupon) {
+        return couponService.updateCoupon(coupon);
     }
 
     @DeleteMapping("/{id}")

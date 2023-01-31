@@ -29,37 +29,19 @@ public class PianoTariffarioController {
     }
 
     @PostMapping("/add")
-    public PianoTariffario addPianoTariffario(@RequestBody PianoTariffario pianoTariffario) {
-        return pianoTariffarioService.addPianoTariffario(pianoTariffario);
-    }
-
-    @PostMapping("/add")
     public PianoTariffario addPianoTariffario(
-            @RequestParam Integer id,
             @RequestParam Double costo,
             @RequestParam Boolean newLetterService,
             @RequestParam Boolean emailService,
             @RequestParam Boolean calendarService,
             @RequestParam Boolean smsService
     ) {
-        return pianoTariffarioService.addPianoTariffario(id, costo, newLetterService, emailService, calendarService, smsService);
+        return pianoTariffarioService.addPianoTariffario(costo, newLetterService, emailService, calendarService, smsService);
     }
 
     @PostMapping("/update")
     public void updatePianoTariffario(@RequestBody PianoTariffario pianoTariffario) {
         pianoTariffarioService.updatePianoTariffario(pianoTariffario);
-    }
-
-    @PostMapping("/update")
-    public void updatePianoTariffario(
-            @RequestParam Integer id,
-            @RequestParam Double costo,
-            @RequestParam Boolean newLetterService,
-            @RequestParam Boolean emailService,
-            @RequestParam Boolean calendarService,
-            @RequestParam Boolean smsService
-    ) {
-        pianoTariffarioService.updatePianoTariffario(id, costo, newLetterService, emailService, calendarService, smsService);
     }
 
     @DeleteMapping("/{id}")

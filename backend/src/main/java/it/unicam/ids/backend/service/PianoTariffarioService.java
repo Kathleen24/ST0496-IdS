@@ -25,30 +25,16 @@ public class PianoTariffarioService {
         return pianoTariffarioRepository.findById(id).orElse(null);
     }
 
-    public PianoTariffario addPianoTariffario(PianoTariffario pianoTariffario) {
-        return pianoTariffarioRepository.save(pianoTariffario);
-    }
-
     public PianoTariffario addPianoTariffario(
-            Integer id, Double costo, Boolean newsLetterService,
-            Boolean emailService, Boolean calendarService, Boolean smsService
+            Double costo, Boolean newsLetterService, Boolean emailService, Boolean calendarService, Boolean smsService
     ) {
         return pianoTariffarioRepository.save(
-                new PianoTariffario(id, costo, newsLetterService, emailService, calendarService, smsService)
+                new PianoTariffario(costo, newsLetterService, emailService, calendarService, smsService)
         );
     }
 
     public void updatePianoTariffario(PianoTariffario pianoTariffario) {
         pianoTariffarioRepository.save(pianoTariffario);
-    }
-
-    public void updatePianoTariffario(
-            Integer id, Double costo, Boolean newsLetterService,
-            Boolean emailService, Boolean calendarService, Boolean smsService
-    ) {
-        pianoTariffarioRepository.save(
-                new PianoTariffario(id, costo, newsLetterService, emailService, calendarService, smsService)
-        );
     }
 
     public void deletePianoTariffario(Integer id) {

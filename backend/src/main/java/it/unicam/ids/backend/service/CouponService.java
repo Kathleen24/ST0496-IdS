@@ -45,8 +45,8 @@ public class CouponService {
         return couponRepository.save(coupon);
     }
 
-    public void updateCoupon(Coupon coupon) {
-        couponRepository.save(coupon);
+    public Coupon updateCoupon(Coupon coupon) {
+        return couponRepository.save(coupon);
     }
 
     public void deleteCoupon(Integer id) {
