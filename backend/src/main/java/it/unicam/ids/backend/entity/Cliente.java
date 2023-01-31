@@ -2,7 +2,7 @@ package it.unicam.ids.backend.entity;
 
 import jakarta.persistence.*;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.Objects;
 import java.util.Set;
 
@@ -15,7 +15,7 @@ public class Cliente {
     private Integer tessera;
 
     @OneToOne
-    @JoinColumn(name = "utentePiattaformaID", referencedColumnName = "id")
+    @JoinColumn(name = "utentePiattaformaID", referencedColumnName = "codFis")
     private UtentePiattaforma utentePiattaforma;
 
     @Column(name = "nomeUtente", unique = true)
@@ -23,15 +23,14 @@ public class Cliente {
     private String password;
     private String email;
     @OneToMany
-    @JoinColumn(name = "tessera") // tessera sta nella tabella ProgrammaFedeltaDelCliente
+    @JoinColumn(name = "tessera") // la colonna tessera sta nella tabella ProgrammaFedeltaDelCliente
     private Set<ProgrammaFedeltaDelCliente> programmiFedelta;
 
     private Date dataIscrizionePiattaforma;
 
 
     //region Costruttori
-    public Cliente() {
-    }
+    public Cliente() {}
 
     public Cliente(UtentePiattaforma utentePiattaforma, String nomeUtente, String password, String email, Set<ProgrammaFedeltaDelCliente> programmiFedelta, Date dataIscrizionePiattaforma) {
         this.utentePiattaforma = utentePiattaforma;
@@ -115,7 +114,6 @@ public class Cliente {
         this.dataIscrizionePiattaforma = dataIscrizione;
     }
     //endregion
-
 
     //region equals e hashCode
     @Override

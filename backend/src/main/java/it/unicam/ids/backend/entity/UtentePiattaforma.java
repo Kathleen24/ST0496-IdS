@@ -1,11 +1,11 @@
 package it.unicam.ids.backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -13,11 +13,11 @@ import java.util.Objects;
 public class UtentePiattaforma {
 
     @Id
-    @GeneratedValue
-    private int id;
+    private String codFis;
 
     private String nome;
     private String cognome;
+    @JsonFormat(pattern = "dd-MM-yyyy")
     private Date dataNascita;
     private String residenza;
 
@@ -25,8 +25,8 @@ public class UtentePiattaforma {
     //region Costruttori
     public UtentePiattaforma() {}
 
-    public UtentePiattaforma(int id, String nome, String cognome, Date dataNascita, String residenza) {
-        this.id = id;
+    public UtentePiattaforma(String codFis, String nome, String cognome, Date dataNascita, String residenza) {
+        this.codFis = codFis;
         this.nome = nome;
         this.cognome = cognome;
         this.dataNascita = dataNascita;
@@ -36,12 +36,12 @@ public class UtentePiattaforma {
 
 
     //region Getter e Setter
-    public int getId() {
-        return id;
+    public String getCodFis() {
+        return codFis;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setCodFis(String codFis) {
+        this.codFis = codFis;
     }
 
     public String getNome() {
@@ -82,16 +82,16 @@ public class UtentePiattaforma {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof UtentePiattaforma that)) return false;
-        return id == that.id &&
-                nome.equals(that.nome) &&
-                cognome.equals(that.cognome) &&
-                dataNascita.equals(that.dataNascita) &&
-                residenza.equals(that.residenza);
+        return Objects.equals(codFis, that.codFis) &&
+                Objects.equals(nome, that.nome) &&
+                Objects.equals(cognome, that.cognome) &&
+                Objects.equals(dataNascita, that.dataNascita) &&
+                Objects.equals(residenza, that.residenza);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nome, cognome, dataNascita, residenza);
+        return Objects.hash(codFis, nome, cognome, dataNascita, residenza);
     }
     //endregion
 }

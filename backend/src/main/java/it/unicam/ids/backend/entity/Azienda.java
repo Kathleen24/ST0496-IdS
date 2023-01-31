@@ -1,5 +1,6 @@
 package it.unicam.ids.backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -15,7 +16,9 @@ public class Azienda {
     @Id
     @GeneratedValue
     private Integer id;
-    private Date dataIscrizionePiattoforma;
+
+    @JsonFormat(pattern = "dd-MM-yyyy")
+    private Date dataIscrizionePiattaforma;
     private String nomeAzienda;
     private String terminiLegali;
     private String infoAttivita;
@@ -27,7 +30,7 @@ public class Azienda {
     }
 
     public Azienda(String nomeAzienda, String terminiLegali, String infoAttivita, String link) {
-        this.dataIscrizionePiattoforma = new Date();
+        this.dataIscrizionePiattaforma = new Date();
         this.nomeAzienda = nomeAzienda;
         this.terminiLegali = terminiLegali;
         this.infoAttivita = infoAttivita;
@@ -36,13 +39,14 @@ public class Azienda {
 
     public Azienda(Azienda azienda) {
         this.id = azienda.getId();
-        this.dataIscrizionePiattoforma = azienda.getDataIscrizionePiattoforma();
+        this.dataIscrizionePiattaforma = azienda.getDataIscrizionePiattaforma();
         this.nomeAzienda = azienda.getNomeAzienda();
         this.terminiLegali = azienda.getNomeAzienda();
         this.infoAttivita = azienda.getInfoAttivita();
         this.link = azienda.getLink();
     }
     //endregion
+
 
     //region Getter e Setter
     public Integer getId() {
@@ -53,12 +57,12 @@ public class Azienda {
         this.id = id;
     }
 
-    public Date getDataIscrizionePiattoforma() {
-        return dataIscrizionePiattoforma;
+    public Date getDataIscrizionePiattaforma() {
+        return dataIscrizionePiattaforma;
     }
 
-    public void setDataIscrizionePiattoforma(Date dataIscrizionePiattoforma) {
-        this.dataIscrizionePiattoforma = dataIscrizionePiattoforma;
+    public void setDataIscrizionePiattaforma(Date dataIscrizionePiattoforma) {
+        this.dataIscrizionePiattaforma = dataIscrizionePiattoforma;
     }
 
     public String getNomeAzienda() {

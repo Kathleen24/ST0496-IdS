@@ -7,6 +7,7 @@ import java.util.Objects;
 
 @Entity
 public class Abbonamento {
+
     @Id
     @GeneratedValue
     private Integer id;
@@ -18,6 +19,7 @@ public class Abbonamento {
     private Date dataIscrizione;
     private Date dataUltimoPagamento;
     private Boolean attivo;
+
 
     //region Costruttori
     public Abbonamento() {
@@ -50,6 +52,7 @@ public class Abbonamento {
     }
 
     //endregion
+
 
     //region Getter e Setter
 
@@ -102,7 +105,7 @@ public class Abbonamento {
     }
     //endregion
 
-
+    //region equals, hashCode e toString
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -143,4 +146,5 @@ public class Abbonamento {
                 ", attivo=" + attivo +
                 '.';
     }
+    //endregion
 }

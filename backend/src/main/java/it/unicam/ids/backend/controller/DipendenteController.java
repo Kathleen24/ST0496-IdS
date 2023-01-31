@@ -1,11 +1,14 @@
 package it.unicam.ids.backend.controller;
 
 import it.unicam.ids.backend.entity.Dipendente;
+import it.unicam.ids.backend.id.DipendenteID;
 import it.unicam.ids.backend.service.DipendenteService;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
+@RequestMapping("/dipendenti")
 public class DipendenteController {
 
     private final DipendenteService dipendenteService;
@@ -16,23 +19,28 @@ public class DipendenteController {
     }
 
 
+    @GetMapping("/all")
     public List<Dipendente> getAllDipendenti() {
         return dipendenteService.getAllDipendente();
     }
 
-    public Dipendente getDipendente(String nomeUtente) {
-        return dipendenteService.getDipendente(nomeUtente);
+    @GetMapping("/{nomeUtente}@{aziendaID}")
+    public Dipendente getDipendente(DipendenteID id) {
+        return dipendenteService.getDipendente(id);
     }
 
-    public void addDipendente(Dipendente dipendente) {
-        dipendenteService.addDipendente(dipendente);
+    @PostMapping("/add")
+    public Dipendente addDipendente(@RequestBody Dipendente dipendente) {
+        return dipendenteService.addDipendente(dipendente);
     }
 
-    public void updateDipendente(Dipendente dipendente) {
-        dipendenteService.updateDipendente(dipendente);
+    @PostMapping("/update")
+    public Dipendente updateDipendente(@RequestBody Dipendente dipendente) {
+        return dipendenteService.updateDipendente(dipendente);
     }
 
-    public void deleteDipendente(String nomeUtente) {
-        dipendenteService.deleteDipendente(nomeUtente);
+    @DeleteMapping("/{nomeUtente}@{aziendaID}")
+    public void deleteDipendente(DipendenteID id) {
+        dipendenteService.deleteDipendente(id);
     }
 }

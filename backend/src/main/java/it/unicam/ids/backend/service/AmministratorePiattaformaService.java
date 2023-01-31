@@ -1,15 +1,14 @@
 package it.unicam.ids.backend.service;
 
 import it.unicam.ids.backend.entity.AmministratorePiattaforma;
-import it.unicam.ids.backend.entity.Azienda;
 import it.unicam.ids.backend.repository.AmministratorePiattaformaRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.Objects;
-
 @Service
 public class AmministratorePiattaformaService {
+
     private final AmministratorePiattaformaRepository amministratorePiattaformaRepository;
+
 
     public AmministratorePiattaformaService(AmministratorePiattaformaRepository amministratorePiattaformaRepository) {
         this.amministratorePiattaformaRepository = amministratorePiattaformaRepository;
@@ -26,7 +25,7 @@ public class AmministratorePiattaformaService {
 
     public void updateAmministratorePiattaforma(String username, String password) {
         deleteAmministratorePiattaforma(username.hashCode());
-        addAmministratorePiattaforma(username,password);
+        addAmministratorePiattaforma(username, password);
     }
 
     public void deleteAmministratorePiattaforma(Integer username) {

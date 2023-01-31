@@ -32,8 +32,8 @@ public class ProgrammaFedeltaService {
         return programmaFedeltaRepository.findAll();
     }
 
-    public ProgrammaFedelta getProgrammaFedelta(Integer pfID) {
-        return programmaFedeltaRepository.findById(pfID).orElse(null);
+    public ProgrammaFedelta getProgrammaFedelta(Integer id) {
+        return programmaFedeltaRepository.findById(id).orElse(null);
     }
 
     public void addProgrammaFedelta(Integer aziendaID, List<Integer> bonus, List<Integer> soglie) {
@@ -55,7 +55,7 @@ public class ProgrammaFedeltaService {
         programmaFedeltaRepository.save(pf);
     }
 
-    public void deleteProgrammaFedelta(Integer pfID) {
-        programmaFedeltaRepository.deleteById(pfID);
+    public void deleteProgrammaFedelta(Integer id) {
+        programmaFedeltaRepository.deleteById(id);
     }
 }

@@ -6,14 +6,17 @@ import jakarta.persistence.*;
 import java.util.Objects;
 
 @Entity
+@IdClass(DipendenteID.class)
 @Table(name="Dipendente")
 public class Dipendente {
 
-    @EmbeddedId
-    private DipendenteID id;
+    @Id
+    private String nomeUtente;
+    @Id
+    private Integer aziendaID;
 
     @ManyToOne
-    @JoinColumn(name = "utentePiattaforma", referencedColumnName = "id")
+    @JoinColumn(name = "utentePiattaforma", referencedColumnName = "codFis")
     private UtentePiattaforma utentePiattaforma;
     @OneToOne
     @MapsId("aziendaID")
@@ -29,11 +32,11 @@ public class Dipendente {
 
 
     //region Costruttori
-    public Dipendente() {
-    }
+    public Dipendente() {}
 
-    public Dipendente(DipendenteID id, String password, UtentePiattaforma utentePiattaforma, Azienda azienda, Boolean gestorePunti, Boolean gestoreDipendenti, Boolean gestoreInformazioni, Boolean gestoreProgrammiFedelta, Boolean responsabile) {
-        this.id = id;
+    public Dipendente(String nomeUtente, Integer aziendaID, String password, UtentePiattaforma utentePiattaforma, Azienda azienda, Boolean gestorePunti, Boolean gestoreDipendenti, Boolean gestoreInformazioni, Boolean gestoreProgrammiFedelta, Boolean responsabile) {
+        this.nomeUtente = nomeUtente;
+        this.aziendaID = aziendaID;
         this.password = password;
         this.utentePiattaforma = utentePiattaforma;
         this.azienda = azienda;
@@ -45,7 +48,8 @@ public class Dipendente {
     }
 
     public Dipendente(Dipendente d) {
-        this.id = d.getId();
+        this.nomeUtente = d.getNomeUtente();
+        this.aziendaID = d.getAziendaID();
         this.password = d.getPassword();
         this.utentePiattaforma = d.getUtentePiattaforma();
         this.azienda = d.getAzienda();
@@ -59,12 +63,20 @@ public class Dipendente {
 
 
     //region Getter e Setter
-    public DipendenteID getId() {
-        return id;
+    public String getNomeUtente() {
+        return nomeUtente;
     }
 
-    public void setId(DipendenteID id) {
-        this.id = id;
+    public void setNomeUtente(String nomeUtente) {
+        this.nomeUtente = nomeUtente;
+    }
+
+    public Integer getAziendaID() {
+        return aziendaID;
+    }
+
+    public void setAziendaID(Integer aziendaID) {
+        this.aziendaID = aziendaID;
     }
 
     public UtentePiattaforma getUtentePiattaforma() {
@@ -137,15 +149,24 @@ public class Dipendente {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Dipendente that)) return false;
-        return id.equals(that.id) &&
-                utentePiattaforma.equals(that.utentePiattaforma) &&
-                azienda.equals(that.azienda) &&
-                password.equals(that.password);
+        return Objects.equals(nomeUtente, that.nomeUtente) &&
+                Objects.equals(aziendaID, that.aziendaID) &&
+                Objects.equals(utentePiattaforma, that.utentePiattaforma) &&
+                Objects.equals(azienda, that.azienda) &&
+                Objects.equals(password, that.password) &&
+                Objects.equals(gestorePunti, that.gestorePunti) &&
+                Objects.equals(gestoreDipendenti, that.gestoreDipendenti) &&
+                Objects.equals(gestoreInformazioni, that.gestoreInformazioni) &&
+                Objects.equals(gestoreProgrammiFedelta, that.gestoreProgrammiFedelta) &&
+                Objects.equals(responsabile, that.responsabile);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, utentePiattaforma, azienda, password);
+        return Objects.hash(
+                nomeUtente, aziendaID, utentePiattaforma, azienda, password, gestorePunti,
+                gestoreDipendenti, gestoreInformazioni, gestoreProgrammiFedelta, responsabile
+        );
     }
     //endregion
 }

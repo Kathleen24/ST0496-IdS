@@ -6,10 +6,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Objects;
 
-
 @RestController
 @RequestMapping("/amministratorePiattaforma")
 public class AmministratorePiattaformaController {
+
     private final AmministratorePiattaformaService amministratorePiattaformaService;
 
 
@@ -17,13 +17,13 @@ public class AmministratorePiattaformaController {
         this.amministratorePiattaformaService = amministratorePiattaformaService;
     }
 
+
     @GetMapping("/{username}")
-    public AmministratorePiattaforma getAmministratorePiattaforma(String username) {
+    public AmministratorePiattaforma getAmministratorePiattaforma(@PathVariable String username) {
         return amministratorePiattaformaService.getAmministratorePiattaforma(Objects.hash(username));
     }
 
     public void updateAmministratorePiattaforma(String username, String password) {
-        amministratorePiattaformaService.updateAmministratorePiattaforma(username,password);
+        amministratorePiattaformaService.updateAmministratorePiattaforma(username, password);
     }
-
 }

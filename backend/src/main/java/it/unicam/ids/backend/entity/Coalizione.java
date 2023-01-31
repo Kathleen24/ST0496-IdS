@@ -2,7 +2,7 @@ package it.unicam.ids.backend.entity;
 
 import jakarta.persistence.*;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -30,6 +30,15 @@ public class Coalizione {
     //region Costruttori
     public Coalizione() {}
 
+    public Coalizione(ProgrammaFedelta programmaFedelta, Azienda aziendaDestinataria, Date dataInizio, Date dataFine) {
+        this.programmaFedelta = programmaFedelta;
+        this.aziendaDestinataria = aziendaDestinataria;
+        this.aziendaMittente = programmaFedelta.getAzienda();
+        this.dataInizio = dataInizio;
+        this.dataFine = dataFine;
+        this.stato = Stato.INATTESA_INATTIVA;
+    }
+
     public Coalizione(Integer id, ProgrammaFedelta programmaFedelta, Azienda aziendaDestinataria, Date dataInizio, Date dataFine) {
         this.id = id;
         this.programmaFedelta = programmaFedelta;
@@ -51,6 +60,15 @@ public class Coalizione {
     }
     //endregion
 
+
+    /**
+     * Determina se questa coalizione è nello stato {@link Stato#INATTESA_INATTIVA INATTESA_INATTIVA}
+     *
+     * @return true se ci si trova, false altrimenti
+     */
+    public boolean isInAttesaEAccettabile() {
+        return stato.equals(Stato.INATTESA_INATTIVA);
+    }
 
     //region Getter e Setter
     public Integer getId() {
