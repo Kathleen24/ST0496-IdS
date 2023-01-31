@@ -16,7 +16,7 @@ public class Dipendente {
     private Integer aziendaID;
 
     @ManyToOne
-    @JoinColumn(name = "utentePiattaforma", referencedColumnName = "id")
+    @JoinColumn(name = "utentePiattaforma", referencedColumnName = "codFis")
     private UtentePiattaforma utentePiattaforma;
     @OneToOne
     @MapsId("aziendaID")

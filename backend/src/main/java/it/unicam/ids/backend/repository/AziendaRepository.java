@@ -20,6 +20,6 @@ public interface AziendaRepository extends JpaRepository<Azienda, Integer> {
      *
      * @return la lista di aziende
      */
-    @Query("SELECT a FROM Azienda a WHERE a.dataIscrizionePiattoforma BETWEEN :start AND :end")
+    @Query("SELECT a FROM Azienda a WHERE a.dataIscrizionePiattaforma BETWEEN :start AND :end")
     List<Azienda> findAziendeNellIntervalloDiTempo(@Param("start") Date start, @Param("end") Date end);
 }

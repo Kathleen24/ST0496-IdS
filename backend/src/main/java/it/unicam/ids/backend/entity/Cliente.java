@@ -2,7 +2,7 @@ package it.unicam.ids.backend.entity;
 
 import jakarta.persistence.*;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.Objects;
 import java.util.Set;
 
@@ -15,7 +15,7 @@ public class Cliente {
     private Integer tessera;
 
     @OneToOne
-    @JoinColumn(name = "utentePiattaformaID", referencedColumnName = "id")
+    @JoinColumn(name = "utentePiattaformaID", referencedColumnName = "codFis")
     private UtentePiattaforma utentePiattaforma;
 
     @Column(name = "nomeUtente", unique = true)
