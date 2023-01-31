@@ -11,8 +11,8 @@ import java.util.Objects;
 public class AmministratorePiattaforma {
 
     @Id
-    private Integer username;
-    private Integer password;
+    private String username;
+    private String password;
 
 
     //region Costruttori
@@ -25,8 +25,8 @@ public class AmministratorePiattaforma {
      * @param password la password
      */
     public AmministratorePiattaforma(String username, String password) {
-        this.username = username.hashCode();
-        this.password = password.hashCode();
+        this.username = username.hashCode() + "";
+        this.password = password.hashCode() + "";
     }
     //endregion
 
@@ -48,15 +48,15 @@ public class AmministratorePiattaforma {
     }
 
     public void setUsername(String username) {
-        this.username = username.hashCode();
+        this.username = username.hashCode()+"";
     }
 
-    public int getPassword() {
+    public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
-        this.password =password.hashCode();
+        this.password =password.hashCode()+"";
     }
     //endregion
 

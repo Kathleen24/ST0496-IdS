@@ -1,22 +1,33 @@
 package it.unicam.ids.backend.controller;
 
 import it.unicam.ids.backend.entity.ProgrammaFedelta;
+import it.unicam.ids.backend.service.AziendaService;
 import it.unicam.ids.backend.service.ProgrammaFedeltaService;
+import org.springframework.web.bind.annotation.*;
+import it.unicam.ids.backend.util.EntityValidator;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/programmiFedelta")
-public class ProgrammaFedeltaController {
+public class ProgrammaFedeltaController implements EntityValidator<ProgrammaFedelta> {
 
     private final ProgrammaFedeltaService programmaFedeltaService;
+    private AziendaService aziendaService;
 
 
-    public ProgrammaFedeltaController(ProgrammaFedeltaService programmaFedeltaService) {
+    public ProgrammaFedeltaController(ProgrammaFedeltaService programmaFedeltaService, AziendaService aziendaService) {
         this.programmaFedeltaService = programmaFedeltaService;
+        this.aziendaService = aziendaService;
     }
 
+    public void validateEntity(ProgrammaFedelta programmaFedelta) {
+        if (programmaFedelta==null)
+            throw new NullPointerException("L'oggetto programma fedeltà è nullo");
+        if(aziendaService.getAzienda(programmaFedelta.getAzienda().getId())==null)
+            throw new IllegalArgumentException("L'azienda inserita non è esistente");
+    }
 
     @GetMapping("/all")
     public List<ProgrammaFedelta> getAllProgrammiFedelta() {

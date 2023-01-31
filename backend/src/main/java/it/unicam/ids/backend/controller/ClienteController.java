@@ -1,14 +1,17 @@
 package it.unicam.ids.backend.controller;
 
+import it.unicam.ids.backend.entity.Abbonamento;
 import it.unicam.ids.backend.entity.Cliente;
 import it.unicam.ids.backend.service.ClienteService;
+import it.unicam.ids.backend.util.EntityValidator;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.regex.Pattern;
 
 @RestController
 @RequestMapping("/clienti")
-public class ClienteController {
+public class ClienteController implements EntityValidator<Cliente> {
 
     private final ClienteService clienteService;
 
@@ -17,7 +20,19 @@ public class ClienteController {
         this.clienteService = clienteService;
     }
 
+    public void validateEntity(Cliente cliente) {
+        if (cliente==null)
+            throw new NullPointerException("L'oggetto cliente è nullo");
+        if(clienteService.getCliente(cliente.getTessera())!=null)
+            throw new IllegalArgumentException("La tessera è già esistente");
+        //nome utente
+        if(!clienteService.getAllClienti().stream().filter(c->c.getEmail().equals(cliente.getEmail())).findFirst().isEmpty())
+            throw new IllegalArgumentException("L'email è già esistente");
+        if(!Pattern.compile("^(.+)@(\\S+)$").matcher(cliente.getEmail()).matches())
+            throw new IllegalArgumentException("L'email inserita non è ben composta");
+        //password String
 
+    }
     @GetMapping("/all")
     public List<Cliente> getAllClienti() {
         return clienteService.getAllClienti();

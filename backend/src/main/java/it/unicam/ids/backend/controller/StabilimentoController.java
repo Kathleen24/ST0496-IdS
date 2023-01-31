@@ -1,14 +1,16 @@
 package it.unicam.ids.backend.controller;
 
+import it.unicam.ids.backend.entity.Abbonamento;
 import it.unicam.ids.backend.entity.Stabilimento;
 import it.unicam.ids.backend.id.StabilimentoID;
 import it.unicam.ids.backend.service.StabilimentoService;
+import it.unicam.ids.backend.util.EntityValidator;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
-public class StabilimentoController {
+public class StabilimentoController implements EntityValidator<Stabilimento> {
 
     private final StabilimentoService stabilimentoService;
 
@@ -17,6 +19,10 @@ public class StabilimentoController {
         this.stabilimentoService = stabilimentoService;
     }
 
+    public void validateEntity(Stabilimento stabilimento) {
+        if (stabilimento==null)
+            throw new NullPointerException("L'oggetto stabilimento è nullo");
+    }
 
     public List<Stabilimento> getAllStabilimenti() {
         return stabilimentoService.getAllStabilimenti();

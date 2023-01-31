@@ -1,15 +1,16 @@
 package it.unicam.ids.backend.controller;
 
+import it.unicam.ids.backend.entity.Abbonamento;
 import it.unicam.ids.backend.entity.PianoTariffario;
 import it.unicam.ids.backend.service.PianoTariffarioService;
+import it.unicam.ids.backend.util.EntityValidator;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/pianoTariffario")
-public class PianoTariffarioController {
-
+public class PianoTariffarioController implements EntityValidator<PianoTariffario> {
     private final PianoTariffarioService pianoTariffarioService;
 
 
@@ -17,6 +18,13 @@ public class PianoTariffarioController {
         this.pianoTariffarioService = pianoTariffarioService;
     }
 
+
+    public void validateEntity(PianoTariffario pianoTariffario) {
+        if (pianoTariffario==null)
+            throw new NullPointerException("L'oggetto piano tariffario è nullo");
+        if(pianoTariffario.getCosto()<=0)
+            throw new IllegalArgumentException("Il costo non puo essere minore uguale a zero");
+    }
 
     @GetMapping("/all")
     public List<PianoTariffario> getAllPianiTariffari() {

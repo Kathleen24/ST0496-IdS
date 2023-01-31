@@ -1,14 +1,16 @@
 package it.unicam.ids.backend.controller;
 
+import it.unicam.ids.backend.entity.Abbonamento;
 import it.unicam.ids.backend.entity.Azienda;
 import it.unicam.ids.backend.service.AziendaService;
+import it.unicam.ids.backend.util.EntityValidator;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/azienda")
-public class AziendaController {
+public class AziendaController implements EntityValidator<Azienda> {
 
     private final AziendaService aziendaService;
 
@@ -17,6 +19,12 @@ public class AziendaController {
         this.aziendaService = aziendaService;
     }
 
+    public void validateEntity(Azienda azienda) {
+        if (azienda==null)
+            throw new NullPointerException("L'oggetto azienda è nullo");
+        if(azienda.getNomeAzienda()=="null")
+            throw new IllegalArgumentException("Il nome dell'azienda non puo essere nullo");
+    }
 
     @GetMapping("/all")
     public List<Azienda> getAllAziende() {
