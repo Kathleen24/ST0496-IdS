@@ -19,10 +19,12 @@ public class ClienteController implements EntityValidator<Cliente> {
     private final ClienteService clienteService;
     private final QRCodeService qrCodeService;
 
+
     public ClienteController(ClienteService clienteService, QRCodeService qrCodeService) {
         this.clienteService = clienteService;
         this.qrCodeService = qrCodeService;
     }
+
 
     public void validateEntity(Cliente cliente) {
         if (cliente==null)
@@ -35,26 +37,30 @@ public class ClienteController implements EntityValidator<Cliente> {
         if(!Pattern.compile("^(.+)@(\\S+)$").matcher(cliente.getEmail()).matches())
             throw new IllegalArgumentException("L'email inserita non è ben composta");
         //password String
-
     }
+
     @GetMapping("/all")
     public List<Cliente> getAllClienti() {
         return clienteService.getAllClienti();
     }
 
-    public Cliente getCliente(Integer tessera) {
+    @GetMapping("/{tessera}")
+    public Cliente getCliente(@PathVariable Integer tessera) {
         return clienteService.getCliente(tessera);
     }
 
-    public void addCliente(Cliente cliente) {
-        clienteService.addCliente(cliente);
+    @PostMapping("/add")
+    public Cliente addCliente(@RequestBody Cliente cliente) {
+        return clienteService.addCliente(cliente);
     }
 
-    public void updateCliente(Cliente cliente) {
-        clienteService.updateCliente(cliente);
+    @PostMapping("/update")
+    public Cliente updateCliente(@RequestBody Cliente cliente) {
+        return clienteService.updateCliente(cliente);
     }
 
-    public void deleteCliente(Integer tessera) {
+    @DeleteMapping("/{tessera}")
+    public void deleteCliente(@PathVariable Integer tessera) {
         clienteService.deleteCliente(tessera);
     }
 
@@ -66,11 +72,6 @@ public class ClienteController implements EntityValidator<Cliente> {
     @PostMapping("/addPunti")
     public void addPunti(@RequestParam Integer tessera, @RequestParam Integer pfId, @RequestParam int punti) {
         clienteService.addPunti(tessera, pfId, punti);
-    }
-
-    //Per sequence diagram Visualizza dati personali
-    public String visualizzaDatiPersonali(Integer tessera){
-        return getCliente(tessera).toString();
     }
 
     /**

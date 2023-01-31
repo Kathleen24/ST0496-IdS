@@ -13,10 +13,12 @@ public class Bonus {
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "aziendaID", referencedColumnName = "id")
+    @JoinColumn(name = "aziendaID", referencedColumnName = "id", nullable = false)
     private Azienda azienda;
+    @Column(nullable = false)
     private Integer valore;
     private String descrizione;
+    @Column(nullable = false)
     private Tipo tipo;
 
 
@@ -31,6 +33,18 @@ public class Bonus {
     }
     //endregion
 
+
+    /**
+     * Copia tutti gli attributi tranne l'id da un'altra istanza della classe
+     *
+     * @param other un'altra istanza di <code>Bonus</code>
+     */
+    public void copyFrom(Bonus other) {
+        //setAzienda(other.getAzienda());
+        setValore(other.getValore());
+        setDescrizione(other.getDescrizione());
+        setTipo(other.getTipo());
+    }
 
     //region Getter e Setter
     public Integer getId() {
@@ -69,8 +83,8 @@ public class Bonus {
         return tipo;
     }
 
-    public void setTipo(Tipo type) {
-        this.tipo = type;
+    public void setTipo(Tipo tipo) {
+        this.tipo = tipo;
     }
     //endregion
 

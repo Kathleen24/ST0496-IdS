@@ -29,8 +29,8 @@ public class AziendaService {
         return aziendaRepository.save(new Azienda(nome, terminiLegali, infoAttivita, link));
     }
 
-    public void updateAzienda(Azienda azienda) {
-        aziendaRepository.save(azienda);
+    public Azienda updateAzienda(Azienda azienda) {
+        return aziendaRepository.save(azienda);
     }
 
     public void deleteAzienda(Integer id) {

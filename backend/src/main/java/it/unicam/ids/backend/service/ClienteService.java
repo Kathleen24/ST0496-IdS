@@ -5,6 +5,7 @@ import it.unicam.ids.backend.entity.ProgrammaFedeltaDelCliente;
 import it.unicam.ids.backend.repository.ClienteRepository;
 import it.unicam.ids.backend.repository.ProgrammaFedeltaDelClienteRepository;
 import it.unicam.ids.backend.repository.ProgrammaFedeltaRepository;
+import it.unicam.ids.backend.repository.UtentePiattaformaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,16 +15,19 @@ import java.util.Set;
 public class ClienteService {
 
     private final ClienteRepository clienteRepository;
+    private final UtentePiattaformaRepository utentePiattaformaRepository;
     private final ProgrammaFedeltaDelClienteRepository programmaFedeltaDelClienteRepository;
     private final ProgrammaFedeltaRepository programmaFedeltaRepository;
 
 
     public ClienteService(
             ClienteRepository clienteRepository,
+            UtentePiattaformaRepository utentePiattaformaRepository,
             ProgrammaFedeltaDelClienteRepository programmaFedeltaDelClienteRepository,
             ProgrammaFedeltaRepository programmaFedeltaRepository
     ) {
         this.clienteRepository = clienteRepository;
+        this.utentePiattaformaRepository = utentePiattaformaRepository;
         this.programmaFedeltaDelClienteRepository = programmaFedeltaDelClienteRepository;
         this.programmaFedeltaRepository = programmaFedeltaRepository;
     }
@@ -37,12 +41,13 @@ public class ClienteService {
         return clienteRepository.findById(tessera).orElse(null);
     }
 
-    public void addCliente(Cliente cliente) {
-        clienteRepository.saveAndFlush(cliente);
+    public Cliente addCliente(Cliente cliente) {
+        utentePiattaformaRepository.save(cliente.getUtentePiattaforma());
+        return clienteRepository.save(cliente);
     }
 
-    public void updateCliente(Cliente cliente) {
-        clienteRepository.saveAndFlush(cliente);
+    public Cliente updateCliente(Cliente cliente) {
+        return clienteRepository.save(cliente);
     }
 
     public void deleteCliente(Integer tessera) {
@@ -52,13 +57,12 @@ public class ClienteService {
     public void addProgrammaFedelta(Integer tessera, Integer pfId) {
         Cliente cliente = getCliente(tessera);
         cliente.getProgrammiFedelta().add(
-            programmaFedeltaDelClienteRepository.saveAndFlush(new ProgrammaFedeltaDelCliente(
+            programmaFedeltaDelClienteRepository.save(new ProgrammaFedeltaDelCliente(
                     pfId, tessera,
                     programmaFedeltaRepository.findById(pfId).orElseThrow()
             ))
         );
-        clienteRepository.saveAndFlush(cliente);
-        // TODO: 25/01/23 Test
+        clienteRepository.save(cliente);
     }
 
     public void addPunti(Integer tessera, Integer pfID, int punti) {

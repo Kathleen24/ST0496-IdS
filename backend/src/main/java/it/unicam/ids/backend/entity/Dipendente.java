@@ -7,7 +7,7 @@ import java.util.Objects;
 
 @Entity
 @IdClass(DipendenteID.class)
-@Table(name="Dipendente")
+@Table(name = "Dipendente")
 public class Dipendente {
 
     @Id
@@ -18,7 +18,7 @@ public class Dipendente {
     @ManyToOne
     @JoinColumn(name = "utentePiattaforma", referencedColumnName = "codFis")
     private UtentePiattaforma utentePiattaforma;
-    @OneToOne
+    @ManyToOne
     @MapsId("aziendaID")
     @JoinColumn(name = "aziendaID", referencedColumnName = "id")
     private Azienda azienda;

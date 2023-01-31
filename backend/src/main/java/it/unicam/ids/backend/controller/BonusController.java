@@ -41,32 +41,24 @@ public class BonusController implements EntityValidator<Bonus> {
     }
 
     @PostMapping("/add")
-    public void addBonus(
+    public Bonus addBonus(
             @RequestParam Integer aziendaID,
             @RequestParam Integer valore,
             @RequestParam(defaultValue = "") String descrizione,
             @RequestParam Bonus.Tipo tipo
     ) {
-        Bonus bonus = bonusService.addBonus(aziendaID, valore, descrizione, tipo);
+        return bonusService.addBonus(aziendaID, valore, descrizione, tipo);
     }
 
-    public void updateBonus(Bonus bonus) {
-        bonusService.updateBonus(bonus);
+    @PostMapping("/update")
+    public Bonus updateBonus(@RequestBody Bonus bonus) {
+        return bonusService.updateBonus(bonus);
     }
 
-    //Per sequence diagram Eliminazione bonus
     @DeleteMapping("/{id}")
     public void deleteBonus(@PathVariable Integer id) {
         //"Vuoi procedere all'eliminazione?" S/N
         bonusService.deleteBonus(id);
-    }
-
-    //Per sequence diagram Creazione bonus
-    public void creaBonus(String nome, String descrizione){
-        System.out.println(getAllBonusType());
-        //utente sceglie tipo e valore
-        //Bonus bonus = new Bonus(1, azienda, 10,"Primo bonus",PUNTI);
-        //addBonus(bonus);
     }
 
     public String getAllBonusType() { //da controllare

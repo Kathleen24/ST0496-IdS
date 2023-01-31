@@ -37,17 +37,18 @@ public class AziendaController implements EntityValidator<Azienda> {
     }
 
     @PostMapping("/add")
-    public void addAzienda(
+    public Azienda addAzienda(
             @RequestParam String nome,
             @RequestParam String terminiLegali,
             @RequestParam(defaultValue = "") String infoAttivita,
             @RequestParam(defaultValue = "") String link
     ) {
-        Azienda azienda = aziendaService.addAzienda(nome, terminiLegali, infoAttivita, link);
+        return aziendaService.addAzienda(nome, terminiLegali, infoAttivita, link);
     }
 
-    public void updateAzienda(Azienda azienda) {
-        aziendaService.updateAzienda(azienda);
+    @PostMapping("/update")
+    public Azienda updateAzienda(Azienda azienda) {
+        return aziendaService.updateAzienda(azienda);
     }
 
     @DeleteMapping("/{id}")

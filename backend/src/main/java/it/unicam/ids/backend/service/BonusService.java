@@ -38,8 +38,8 @@ public class BonusService {
         ));
     }
 
-    public void updateBonus(Bonus bonus) {
-        bonusRepository.save(bonus);
+    public Bonus updateBonus(Bonus bonus) {
+        return bonusRepository.save(bonus);
     }
 
     public void deleteBonus(Integer id) {
