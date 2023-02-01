@@ -1,8 +1,9 @@
 package it.unicam.ids.backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
@@ -22,18 +23,18 @@ public class Coupon {
 
     private Integer valore;
     private Boolean usato;
-    private Date dataScadenza;
+    @JsonFormat(pattern = "dd-MM-yyyy")
+    private LocalDate dataScadenza;
 
 
     //region Costruttori
-    public Coupon() {
-    }
+    public Coupon() {}
 
-    public Coupon(Azienda azienda, Cliente cliente, Integer valore, Date dataScadenza) {
+    public Coupon(Azienda azienda, Cliente cliente, Integer valore, LocalDate dataScadenza) {
         this(azienda, cliente, valore, false, dataScadenza);
     }
 
-    public Coupon(Azienda azienda, Cliente cliente, Integer valore, Boolean usato, Date dataScadenza) {
+    public Coupon(Azienda azienda, Cliente cliente, Integer valore, Boolean usato, LocalDate dataScadenza) {
         this.azienda = azienda;
         this.cliente = cliente;
         this.valore = valore;
@@ -93,11 +94,11 @@ public class Coupon {
         this.usato = usato;
     }
 
-    public Date getDataScadenza() {
+    public LocalDate getDataScadenza() {
         return dataScadenza;
     }
 
-    public void setDataScadenza(Date dataScadenza) {
+    public void setDataScadenza(LocalDate dataScadenza) {
         this.dataScadenza = dataScadenza;
     }
     //endregion

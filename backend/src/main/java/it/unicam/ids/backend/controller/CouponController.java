@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 
 import java.awt.image.BufferedImage;
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -54,7 +54,8 @@ public class CouponController implements EntityValidator<Coupon> {
     public Coupon addCoupon(
             @RequestParam Integer aziendaID,
             @RequestParam(defaultValue = "-1") Integer tessera,
-            @RequestParam Integer valore, @RequestParam Date dataScadenza
+            @RequestParam Integer valore,
+            @RequestParam LocalDate dataScadenza
     ) {
         return couponService.addCoupon(aziendaID, tessera, valore, dataScadenza);
     }

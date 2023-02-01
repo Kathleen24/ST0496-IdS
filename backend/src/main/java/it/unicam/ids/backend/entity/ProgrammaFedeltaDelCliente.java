@@ -1,10 +1,11 @@
 package it.unicam.ids.backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import it.unicam.ids.backend.id.ProgrammaFedeltaDelClienteID;
 import jakarta.persistence.*;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
@@ -27,7 +28,8 @@ public class ProgrammaFedeltaDelCliente {
 
     private Integer puntiRaccolti;
     private boolean sonoXp;
-    private Date dataIscrizione;
+    @JsonFormat(pattern = "dd-MM-yyyy")
+    private LocalDate dataIscrizione;
 
 
     //region Costruttori
@@ -39,10 +41,10 @@ public class ProgrammaFedeltaDelCliente {
         this.programmaFedelta = programmaFedelta;
         this.puntiRaccolti = 0;
         this.sonoXp = false;
-        this.dataIscrizione = new Date();
+        this.dataIscrizione = LocalDate.now();
     }
 
-    public ProgrammaFedeltaDelCliente(Integer programmaFedeltaID, Integer tessera, ProgrammaFedelta programmaFedelta, Integer puntiRaccolti, boolean sonoXp, Date dataIscrizione) {
+    public ProgrammaFedeltaDelCliente(Integer programmaFedeltaID, Integer tessera, ProgrammaFedelta programmaFedelta, Integer puntiRaccolti, boolean sonoXp, LocalDate dataIscrizione) {
         this.programmaFedeltaID = programmaFedeltaID;
         this.tessera = tessera;
         this.programmaFedelta = programmaFedelta;
@@ -99,11 +101,11 @@ public class ProgrammaFedeltaDelCliente {
         this.sonoXp = sonoXp;
     }
 
-    public Date getDataIscrizione() {
+    public LocalDate getDataIscrizione() {
         return dataIscrizione;
     }
 
-    public void setDataIscrizione(Date dataIscrizione) {
+    public void setDataIscrizione(LocalDate dataIscrizione) {
         this.dataIscrizione = dataIscrizione;
     }
     //endregion

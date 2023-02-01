@@ -6,7 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
@@ -22,7 +22,7 @@ public class UtentePiattaforma {
     private String cognome;
     @JsonFormat(pattern = "dd-MM-yyyy")
     @Column(nullable = false)
-    private Date dataNascita;
+    private LocalDate dataNascita;
     @Column(nullable = false)
     private String residenza;
 
@@ -30,7 +30,7 @@ public class UtentePiattaforma {
     //region Costruttori
     public UtentePiattaforma() {}
 
-    public UtentePiattaforma(String codFis, String nome, String cognome, Date dataNascita, String residenza) {
+    public UtentePiattaforma(String codFis, String nome, String cognome, LocalDate dataNascita, String residenza) {
         this.codFis = codFis;
         this.nome = nome;
         this.cognome = cognome;
@@ -65,11 +65,11 @@ public class UtentePiattaforma {
         this.cognome = cognome;
     }
 
-    public Date getDataNascita() {
+    public LocalDate getDataNascita() {
         return dataNascita;
     }
 
-    public void setDataNascita(Date dataNascita) {
+    public void setDataNascita(LocalDate dataNascita) {
         this.dataNascita = dataNascita;
     }
 

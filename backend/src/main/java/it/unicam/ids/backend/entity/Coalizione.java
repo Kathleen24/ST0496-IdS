@@ -2,7 +2,7 @@ package it.unicam.ids.backend.entity;
 
 import jakarta.persistence.*;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
@@ -22,15 +22,15 @@ public class Coalizione {
 
     @Transient
     private Azienda aziendaMittente;
-    private Date dataInizio;
-    private Date dataFine;
+    private LocalDate dataInizio;
+    private LocalDate dataFine;
     private Stato stato;
 
 
     //region Costruttori
     public Coalizione() {}
 
-    public Coalizione(ProgrammaFedelta programmaFedelta, Azienda aziendaDestinataria, Date dataInizio, Date dataFine) {
+    public Coalizione(ProgrammaFedelta programmaFedelta, Azienda aziendaDestinataria, LocalDate dataInizio, LocalDate dataFine) {
         this.programmaFedelta = programmaFedelta;
         this.aziendaDestinataria = aziendaDestinataria;
         this.aziendaMittente = programmaFedelta.getAzienda();
@@ -39,7 +39,7 @@ public class Coalizione {
         this.stato = Stato.INATTESA_INATTIVA;
     }
 
-    public Coalizione(Integer id, ProgrammaFedelta programmaFedelta, Azienda aziendaDestinataria, Date dataInizio, Date dataFine) {
+    public Coalizione(Integer id, ProgrammaFedelta programmaFedelta, Azienda aziendaDestinataria, LocalDate dataInizio, LocalDate dataFine) {
         this.id = id;
         this.programmaFedelta = programmaFedelta;
         this.aziendaDestinataria = aziendaDestinataria;
@@ -49,7 +49,7 @@ public class Coalizione {
         this.stato = Stato.INATTESA_INATTIVA;
     }
 
-    public Coalizione(Integer id, ProgrammaFedelta programmaFedelta, Azienda aziendaDestinataria, Date dataInizio, Date dataFine, Stato stato) {
+    public Coalizione(Integer id, ProgrammaFedelta programmaFedelta, Azienda aziendaDestinataria, LocalDate dataInizio, LocalDate dataFine, Stato stato) {
         this.id = id;
         this.programmaFedelta = programmaFedelta;
         this.aziendaDestinataria = aziendaDestinataria;
@@ -103,19 +103,19 @@ public class Coalizione {
         this.aziendaMittente = aziendaMittente;
     }
 
-    public Date getDataInizio() {
+    public LocalDate getDataInizio() {
         return dataInizio;
     }
 
-    public void setDataInizio(Date dataInizio) {
+    public void setDataInizio(LocalDate dataInizio) {
         this.dataInizio = dataInizio;
     }
 
-    public Date getDataFine() {
+    public LocalDate getDataFine() {
         return dataFine;
     }
 
-    public void setDataFine(Date dataFine) {
+    public void setDataFine(LocalDate dataFine) {
         this.dataFine = dataFine;
     }
 

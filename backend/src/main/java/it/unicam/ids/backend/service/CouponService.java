@@ -6,7 +6,7 @@ import it.unicam.ids.backend.repository.ClienteRepository;
 import it.unicam.ids.backend.repository.CouponRepository;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -36,7 +36,7 @@ public class CouponService {
         return couponRepository.findById(id).orElse(null);
     }
 
-    public Coupon addCoupon(Integer aziendaID, Integer tessera, Integer valore, Date dataScadenza) {
+    public Coupon addCoupon(Integer aziendaID, Integer tessera, Integer valore, LocalDate dataScadenza) {
         Coupon coupon = new Coupon(
                 aziendaRepository.findById(aziendaID).orElseThrow(),
                 clienteRepository.findById(tessera).orElse(null),

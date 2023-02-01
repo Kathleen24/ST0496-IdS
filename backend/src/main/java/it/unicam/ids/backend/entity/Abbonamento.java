@@ -2,7 +2,7 @@ package it.unicam.ids.backend.entity;
 
 import jakarta.persistence.*;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
@@ -16,19 +16,18 @@ public class Abbonamento {
     @JoinColumn(name = "pianoTariffario", referencedColumnName = "id")
     private PianoTariffario pianoTariffario;
     private String descrizione;
-    private Date dataIscrizione;
-    private Date dataUltimoPagamento;
+    private LocalDate dataIscrizione;
+    private LocalDate dataUltimoPagamento;
     private Boolean attivo;
 
 
     //region Costruttori
-    public Abbonamento() {
-    }
+    public Abbonamento() {}
 
     public Abbonamento(PianoTariffario pianoTariffario, String descrizione, Boolean attivo) {
         this.pianoTariffario = pianoTariffario;
         this.descrizione = descrizione;
-        this.dataIscrizione = new Date();
+        this.dataIscrizione = LocalDate.now();
         this.dataUltimoPagamento = null;
         this.attivo = attivo;
     }
@@ -37,7 +36,7 @@ public class Abbonamento {
         this.id = id;
         this.pianoTariffario = pianoTariffario;
         this.descrizione = descrizione;
-        this.dataIscrizione = new Date();
+        this.dataIscrizione = LocalDate.now();
         this.dataUltimoPagamento = null;
         this.attivo = attivo;
     }
@@ -50,12 +49,10 @@ public class Abbonamento {
         this.dataUltimoPagamento = getDataUltimoPagamento();
         this.attivo = getAttivo();
     }
-
     //endregion
 
 
     //region Getter e Setter
-
     public Integer getId() {
         return id;
     }
@@ -80,19 +77,19 @@ public class Abbonamento {
         this.descrizione = descrizione;
     }
 
-    public Date getDataIscrizione() {
+    public LocalDate getDataIscrizione() {
         return dataIscrizione;
     }
 
-    public void setDataIscrizione(Date dataIscrizione) {
+    public void setDataIscrizione(LocalDate dataIscrizione) {
         this.dataIscrizione = dataIscrizione;
     }
 
-    public Date getDataUltimoPagamento() {
+    public LocalDate getDataUltimoPagamento() {
         return dataUltimoPagamento;
     }
 
-    public void setDataUltimoPagamento(Date dataUltimoPagamento) {
+    public void setDataUltimoPagamento(LocalDate dataUltimoPagamento) {
         this.dataUltimoPagamento = dataUltimoPagamento;
     }
 

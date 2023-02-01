@@ -1,8 +1,9 @@
 package it.unicam.ids.backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -27,13 +28,14 @@ public class Cliente {
     @JoinColumn(name = "tessera") // la colonna tessera sta nella tabella ProgrammaFedeltaDelCliente
     private Set<ProgrammaFedeltaDelCliente> programmiFedelta = new HashSet<>();
 
-    private Date dataIscrizionePiattaforma = new Date();
+    @JsonFormat(pattern = "dd-MM-yyyy")
+    private LocalDate dataIscrizionePiattaforma = LocalDate.now();
 
 
     //region Costruttori
     public Cliente() {}
 
-    public Cliente(UtentePiattaforma utentePiattaforma, String nomeUtente, String password, String email, Set<ProgrammaFedeltaDelCliente> programmiFedelta, Date dataIscrizionePiattaforma) {
+    public Cliente(UtentePiattaforma utentePiattaforma, String nomeUtente, String password, String email, Set<ProgrammaFedeltaDelCliente> programmiFedelta, LocalDate dataIscrizionePiattaforma) {
         this.utentePiattaforma = utentePiattaforma;
         this.nomeUtente = nomeUtente;
         this.password = password;
@@ -107,11 +109,11 @@ public class Cliente {
         this.programmiFedelta = programmiFedelta;
     }
 
-    public Date getDataIscrizionePiattaforma() {
+    public LocalDate getDataIscrizionePiattaforma() {
         return dataIscrizionePiattaforma;
     }
 
-    public void setDataIscrizionePiattaforma(Date dataIscrizione) {
+    public void setDataIscrizionePiattaforma(LocalDate dataIscrizione) {
         this.dataIscrizionePiattaforma = dataIscrizione;
     }
     //endregion
