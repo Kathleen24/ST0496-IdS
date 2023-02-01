@@ -2,6 +2,8 @@ package it.unicam.ids.backend.controller;
 
 import it.unicam.ids.backend.entity.Abbonamento;
 import it.unicam.ids.backend.entity.Cliente;
+import it.unicam.ids.backend.entity.ProgrammaFedelta;
+import it.unicam.ids.backend.entity.ProgrammaFedeltaDelCliente;
 import it.unicam.ids.backend.service.ClienteService;
 import it.unicam.ids.backend.util.EntityValidator;
 import it.unicam.ids.backend.util.QRCodeService;
@@ -84,5 +86,9 @@ public class ClienteController implements EntityValidator<Cliente> {
     public ResponseEntity<BufferedImage> linkInviti(@RequestParam ("tessera") String tessera) throws Exception{
         //TODO Aggiungere il formato del link da comporre con la tessera.
         return qrCodeService.qrCodeGenerator(tessera);
+    }
+
+    public List<ProgrammaFedeltaDelCliente> getProgrammiFedeltaDelCliente(Integer tessera){
+        return getCliente(tessera).getProgrammiFedelta().stream().toList();
     }
 }

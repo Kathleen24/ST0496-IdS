@@ -28,6 +28,8 @@ public class ProgrammaFedeltaService {
     }
 
 
+
+
     public List<ProgrammaFedelta> getAllProgrammiFedelta() {
         return programmaFedeltaRepository.findAll();
     }
@@ -52,5 +54,9 @@ public class ProgrammaFedeltaService {
 
     public void deleteProgrammaFedelta(Integer id) {
         programmaFedeltaRepository.deleteById(id);
+    }
+
+    public List<ProgrammaFedelta> getAllProgrammiFedeltaOf(Integer aziendaID) {
+        return programmaFedeltaRepository.findProgrammiFedeltaDellAzienda(aziendaID);
     }
 }

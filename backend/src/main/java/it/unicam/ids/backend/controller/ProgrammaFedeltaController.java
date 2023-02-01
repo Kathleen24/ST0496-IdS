@@ -1,5 +1,6 @@
 package it.unicam.ids.backend.controller;
 
+import it.unicam.ids.backend.entity.Bonus;
 import it.unicam.ids.backend.entity.ProgrammaFedelta;
 import it.unicam.ids.backend.service.AziendaService;
 import it.unicam.ids.backend.service.ProgrammaFedeltaService;
@@ -56,4 +57,13 @@ public class ProgrammaFedeltaController implements EntityValidator<ProgrammaFede
     public void deleteProgrammaFedelta(@PathVariable Integer id) {
         programmaFedeltaService.deleteProgrammaFedelta(id);
     }
+
+    public List<Bonus> getAllBonusOf(Integer pfID){
+        return getProgrammaFedelta(pfID).getBonus();
+    }
+
+    public List<ProgrammaFedelta> getAllProgrammiFedeltaOf(Integer aziendaID){
+      return programmaFedeltaService.getAllProgrammiFedeltaOf(aziendaID);
+    }
+
 }
