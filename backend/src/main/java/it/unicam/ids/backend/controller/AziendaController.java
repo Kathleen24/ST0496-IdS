@@ -2,10 +2,13 @@ package it.unicam.ids.backend.controller;
 
 import it.unicam.ids.backend.entity.Abbonamento;
 import it.unicam.ids.backend.entity.Azienda;
+import it.unicam.ids.backend.entity.Cliente;
+import it.unicam.ids.backend.entity.Stabilimento;
 import it.unicam.ids.backend.service.AziendaService;
 import it.unicam.ids.backend.util.EntityValidator;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -20,9 +23,9 @@ public class AziendaController implements EntityValidator<Azienda> {
     }
 
     public void validateEntity(Azienda azienda) {
-        if (azienda==null)
+        if (azienda == null)
             throw new NullPointerException("L'oggetto azienda è nullo");
-        if(azienda.getNomeAzienda()=="null")
+        if (azienda.getNomeAzienda() == "null")
             throw new IllegalArgumentException("Il nome dell'azienda non puo essere nullo");
     }
 
@@ -47,8 +50,41 @@ public class AziendaController implements EntityValidator<Azienda> {
     }
 
     @PostMapping("/update")
-    public Azienda updateAzienda(Azienda azienda) {
+    public Azienda updateAzienda(@RequestBody Azienda azienda) {
         return aziendaService.updateAzienda(azienda);
+    }
+
+    /**
+     * Restituisce le aziende iscritte alla piattaforma nel intervallo
+     * di tempo inserito come parametro.
+     *
+     * @param start - la data di inizio per eseguire il controllo
+     * @param end   - la data di fine per eseguire il controllo
+     * @return la lista di aziende
+     */
+    @GetMapping("/")//TODO nome
+    public List<Azienda> findAziendeNellIntervalloDiTempo(Date start, Date end) {
+        return aziendaService.findAziendeNellIntervalloDiTempo(start, end);
+    }
+
+    /**
+     * Restituisce tutti i clienti iscritti ad almeno un programma fedeltà dell' azienda.
+     * @param aziendaID - l'ID dell'azienda.
+     * @return - la lista di Clienti.
+     */
+    @GetMapping("/")//TODO nome
+    public List<Cliente> getClientiAfiiliati(@RequestParam Integer aziendaID) {
+        return aziendaService.getClientiAffiliati(aziendaID);
+    }
+
+    /**
+     * Restituisce tutti gli stabilimenti di un' azienda.
+     * @param aziendaID - l'ID dell'azienda.
+     * @return - la lista di Stabilimenti.
+     */
+    @GetMapping("/")//TODO nome
+    public List<Stabilimento> getStabilimenti(Integer aziendaID) {
+        return aziendaService.getStabilimenti(aziendaID);
     }
 
     @DeleteMapping("/{id}")
