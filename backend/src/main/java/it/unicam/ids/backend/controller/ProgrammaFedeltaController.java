@@ -52,10 +52,8 @@ public class ProgrammaFedeltaController implements EntityValidator<ProgrammaFede
         programmaFedeltaService.updateProgrammaFedelta(pf);
     }
 
-    //Per sequence diagram Elimina Programma Fedeltà, leggermente diverso dal sequence diagram
     @DeleteMapping("/{id}")
     public void deleteProgrammaFedelta(@PathVariable Integer id) {
-        //"Vuoi procedere all'eliminazione?" S/N
         programmaFedeltaService.deleteProgrammaFedelta(id);
     }
 }

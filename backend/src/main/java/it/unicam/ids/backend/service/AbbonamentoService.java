@@ -9,7 +9,7 @@ import java.util.List;
 
 @Service
 public class AbbonamentoService {
-
+updateA
     private final AbbonamentoRepository abbonamentoRepository;
 
 
