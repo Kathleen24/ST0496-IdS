@@ -1,6 +1,5 @@
 package it.unicam.ids.backend.controller;
 
-import it.unicam.ids.backend.entity.Abbonamento;
 import it.unicam.ids.backend.entity.Stabilimento;
 import it.unicam.ids.backend.id.StabilimentoID;
 import it.unicam.ids.backend.service.StabilimentoService;
@@ -19,8 +18,10 @@ public class StabilimentoController implements EntityValidator<Stabilimento> {
         this.stabilimentoService = stabilimentoService;
     }
 
+
+    @Override
     public void validateEntity(Stabilimento stabilimento) {
-        if (stabilimento==null)
+        if (stabilimento == null)
             throw new NullPointerException("L'oggetto stabilimento è nullo");
     }
 

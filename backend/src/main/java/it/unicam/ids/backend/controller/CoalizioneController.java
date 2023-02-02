@@ -29,17 +29,20 @@ public class CoalizioneController implements EntityValidator<Coalizione> {
         this.aziendaService = aziendaService;
     }
 
+
+    @Override
     public void validateEntity(Coalizione coalizione) {
-        if (coalizione==null)
+        if (coalizione == null)
             throw new NullPointerException("L'oggetto coalizione è nullo");
-        if(programmaFedeltaService.getProgrammaFedelta(coalizione.getProgrammaFedelta().getId())==null)
-            throw new IllegalArgumentException("Il programma fedeltà inserito non è esistente");
-        if(aziendaService.getAzienda(coalizione.getAziendaDestinataria().getId())==null)
-            throw new IllegalArgumentException("L'azienda destinataria inserita non è esistente");
-        if(aziendaService.getAzienda(coalizione.getAziendaMittente().getId())==null)
-            throw new IllegalArgumentException("L'azienda mittente inserita non è esistente");
-        if(coalizione.getDataInizio().before(coalizione.getDataFine()))
+        if (coalizione.getDataInizio().isBefore(coalizione.getDataFine()))
             throw new IllegalArgumentException("La data di inizio deve essere prima della data di fine");
+
+        if (programmaFedeltaService.getProgrammaFedelta(coalizione.getProgrammaFedelta().getId()) == null)
+            throw new IllegalArgumentException("Il programma fedeltà inserito non è esistente");
+        if (aziendaService.getAzienda(coalizione.getAziendaDestinataria().getId()) == null)
+            throw new IllegalArgumentException("L'azienda destinataria inserita non è esistente");
+        if (aziendaService.getAzienda(coalizione.getAziendaMittente().getId()) == null)
+            throw new IllegalArgumentException("L'azienda mittente inserita non è esistente");
     }
 
     @GetMapping("/all")

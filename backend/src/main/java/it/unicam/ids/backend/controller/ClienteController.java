@@ -1,6 +1,5 @@
 package it.unicam.ids.backend.controller;
 
-import it.unicam.ids.backend.entity.Abbonamento;
 import it.unicam.ids.backend.entity.Cliente;
 import it.unicam.ids.backend.service.ClienteService;
 import it.unicam.ids.backend.util.EntityValidator;
@@ -26,13 +25,15 @@ public class ClienteController implements EntityValidator<Cliente> {
     }
 
 
+    @Override
     public void validateEntity(Cliente cliente) {
-        if (cliente==null)
+        if (cliente == null)
             throw new NullPointerException("L'oggetto cliente è nullo");
-        if(clienteService.getCliente(cliente.getTessera())!=null)
+
+        if (clienteService.getCliente(cliente.getTessera()) != null)
             throw new IllegalArgumentException("La tessera è già esistente");
         //nome utente
-        if(!clienteService.getAllClienti().stream().filter(c->c.getEmail().equals(cliente.getEmail())).findFirst().isEmpty())
+        if(clienteService.getAllClienti().stream().anyMatch(c -> c.getEmail().equals(cliente.getEmail())))
             throw new IllegalArgumentException("L'email è già esistente");
         if(!Pattern.compile("^(.+)@(\\S+)$").matcher(cliente.getEmail()).matches())
             throw new IllegalArgumentException("L'email inserita non è ben composta");
@@ -76,12 +77,14 @@ public class ClienteController implements EntityValidator<Cliente> {
 
     /**
      * Questo metodo genera un QRCode contenente il link per invitare nuovi utenti.
-     * @param tessera - il numero della tessera di chi genera il QRCode.
-     * @return - il QRCode in formato PNG(250x250).
-     * @throws Exception - Eccezioni generiche.
+     *
+     * @param tessera il numero della tessera di chi genera il QRCode.
+     * @return il QRCode in formato PNG(250x250).
+     *
+     * @throws Exception Eccezioni generiche.
      */
     @GetMapping("/qrcode/{id}")
-    public ResponseEntity<BufferedImage> linkInviti(@RequestParam ("tessera") String tessera) throws Exception{
+    public ResponseEntity<BufferedImage> linkInviti(@RequestParam("tessera") String tessera) throws Exception {
         //TODO Aggiungere il formato del link da comporre con la tessera.
         return qrCodeService.qrCodeGenerator(tessera);
     }

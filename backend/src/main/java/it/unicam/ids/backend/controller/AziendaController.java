@@ -1,6 +1,5 @@
 package it.unicam.ids.backend.controller;
 
-import it.unicam.ids.backend.entity.Abbonamento;
 import it.unicam.ids.backend.entity.Azienda;
 import it.unicam.ids.backend.service.AziendaService;
 import it.unicam.ids.backend.util.EntityValidator;
@@ -19,10 +18,12 @@ public class AziendaController implements EntityValidator<Azienda> {
         this.aziendaService = aziendaService;
     }
 
+
+    @Override
     public void validateEntity(Azienda azienda) {
-        if (azienda==null)
+        if (azienda == null)
             throw new NullPointerException("L'oggetto azienda è nullo");
-        if(azienda.getNomeAzienda()=="null")
+        if (azienda.getNomeAzienda() == null)
             throw new IllegalArgumentException("Il nome dell'azienda non puo essere nullo");
     }
 

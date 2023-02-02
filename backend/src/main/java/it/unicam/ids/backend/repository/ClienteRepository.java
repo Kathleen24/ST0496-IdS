@@ -36,7 +36,7 @@ public interface ClienteRepository extends JpaRepository<Cliente, Integer> {
      */
     @Query("SELECT c FROM Cliente c, ProgrammaFedeltaDelCliente pfdc " +
             "WHERE pfdc.programmaFedelta.id = :programmaFedeltaID " +
-            "AND pdfc.id.tessera = c.tessera " +
+            "AND pfdc.tessera = c.tessera " +
             "AND pfdc.dataIscrizione BETWEEN :start AND :end")
     List<Cliente> findClientiIscrittiAlProgrammaFedeltaNellIntervalloDiTempo(
             @Param("start") LocalDate start,
