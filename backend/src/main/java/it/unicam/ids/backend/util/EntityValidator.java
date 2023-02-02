@@ -1,9 +1,17 @@
 package it.unicam.ids.backend.util;
 
-import it.unicam.ids.backend.entity.*;
-
-import java.util.regex.Pattern;
-
+/**
+ * Le classi che implementano questa interfaccia sono in grado di determinare
+ * la validità di un'istanza di una classe
+ *
+ * @param <E> il tipo di oggetto che può essere validato
+ */
 public interface EntityValidator<E> {
-    public void validateEntity(E entity);
+
+    /**
+     * Valida un oggetto, se il controllo fallisce viene lanciata un'eccezione appropriata
+     *
+     * @param entity l'oggetto da controllare
+     */
+    void validateEntity(E entity);
 }

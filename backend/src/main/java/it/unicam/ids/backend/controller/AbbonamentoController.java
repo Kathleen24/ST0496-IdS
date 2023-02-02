@@ -23,15 +23,15 @@ public class AbbonamentoController implements EntityValidator<Abbonamento> {
     }
 
 
-
     @Override
     public void validateEntity(Abbonamento abbonamento) {
-        if (abbonamento==null)
+        if (abbonamento == null)
             throw new NullPointerException("L'oggetto abbonamento è nullo");
-        if(pianoTariffarioService.getPianoTariffario(abbonamento.getPianoTariffario().getId())==null)
-            throw new IllegalArgumentException("Il piano tariffario inserito non è esistente");
-        if(abbonamento.getDataUltimoPagamento().before(abbonamento.getDataIscrizione()))
+        if(abbonamento.getDataUltimoPagamento().isBefore(abbonamento.getDataIscrizione()))
             throw new IllegalArgumentException("Il pagamento non può avvenire prima dell'iscrizione");
+
+        if(pianoTariffarioService.getPianoTariffario(abbonamento.getPianoTariffario().getId()) == null)
+            throw new IllegalArgumentException("Il piano tariffario inserito non è esistente");
     }
 
     @GetMapping("/all")

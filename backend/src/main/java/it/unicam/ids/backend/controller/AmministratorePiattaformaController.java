@@ -1,10 +1,12 @@
 package it.unicam.ids.backend.controller;
 
-import it.unicam.ids.backend.entity.Abbonamento;
 import it.unicam.ids.backend.entity.AmministratorePiattaforma;
 import it.unicam.ids.backend.service.AmministratorePiattaformaService;
 import it.unicam.ids.backend.util.EntityValidator;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Objects;
 
@@ -18,12 +20,14 @@ public class AmministratorePiattaformaController implements EntityValidator<Ammi
     public AmministratorePiattaformaController(AmministratorePiattaformaService amministratorePiattaformaService) {
         this.amministratorePiattaformaService = amministratorePiattaformaService;
     }
+
+
+    @Override
     public void validateEntity(AmministratorePiattaforma amministratorePiattaforma) {
         //password Integer
-        if (amministratorePiattaforma==null)
+        if (amministratorePiattaforma == null)
             throw new NullPointerException("L'oggetto amministratore piattaforma è nullo");
     }
-
 
     @GetMapping("/{username}")
     public AmministratorePiattaforma getAmministratorePiattaforma(@PathVariable String username) {

@@ -4,7 +4,6 @@ import it.unicam.ids.backend.entity.Bonus;
 import it.unicam.ids.backend.entity.ProgrammaFedelta;
 import it.unicam.ids.backend.service.AziendaService;
 import it.unicam.ids.backend.service.ProgrammaFedeltaService;
-import org.springframework.web.bind.annotation.*;
 import it.unicam.ids.backend.util.EntityValidator;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,18 +14,24 @@ import java.util.List;
 public class ProgrammaFedeltaController implements EntityValidator<ProgrammaFedelta> {
 
     private final ProgrammaFedeltaService programmaFedeltaService;
-    private AziendaService aziendaService;
+    private final AziendaService aziendaService;
 
 
-    public ProgrammaFedeltaController(ProgrammaFedeltaService programmaFedeltaService, AziendaService aziendaService) {
+    public ProgrammaFedeltaController(
+            ProgrammaFedeltaService programmaFedeltaService,
+            AziendaService aziendaService
+    ) {
         this.programmaFedeltaService = programmaFedeltaService;
         this.aziendaService = aziendaService;
     }
 
+
+    @Override
     public void validateEntity(ProgrammaFedelta programmaFedelta) {
-        if (programmaFedelta==null)
+        if (programmaFedelta == null)
             throw new NullPointerException("L'oggetto programma fedeltà è nullo");
-        if(aziendaService.getAzienda(programmaFedelta.getAzienda().getId())==null)
+
+        if(aziendaService.getAzienda(programmaFedelta.getAzienda().getId()) == null)
             throw new IllegalArgumentException("L'azienda inserita non è esistente");
     }
 

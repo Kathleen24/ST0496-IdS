@@ -1,8 +1,11 @@
 package it.unicam.ids.backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
@@ -20,40 +23,37 @@ public class Coalizione {
     @JoinColumn(name = "aziendaDestinataria", referencedColumnName = "id")
     private Azienda aziendaDestinataria;
 
-    @Transient
-    private Azienda aziendaMittente;
-    private Date dataInizio;
-    private Date dataFine;
+    @JsonFormat(pattern = "dd-MM-yyyy")
+    private LocalDate dataInizio;
+    @JsonFormat(pattern = "dd-MM-yyyy")
+    private LocalDate dataFine;
     private Stato stato;
 
 
     //region Costruttori
     public Coalizione() {}
 
-    public Coalizione(ProgrammaFedelta programmaFedelta, Azienda aziendaDestinataria, Date dataInizio, Date dataFine) {
+    public Coalizione(ProgrammaFedelta programmaFedelta, Azienda aziendaDestinataria, LocalDate dataInizio, LocalDate dataFine) {
         this.programmaFedelta = programmaFedelta;
         this.aziendaDestinataria = aziendaDestinataria;
-        this.aziendaMittente = programmaFedelta.getAzienda();
         this.dataInizio = dataInizio;
         this.dataFine = dataFine;
         this.stato = Stato.INATTESA_INATTIVA;
     }
 
-    public Coalizione(Integer id, ProgrammaFedelta programmaFedelta, Azienda aziendaDestinataria, Date dataInizio, Date dataFine) {
+    public Coalizione(Integer id, ProgrammaFedelta programmaFedelta, Azienda aziendaDestinataria, LocalDate dataInizio, LocalDate dataFine) {
         this.id = id;
         this.programmaFedelta = programmaFedelta;
         this.aziendaDestinataria = aziendaDestinataria;
-        this.aziendaMittente = programmaFedelta.getAzienda();
         this.dataInizio = dataInizio;
         this.dataFine = dataFine;
         this.stato = Stato.INATTESA_INATTIVA;
     }
 
-    public Coalizione(Integer id, ProgrammaFedelta programmaFedelta, Azienda aziendaDestinataria, Date dataInizio, Date dataFine, Stato stato) {
+    public Coalizione(Integer id, ProgrammaFedelta programmaFedelta, Azienda aziendaDestinataria, LocalDate dataInizio, LocalDate dataFine, Stato stato) {
         this.id = id;
         this.programmaFedelta = programmaFedelta;
         this.aziendaDestinataria = aziendaDestinataria;
-        this.aziendaMittente = programmaFedelta.getAzienda();
         this.dataInizio = dataInizio;
         this.dataFine = dataFine;
         this.stato = stato;
@@ -66,6 +66,7 @@ public class Coalizione {
      *
      * @return true se ci si trova, false altrimenti
      */
+    @JsonIgnore
     public boolean isInAttesaEAccettabile() {
         return stato.equals(Stato.INATTESA_INATTIVA);
     }
@@ -95,27 +96,29 @@ public class Coalizione {
         this.aziendaDestinataria = aziendaDestinataria;
     }
 
+    /**
+     * Restituisce l'azienda che ha creato la coalizione
+     *
+     * @return l'azienda che ha creato la coalizione
+     */
+    @JsonInclude
     public Azienda getAziendaMittente() {
-        return aziendaMittente;
+        return programmaFedelta.getAzienda();
     }
 
-    public void setAziendaMittente(Azienda aziendaMittente) {
-        this.aziendaMittente = aziendaMittente;
-    }
-
-    public Date getDataInizio() {
+    public LocalDate getDataInizio() {
         return dataInizio;
     }
 
-    public void setDataInizio(Date dataInizio) {
+    public void setDataInizio(LocalDate dataInizio) {
         this.dataInizio = dataInizio;
     }
 
-    public Date getDataFine() {
+    public LocalDate getDataFine() {
         return dataFine;
     }
 
-    public void setDataFine(Date dataFine) {
+    public void setDataFine(LocalDate dataFine) {
         this.dataFine = dataFine;
     }
 
@@ -136,7 +139,6 @@ public class Coalizione {
         return id.equals(that.id) &&
                 programmaFedelta.equals(that.programmaFedelta) &&
                 aziendaDestinataria.equals(that.aziendaDestinataria) &&
-                aziendaMittente.equals(that.aziendaMittente) &&
                 dataInizio.equals(that.dataInizio) &&
                 dataFine.equals(that.dataFine) &&
                 stato == that.stato;
@@ -144,9 +146,10 @@ public class Coalizione {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, programmaFedelta, aziendaDestinataria, aziendaMittente, dataInizio, dataFine, stato);
+        return Objects.hash(id, programmaFedelta, aziendaDestinataria, dataInizio, dataFine, stato);
     }
     //endregion
+
 
     public enum Stato {
         ACCETTATA_ATTIVA, ACCETTATA_INATTIVA, ACCETTATA_SCADUTA, INATTESA_INATTIVA, RIFIUTATA_INATTIVA

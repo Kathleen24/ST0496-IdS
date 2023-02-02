@@ -7,7 +7,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import java.util.Date;
+
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -26,7 +27,7 @@ public interface AziendaRepository extends JpaRepository<Azienda, Integer> {
             "FROM Azienda a " +
             "WHERE a.dataIscrizionePiattaforma " +
             "BETWEEN :start AND :end")
-    List<Azienda> findAziendeNellIntervalloDiTempo(@Param("start") Date start, @Param("end") Date end);
+    List<Azienda> findAziendeNellIntervalloDiTempo(@Param("start") LocalDate start, @Param("end") LocalDate end);
 
     /**
      * Questa query restituisce tutti i clienti iscritti ad almeno un programma

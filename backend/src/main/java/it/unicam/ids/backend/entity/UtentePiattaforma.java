@@ -6,7 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
@@ -22,11 +22,11 @@ public class UtentePiattaforma {
     private String cognome;
     @JsonFormat(pattern = "dd-MM-yyyy")
     @Column(nullable = false)
-    private Date dataNascita;
+    private LocalDate dataNascita;
     @Column(nullable = false)
     private String luogoNascita;
     private String indirizzo;
-    private String città;
+    private String citta;
     private String provincia;
     private String cap;
     private String cellulare;
@@ -34,14 +34,14 @@ public class UtentePiattaforma {
     //region Costruttori
     public UtentePiattaforma() {}
 
-    public UtentePiattaforma(String codFis, String nome, String cognome, Date dataNascita, String luogoNascita, String indirizzo, String città, String provincia, String cap, String cellulare) {
+    public UtentePiattaforma(String codFis, String nome, String cognome, LocalDate dataNascita, String luogoNascita, String indirizzo, String citta, String provincia, String cap, String cellulare) {
         this.codFis = codFis;
         this.nome = nome;
         this.cognome = cognome;
         this.dataNascita = dataNascita;
         this.luogoNascita = luogoNascita;
         this.indirizzo = indirizzo;
-        this.città = città;
+        this.citta = citta;
         this.provincia = provincia;
         this.cap = cap;
         this.cellulare = cellulare;
@@ -74,11 +74,11 @@ public class UtentePiattaforma {
         this.cognome = cognome;
     }
 
-    public Date getDataNascita() {
+    public LocalDate getDataNascita() {
         return dataNascita;
     }
 
-    public void setDataNascita(Date dataNascita) {
+    public void setDataNascita(LocalDate dataNascita) {
         this.dataNascita = dataNascita;
     }
 
@@ -98,12 +98,12 @@ public class UtentePiattaforma {
         this.indirizzo = indirizzo;
     }
 
-    public String getCittà() {
-        return città;
+    public String getCitta() {
+        return citta;
     }
 
-    public void setCittà(String città) {
-        this.città = città;
+    public void setCitta(String citta) {
+        this.citta = citta;
     }
 
     public String getProvincia() {
@@ -133,8 +133,6 @@ public class UtentePiattaforma {
     //endregion
 
     //region equals e hashCode
-
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -146,7 +144,7 @@ public class UtentePiattaforma {
                 Objects.equals(dataNascita, that.dataNascita) &&
                 Objects.equals(luogoNascita, that.luogoNascita) &&
                 Objects.equals(indirizzo, that.indirizzo) &&
-                Objects.equals(città, that.città) &&
+                Objects.equals(citta, that.citta) &&
                 Objects.equals(provincia, that.provincia) &&
                 Objects.equals(cap, that.cap) &&
                 Objects.equals(cellulare, that.cellulare);
@@ -154,8 +152,7 @@ public class UtentePiattaforma {
 
     @Override
     public int hashCode() {
-        return Objects.hash(codFis, nome, cognome, dataNascita, luogoNascita, indirizzo, città, provincia, cap, cellulare);
+        return Objects.hash(codFis, nome, cognome, dataNascita, luogoNascita, indirizzo, citta, provincia, cap, cellulare);
     }
-
     //endregion
 }

@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static it.unicam.ids.backend.entity.Bonus.Tipo.PUNTI;
-
 @RestController
 @RequestMapping("/bonus")
 public class BonusController implements EntityValidator<Bonus> {
@@ -17,19 +15,24 @@ public class BonusController implements EntityValidator<Bonus> {
     private final BonusService bonusService;
     private final AziendaService aziendaService;
 
+
     public BonusController(BonusService bonusService, AziendaService aziendaService) {
         this.bonusService = bonusService;
         this.aziendaService = aziendaService;
     }
 
+
+    @Override
     public void validateEntity(Bonus bonus) {
-        if (bonus==null)
+        if (bonus == null)
             throw new NullPointerException("L'oggetto bonus è nullo");
-        if(aziendaService.getAzienda(bonus.getAzienda().getId())==null)
-            throw new IllegalArgumentException("L'azienda inserita non è esistente");
-        if(bonus.getValore()<=0)
+        if(bonus.getValore() <= 0)
             throw new IllegalArgumentException("Il valore del buono non può essere minore uguale a 0");
+
+        if(aziendaService.getAzienda(bonus.getAzienda().getId()) == null)
+            throw new IllegalArgumentException("L'azienda inserita non è esistente");
     }
+
     @GetMapping("/all")
     public List<Bonus> getAllBonus() {
         return bonusService.getAllBonus();
@@ -59,12 +62,5 @@ public class BonusController implements EntityValidator<Bonus> {
     public void deleteBonus(@PathVariable Integer id) {
         //"Vuoi procedere all'eliminazione?" S/N
         bonusService.deleteBonus(id);
-    }
-
-    public String getAllBonusType() { //da controllare
-        String s = PUNTI.toString() + "\n";
-        s += Bonus.Tipo.CASHBACK.toString() + "\n";
-        s += Bonus.Tipo.SCONTO.toString();
-        return s;
     }
 }

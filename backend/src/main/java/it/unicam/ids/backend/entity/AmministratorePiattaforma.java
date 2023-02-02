@@ -39,11 +39,11 @@ public class AmministratorePiattaforma {
      * @return true se sono corretti, false altrimenti
      */
     public boolean login(String username, String password) {
-        return this.username == username.hashCode() && this.password == password.hashCode();
+        return this.username.equals(username) && this.password.equals(password);
     }
 
     //region Getter e Setter
-    public int getUsername() {
+    public String getUsername() {
         return username;
     }
 

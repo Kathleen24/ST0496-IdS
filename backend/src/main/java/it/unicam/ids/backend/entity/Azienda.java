@@ -1,12 +1,13 @@
 package it.unicam.ids.backend.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
@@ -18,7 +19,8 @@ public class Azienda {
     private Integer id;
 
     @JsonFormat(pattern = "dd-MM-yyyy")
-    private Date dataIscrizionePiattaforma;
+    @Column(nullable = false)
+    private LocalDate dataIscrizionePiattaforma = LocalDate.now();
     private String nomeAzienda;
     private String terminiLegali;
     private String infoAttivita;
@@ -26,11 +28,10 @@ public class Azienda {
 
 
     //region Costruttori
-    public Azienda() {
-    }
+    public Azienda() {}
 
     public Azienda(String nomeAzienda, String terminiLegali, String infoAttivita, String link) {
-        this.dataIscrizionePiattaforma = new Date();
+        this.dataIscrizionePiattaforma = LocalDate.now();
         this.nomeAzienda = nomeAzienda;
         this.terminiLegali = terminiLegali;
         this.infoAttivita = infoAttivita;
@@ -57,11 +58,11 @@ public class Azienda {
         this.id = id;
     }
 
-    public Date getDataIscrizionePiattaforma() {
+    public LocalDate getDataIscrizionePiattaforma() {
         return dataIscrizionePiattaforma;
     }
 
-    public void setDataIscrizionePiattaforma(Date dataIscrizionePiattoforma) {
+    public void setDataIscrizionePiattaforma(LocalDate dataIscrizionePiattoforma) {
         this.dataIscrizionePiattaforma = dataIscrizionePiattoforma;
     }
 
