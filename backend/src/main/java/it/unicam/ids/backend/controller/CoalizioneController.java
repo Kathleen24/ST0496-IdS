@@ -5,22 +5,26 @@ import it.unicam.ids.backend.service.AziendaService;
 import it.unicam.ids.backend.service.CoalizioneService;
 import it.unicam.ids.backend.service.ProgrammaFedeltaService;
 import it.unicam.ids.backend.util.EntityValidator;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
-import static it.unicam.ids.backend.entity.Coalizione.Stato.ACCETTATA_INATTIVA;
-
 @RestController
+@RequestMapping("/coalizioni")
 public class CoalizioneController implements EntityValidator<Coalizione> {
 
     private final CoalizioneService coalizioneService;
-    private ProgrammaFedeltaService programmaFedeltaService;
-    private AziendaService aziendaService;
+    private final ProgrammaFedeltaService programmaFedeltaService;
+    private final AziendaService aziendaService;
 
 
-    public CoalizioneController(CoalizioneService aziendaServiceDB, ProgrammaFedeltaService programmaFedeltaService, AziendaService aziendaService) {
-        this.coalizioneService = aziendaServiceDB;
+    public CoalizioneController(
+            CoalizioneService coalizioneService,
+            ProgrammaFedeltaService programmaFedeltaService,
+            AziendaService aziendaService
+    ) {
+        this.coalizioneService = coalizioneService;
         this.programmaFedeltaService = programmaFedeltaService;
         this.aziendaService = aziendaService;
     }
@@ -38,64 +42,51 @@ public class CoalizioneController implements EntityValidator<Coalizione> {
             throw new IllegalArgumentException("La data di inizio deve essere prima della data di fine");
     }
 
+    @GetMapping("/all")
     public List<Coalizione> getAllCoalizioni() {
         return coalizioneService.getAllCoalizioni();
     }
 
-    public Coalizione getCoalizione(Integer id) {
+    @GetMapping("/{id}")
+    public Coalizione getCoalizione(@PathVariable Integer id) {
         return coalizioneService.getCoalizione(id);
     }
 
-    public void addCoalizione(Coalizione coalizione) {
-        coalizioneService.addCoalizione(coalizione);
+    @PostMapping("/add")
+    public Coalizione addCoalizione(
+            @RequestParam Integer pfID, @RequestParam Integer aziendaID,
+            @RequestParam LocalDate dataInizio, @RequestParam LocalDate dataFine
+    ) {
+        return coalizioneService.addCoalizione(pfID, aziendaID, dataInizio, dataFine);
     }
 
-    public void updateCoalizione(Coalizione coalizione) {
-        coalizioneService.updateCoalizione(coalizione);
+    @PostMapping("/{id}/updateDataFine")
+    public Coalizione updateDataFine(@PathVariable Integer id, @RequestParam LocalDate dataFine) {
+        return coalizioneService.updateDataFine(id, dataFine);
     }
 
-    public void deleteCoalizione(Integer id) {
-        if (getCoalizione(id).getStato().equals(ACCETTATA_INATTIVA) ||
-                getCoalizione(id).getStato().equals(Coalizione.Stato.INATTESA_INATTIVA))
-            coalizioneService.deleteCoalizione(id);
-        else
-            System.out.println("Non puoi eseguire questa operazione");
-    }
-
-    /**
-     * Determina se la coalizione è nello stato INATTESA_INATTIVA
-     * @param id
-     * @return true se ci si trova. false altrimenti
-     */
-    public boolean isInAttesaEAccettabile(Integer id) {
-        return getCoalizione(id).getStato().equals(Coalizione.Stato.INATTESA_INATTIVA);
+    @DeleteMapping("/{id}")
+    public void deleteCoalizione(@PathVariable Integer id) {
+        coalizioneService.deleteCoalizione(id);
     }
 
     /**
-     * Cambia lo stato della coalizione in ACCETTATA_INATTIVA se è possibile
-     * @param id
+     * Cambia lo stato della coalizione in {@link Coalizione.Stato#ACCETTATA_INATTIVA ACCETTATA_INATTIVA} se è possibile
+     *
+     * @param id l'id della coalizione
      */
-    public void accettaCoalizione(Integer id) {
-        if (isInAttesaEAccettabile(id)) {
-            getCoalizione(id).setStato(Coalizione.Stato.ACCETTATA_INATTIVA);
-            updateCoalizione(getCoalizione(id));
-            //non ho capito come cambia update da add
-        }
-        else
-            System.out.println("Non puoi eseguire questa operazione");
+    @PatchMapping("/{id}/accept")
+    public void accettaCoalizione(@PathVariable Integer id) {
+        coalizioneService.accettaCoalizione(id);
     }
 
     /**
-     * Cambia lo stato della coalizione in RIFIUTATA_INATTIVA se è possibile
-     * @param id
+     * Cambia lo stato della coalizione in {@link Coalizione.Stato#RIFIUTATA_INATTIVA RIFIUTATA_INATTIVA} se è possibile
+     *
+     * @param id l'id della coalizione
      */
-    public void rifiutaCoalizione(Integer id) {
-        if (isInAttesaEAccettabile(id)) {
-            getCoalizione(id).setStato(Coalizione.Stato.RIFIUTATA_INATTIVA);
-            updateCoalizione(getCoalizione(id));
-            //non ho capito come cambia update da add
-        }
-        else
-            System.out.println("Non puoi eseguire questa operazione");
+    @PatchMapping("/{id}/reject")
+    public void rifiutaCoalizione(@PathVariable Integer id) {
+        coalizioneService.rifiutaCoalizione(id);
     }
 }
