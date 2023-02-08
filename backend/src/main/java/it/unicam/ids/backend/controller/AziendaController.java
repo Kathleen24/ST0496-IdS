@@ -62,7 +62,7 @@ public class AziendaController implements EntityValidator<Azienda> {
      * @param end   - la data di fine per eseguire il controllo
      * @return la lista di aziende
      */
-    @GetMapping("/")//TODO nome
+    //TODO nome
     public List<Azienda> findAziendeNellIntervalloDiTempo(Date start, Date end) {
         return aziendaService.findAziendeNellIntervalloDiTempo(start, end);
     }
@@ -72,7 +72,7 @@ public class AziendaController implements EntityValidator<Azienda> {
      * @param aziendaID - l'ID dell'azienda.
      * @return - la lista di Clienti.
      */
-    @GetMapping("/")//TODO nome
+    //TODO nome
     public List<Cliente> getClientiAfiiliati(@RequestParam Integer aziendaID) {
         return aziendaService.getClientiAffiliati(aziendaID);
     }
@@ -82,7 +82,7 @@ public class AziendaController implements EntityValidator<Azienda> {
      * @param aziendaID - l'ID dell'azienda.
      * @return - la lista di Stabilimenti.
      */
-    @GetMapping("/")//TODO nome
+    //TODO nome
     public List<Stabilimento> getStabilimenti(Integer aziendaID) {
         return aziendaService.getStabilimenti(aziendaID);
     }

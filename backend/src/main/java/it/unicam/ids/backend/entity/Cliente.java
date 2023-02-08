@@ -33,6 +33,13 @@ public class Cliente {
     //region Costruttori
     public Cliente() {}
 
+    public Cliente(UtentePiattaforma utentePiattaforma, String nomeUtente, String password, String email) {
+        this.utentePiattaforma = utentePiattaforma;
+        this.nomeUtente = nomeUtente;
+        this.password = password;
+        this.email = email;
+    }
+
     public Cliente(UtentePiattaforma utentePiattaforma, String nomeUtente, String password, String email, Set<ProgrammaFedeltaDelCliente> programmiFedelta, Date dataIscrizionePiattaforma) {
         this.utentePiattaforma = utentePiattaforma;
         this.nomeUtente = nomeUtente;

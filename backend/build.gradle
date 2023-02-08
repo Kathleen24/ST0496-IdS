@@ -27,6 +27,7 @@ dependencies {
     implementation ('org.junit.vintage:junit-vintage-engine'){
         exclude group: 'org.hamcrest:hamcrest-core'
     }
+    implementation ('com.h2database:h2')
 
     compileOnly ('org.springframework.boot:spring-boot-devtools')
     runtimeOnly ('com.mysql:mysql-connector-j')
