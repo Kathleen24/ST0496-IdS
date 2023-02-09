@@ -80,13 +80,15 @@ public class CouponController implements EntityValidator<Coupon> {
     }
 
     /**
-     * Questo metodo genera un QRCode contente l' id dell'coupon.
-     * @param id - l' id del coupon.
-     * @return - il QRCode in formato PNG (250x250).
-     * @throws Exception - Eccezioni generiche
+     * Questo metodo genera un QRCode contente l'id dell'coupon.
+     *
+     * @param id l'id del coupon
+     * @return il QRCode in formato PNG (250x250)
+     *
+     * @throws Exception Eccezioni generiche
      */
-    @GetMapping("/qrcode/{id}")
-    public ResponseEntity<BufferedImage> qrCodeGenerate(@RequestParam ("id") String id) throws Exception {
+    @GetMapping("/{id}/qrcode")
+    public ResponseEntity<BufferedImage> generateQrCode(@PathVariable String id) throws Exception {
         return qrCodeService.qrCodeGenerator(id);
     }
 }

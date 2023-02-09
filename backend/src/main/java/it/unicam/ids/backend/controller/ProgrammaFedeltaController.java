@@ -31,7 +31,7 @@ public class ProgrammaFedeltaController implements EntityValidator<ProgrammaFede
         if (programmaFedelta == null)
             throw new NullPointerException("L'oggetto programma fedeltà è nullo");
 
-        if(aziendaService.getAzienda(programmaFedelta.getAzienda().getId()) == null)
+        if (aziendaService.getAzienda(programmaFedelta.getAzienda().getId()) == null)
             throw new IllegalArgumentException("L'azienda inserita non è esistente");
     }
 
@@ -63,12 +63,11 @@ public class ProgrammaFedeltaController implements EntityValidator<ProgrammaFede
         programmaFedeltaService.deleteProgrammaFedelta(id);
     }
 
-    public List<Bonus> getAllBonusOf(Integer pfID){
+    public List<Bonus> getAllBonusOf(Integer pfID) {
         return getProgrammaFedelta(pfID).getBonus();
     }
 
-    public List<ProgrammaFedelta> getAllProgrammiFedeltaOf(Integer aziendaID){
-      return programmaFedeltaService.getAllProgrammiFedeltaOf(aziendaID);
+    public List<ProgrammaFedelta> getAllProgrammiFedeltaOf(Integer aziendaID) {
+        return programmaFedeltaService.getAllProgrammiFedeltaOf(aziendaID);
     }
-
 }

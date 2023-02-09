@@ -12,9 +12,11 @@ import java.util.List;
 public interface AbbonamentoRepository extends JpaRepository<Abbonamento, Integer> {
 
     /**
-     * Questa query restituirà tutti gli abbonamenti filtrati in base allo stato del parametro "attivo".
-     * @param attivo - attivo = true/false.
-     * @return - Restituirà una lista di Abbonamenti attivi o non attivi.
+     * Questa query restituisce tutti gli abbonamenti filtrati in base allo stato del parametro <code>attivo</code>.
+     *
+     * @param attivo true/false
+     *
+     * @return restituisce una lista di Abbonamenti attivi o non attivi
      */
     @Query("SELECT a FROM Abbonamento a WHERE a.attivo = :attivo")
     List<Abbonamento> getAllAbbonamentiAttivi(@Param("attivo") Boolean attivo);

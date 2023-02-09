@@ -1,7 +1,6 @@
 package it.unicam.ids.backend.controller;
 
 import it.unicam.ids.backend.entity.Cliente;
-import it.unicam.ids.backend.entity.ProgrammaFedelta;
 import it.unicam.ids.backend.entity.ProgrammaFedeltaDelCliente;
 import it.unicam.ids.backend.service.ClienteService;
 import it.unicam.ids.backend.util.EntityValidator;
@@ -77,21 +76,22 @@ public class ClienteController implements EntityValidator<Cliente> {
         clienteService.addPunti(tessera, pfId, punti);
     }
 
+    @GetMapping("/{tessera}/programmiFedelta")
+    public List<ProgrammaFedeltaDelCliente> getProgrammiFedeltaDelCliente(@PathVariable Integer tessera) {
+        return getCliente(tessera).getProgrammiFedelta().stream().toList();
+    }
+
     /**
      * Questo metodo genera un QRCode contenente il link per invitare nuovi utenti.
      *
-     * @param tessera il numero della tessera di chi genera il QRCode.
-     * @return il QRCode in formato PNG(250x250).
+     * @param tessera il numero della tessera di chi genera il QRCode
+     * @return il QRCode in formato PNG(250x250)
      *
-     * @throws Exception Eccezioni generiche.
+     * @throws Exception Eccezioni generiche
      */
-    @GetMapping("/qrcode/{id}")
-    public ResponseEntity<BufferedImage> linkInviti(@RequestParam("tessera") String tessera) throws Exception {
+    @GetMapping("/{tessera}/qrcode")
+    public ResponseEntity<BufferedImage> linkInviti(@PathVariable String tessera) throws Exception {
         //TODO Aggiungere il formato del link da comporre con la tessera.
         return qrCodeService.qrCodeGenerator(tessera);
-    }
-
-    public List<ProgrammaFedeltaDelCliente> getProgrammiFedeltaDelCliente(Integer tessera){
-        return getCliente(tessera).getProgrammiFedelta().stream().toList();
     }
 }

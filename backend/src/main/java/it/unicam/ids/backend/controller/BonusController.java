@@ -60,7 +60,6 @@ public class BonusController implements EntityValidator<Bonus> {
 
     @DeleteMapping("/{id}")
     public void deleteBonus(@PathVariable Integer id) {
-        //"Vuoi procedere all'eliminazione?" S/N
         bonusService.deleteBonus(id);
     }
 }

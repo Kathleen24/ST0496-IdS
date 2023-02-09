@@ -4,11 +4,9 @@ import it.unicam.ids.backend.entity.Azienda;
 import it.unicam.ids.backend.entity.Cliente;
 import it.unicam.ids.backend.entity.Stabilimento;
 import it.unicam.ids.backend.repository.AziendaRepository;
-import it.unicam.ids.backend.repository.ProgrammaFedeltaRepository;
-
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -16,7 +14,8 @@ public class AziendaService {
 
     private final AziendaRepository aziendaRepository;
 
-    public AziendaService(AziendaRepository aziendaRepository, ProgrammaFedeltaRepository programmaFedeltaRepository) {
+
+    public AziendaService(AziendaRepository aziendaRepository) {
         this.aziendaRepository = aziendaRepository;
     }
 
@@ -29,19 +28,20 @@ public class AziendaService {
      * Restituisce le aziende iscritte alla piattaforma nel intervallo
      * di tempo inserito come parametro.
      *
-     * @param start - la data di inizio per eseguire il controllo
-     * @param end - la data di fine per eseguire il controllo
+     * @param start la data di inizio per eseguire il controllo
+     * @param end la data di fine per eseguire il controllo
      *
      * @return la lista di aziende
      */
-    public List<Azienda> findAziendeNellIntervalloDiTempo(Date start, Date end){
+    public List<Azienda> findAziendeNellIntervalloDiTempo(LocalDate start, LocalDate end){
         return aziendaRepository.findAziendeNellIntervalloDiTempo(start, end);
     }
 
     /**
-     * Restituisce tutti i clienti iscritti ad almeno un programma fedeltà dell' azienda.
-     * @param aziendaID - l'ID dell'azienda.
-     * @return - la lista di Clienti.
+     * Restituisce tutti i clienti iscritti ad almeno un programma fedeltà dell'azienda.
+     *
+     * @param aziendaID l'ID dell'azienda.
+     * @return la lista di clienti.
      */
     public List<Cliente> getClientiAffiliati(Integer aziendaID){
         return aziendaRepository.getClientiAffiliati(aziendaID);
@@ -49,9 +49,10 @@ public class AziendaService {
 
 
     /**
-     * Restituisce tutti gli stabilimenti di un' azienda.
-     * @param aziendaID - l'ID dell'azienda.
-     * @return - la lista di Stabilimenti.
+     * Restituisce tutti gli stabilimenti di un'azienda.
+     *
+     * @param aziendaID l'ID dell'azienda
+     * @return la lista di stabilimenti
      */
     public List<Stabilimento> getStabilimenti(Integer aziendaID){
         return aziendaRepository.getStabilimenti(aziendaID);
