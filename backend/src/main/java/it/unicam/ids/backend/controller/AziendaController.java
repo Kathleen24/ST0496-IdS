@@ -7,11 +7,11 @@ import it.unicam.ids.backend.service.AziendaService;
 import it.unicam.ids.backend.util.EntityValidator;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
-@RequestMapping("/azienda")
+@RequestMapping("/aziende")
 public class AziendaController implements EntityValidator<Azienda> {
 
     private final AziendaService aziendaService;
@@ -59,32 +59,34 @@ public class AziendaController implements EntityValidator<Azienda> {
      * Restituisce le aziende iscritte alla piattaforma nel intervallo
      * di tempo inserito come parametro.
      *
-     * @param start - la data di inizio per eseguire il controllo
-     * @param end   - la data di fine per eseguire il controllo
+     * @param start la data di inizio per eseguire il controllo
+     * @param end la data di fine per eseguire il controllo
      * @return la lista di aziende
      */
-    @GetMapping("/")//TODO nome
-    public List<Azienda> findAziendeNellIntervalloDiTempo(Date start, Date end) {
+    @GetMapping("/findInIntervallo")
+    public List<Azienda> findAziendeNellIntervalloDiTempo(@RequestParam LocalDate start, @RequestParam LocalDate end) {
         return aziendaService.findAziendeNellIntervalloDiTempo(start, end);
     }
 
     /**
-     * Restituisce tutti i clienti iscritti ad almeno un programma fedeltà dell' azienda.
-     * @param aziendaID - l'ID dell'azienda.
-     * @return - la lista di Clienti.
+     * Restituisce tutti i clienti iscritti ad almeno un programma fedeltà dell'azienda.
+     *
+     * @param aziendaID l'ID dell'azienda
+     * @return la lista di Clienti
      */
-    @GetMapping("/")//TODO nome
+    @GetMapping("/getClientiAffiliati")
     public List<Cliente> getClientiAfiiliati(@RequestParam Integer aziendaID) {
         return aziendaService.getClientiAffiliati(aziendaID);
     }
 
     /**
-     * Restituisce tutti gli stabilimenti di un' azienda.
-     * @param aziendaID - l'ID dell'azienda.
-     * @return - la lista di Stabilimenti.
+     * Restituisce tutti gli stabilimenti di un'azienda.
+     *
+     * @param aziendaID l'ID dell'azienda
+     * @return la lista di Stabilimenti
      */
-    @GetMapping("/")//TODO nome
-    public List<Stabilimento> getStabilimenti(Integer aziendaID) {
+    @GetMapping("/getStabilimenti")
+    public List<Stabilimento> getStabilimenti(@RequestParam Integer aziendaID) {
         return aziendaService.getStabilimenti(aziendaID);
     }
 

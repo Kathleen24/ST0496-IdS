@@ -30,9 +30,9 @@ public interface ClienteRepository extends JpaRepository<Cliente, Integer> {
      *
      * @param start la data di inizio per eseguire il controllo
      * @param end la data di fine per eseguire il controllo
-     * @param programmaFedeltaID ID del programma fedeltà.
+     * @param programmaFedeltaID ID del programma fedeltà
      *
-     * @return la lista di clienti.
+     * @return la lista di clienti
      */
     @Query("SELECT c FROM Cliente c, ProgrammaFedeltaDelCliente pfdc " +
             "WHERE pfdc.programmaFedeltaID = :programmaFedeltaID " +

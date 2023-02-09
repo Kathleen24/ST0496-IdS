@@ -18,8 +18,8 @@ public interface AziendaRepository extends JpaRepository<Azienda, Integer> {
      * Questa query restituisce le aziende iscritte alla piattaforma nel intervallo
      * di tempo inserito come parametro.
      *
-     * @param start - la data di inizio per eseguire il controllo
-     * @param end - la data di fine per eseguire il controllo
+     * @param start la data di inizio per eseguire il controllo
+     * @param end la data di fine per eseguire il controllo
      *
      * @return la lista di aziende
      */
@@ -30,10 +30,11 @@ public interface AziendaRepository extends JpaRepository<Azienda, Integer> {
     List<Azienda> findAziendeNellIntervalloDiTempo(@Param("start") LocalDate start, @Param("end") LocalDate end);
 
     /**
-     * Questa query restituisce tutti i clienti iscritti ad almeno un programma
-     * fedeltà dell' azienda.
-     * @param aziendaID - l'ID dell'azienda.
-     * @return - la lista di Clienti.
+     * Questa query restituisce tutti i clienti iscritti ad almeno un programma fedeltà dell'azienda
+     *
+     * @param aziendaID l'ID dell'azienda
+     *
+     * @return la lista di clienti
      */
     @Query( "SELECT DISTINCT  cliente " +
             "FROM Cliente cliente , ProgrammaFedelta programmaFedelta, ProgrammaFedeltaDelCliente programmaFedeltaDelCliente " +
@@ -43,9 +44,11 @@ public interface AziendaRepository extends JpaRepository<Azienda, Integer> {
     List<Cliente> getClientiAffiliati(@Param("aziendaID") Integer aziendaID);
 
     /**
-     * Questa query restituisce tutti gli stabilimenti di un' azienda.
-     * @param aziendaID - l'ID dell'azienda.
-     * @return - la lista di Stabilimenti.
+     * Questa query restituisce tutti gli stabilimenti di un'azienda.
+     *
+     * @param aziendaID l'ID dell'azienda
+     *
+     * @return la lista di stabilimenti
      */
     @Query("SELECT stabilimento " +
             "FROM Stabilimento stabilimento " +
