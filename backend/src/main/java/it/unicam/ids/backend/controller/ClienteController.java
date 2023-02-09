@@ -82,8 +82,8 @@ public class ClienteController implements EntityValidator<Cliente> {
      * @return - il QRCode in formato PNG(250x250).
      * @throws Exception - Eccezioni generiche.
      */
-    @GetMapping("/qrcode/{id}")
-    public ResponseEntity<BufferedImage> linkInviti(@RequestParam ("tessera") String tessera) throws Exception{
+    @GetMapping("/{tessera}/qrcode")
+    public ResponseEntity<BufferedImage> linkInviti(@PathVariable String tessera) throws Exception{
         //TODO Aggiungere il formato del link da comporre con la tessera.
         return qrCodeService.qrCodeGenerator(tessera);
     }
