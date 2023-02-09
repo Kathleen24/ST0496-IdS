@@ -4,6 +4,7 @@ import it.unicam.ids.backend.entity.Coupon;
 import it.unicam.ids.backend.repository.AziendaRepository;
 import it.unicam.ids.backend.repository.ClienteRepository;
 import it.unicam.ids.backend.repository.CouponRepository;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -51,5 +52,15 @@ public class CouponService {
 
     public void deleteCoupon(Integer id) {
         couponRepository.deleteById(id);
+    }
+
+    @Scheduled(cron = "@daily")
+    private void expireCoupon() {
+        couponRepository.findAll().stream()
+                .filter(coupon -> coupon.getDataScadenza().isBefore(LocalDate.now()))
+                .forEach(coupon -> {
+                    coupon.setUsato(true);
+                    updateCoupon(coupon);
+                });
     }
 }
