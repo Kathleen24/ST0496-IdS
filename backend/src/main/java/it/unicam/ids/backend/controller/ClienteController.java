@@ -2,7 +2,9 @@ package it.unicam.ids.backend.controller;
 
 import it.unicam.ids.backend.entity.Cliente;
 import it.unicam.ids.backend.entity.ProgrammaFedeltaDelCliente;
+import it.unicam.ids.backend.entity.Recensione;
 import it.unicam.ids.backend.service.ClienteService;
+import it.unicam.ids.backend.service.RecensioneService;
 import it.unicam.ids.backend.util.EntityValidator;
 import it.unicam.ids.backend.util.QRCodeService;
 import org.springframework.http.ResponseEntity;
@@ -18,11 +20,13 @@ public class ClienteController implements EntityValidator<Cliente> {
 
     private final ClienteService clienteService;
     private final QRCodeService qrCodeService;
+    private final RecensioneService recensioneService;
 
 
-    public ClienteController(ClienteService clienteService, QRCodeService qrCodeService) {
+    public ClienteController(ClienteService clienteService, QRCodeService qrCodeService, RecensioneService recensioneService) {
         this.clienteService = clienteService;
         this.qrCodeService = qrCodeService;
+        this.recensioneService = recensioneService;
     }
 
 
@@ -74,6 +78,11 @@ public class ClienteController implements EntityValidator<Cliente> {
     @PostMapping("/addPunti")
     public void addPunti(@RequestParam Integer tessera, @RequestParam Integer pfId, @RequestParam int punti) {
         clienteService.addPunti(tessera, pfId, punti);
+    }
+
+    @PostMapping("/addRecensione")
+    public void addRecensione(@RequestParam Integer tessera, @RequestParam Integer aziendaID, @RequestParam int voto, @RequestParam String descrizione) {
+        recensioneService.addRecensione(new Recensione(tessera, aziendaID, voto, descrizione));
     }
 
     @GetMapping("/{tessera}/programmiFedelta")
