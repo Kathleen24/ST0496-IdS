@@ -3,10 +3,12 @@ package it.unicam.ids.backend.entity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 import java.util.Objects;
 
 @Entity
+@Table(name = "PianoTariffario")
 public class PianoTariffario {
 
     @Id
