@@ -4,6 +4,7 @@ import it.unicam.ids.backend.entity.Coalizione;
 import it.unicam.ids.backend.repository.AziendaRepository;
 import it.unicam.ids.backend.repository.CoalizioneRepository;
 import it.unicam.ids.backend.repository.ProgrammaFedeltaRepository;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -74,5 +75,27 @@ public class CoalizioneService {
             coalizioneRepository.save(coalizione);
         }
         else System.out.println("Non puoi eseguire questa operazione");
+    }
+
+    @Scheduled(cron = "@daily")
+    private void attivaCoalizioniAccettate() {
+        coalizioneRepository.findAll().stream()
+                .filter(Coalizione::isAccettataEInattiva)
+                .filter(coalizione -> coalizione.getDataInizio().isBefore(LocalDate.now()))
+                .forEach(coalizione -> {
+                    coalizione.setStato(Coalizione.Stato.ACCETTATA_ATTIVA);
+                    coalizioneRepository.save(coalizione);
+                });
+    }
+
+    @Scheduled(cron = "@daily")
+    private void disattivaCoalizioniScadute() {
+        coalizioneRepository.findAll().stream()
+                .filter(Coalizione::isAttiva)
+                .filter(coalizione -> coalizione.getDataFine().isBefore(LocalDate.now()))
+                .forEach(coalizione -> {
+                    coalizione.setStato(Coalizione.Stato.ACCETTATA_SCADUTA);
+                    coalizioneRepository.save(coalizione);
+                });
     }
 }

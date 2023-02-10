@@ -71,6 +71,26 @@ public class Coalizione {
         return stato.equals(Stato.INATTESA_INATTIVA);
     }
 
+    /**
+     * Determina se questa coalizione è nello stato {@link Stato#ACCETTATA_INATTIVA ACCETTATA_INATTIVA}
+     *
+     * @return true se ci si trova, false altrimenti
+     */
+    @JsonIgnore
+    public boolean isAccettataEInattiva() {
+        return stato.equals(Stato.ACCETTATA_INATTIVA);
+    }
+
+    /**
+     * Determina se questa coalizione è nello stato {@link Stato#ACCETTATA_ATTIVA ACCETTATA_ATTIVA}
+     *
+     * @return true se ci si trova, false altrimenti
+     */
+    @JsonIgnore
+    public boolean isAttiva() {
+        return stato.equals(Stato.ACCETTATA_ATTIVA);
+    }
+
     //region Getter e Setter
     public Integer getId() {
         return id;
