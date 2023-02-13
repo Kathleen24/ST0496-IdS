@@ -2,6 +2,7 @@ package it.unicam.ids.backend.repository;
 
 import it.unicam.ids.backend.entity.Azienda;
 import it.unicam.ids.backend.entity.Cliente;
+import it.unicam.ids.backend.entity.ProgrammaFedelta;
 import it.unicam.ids.backend.entity.Stabilimento;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -20,10 +21,9 @@ public interface AziendaRepository extends JpaRepository<Azienda, Integer> {
      *
      * @param start la data di inizio per eseguire il controllo
      * @param end la data di fine per eseguire il controllo
-     *
      * @return la lista di aziende
      */
-    @Query( "SELECT a " +
+    @Query("SELECT a " +
             "FROM Azienda a " +
             "WHERE a.dataIscrizionePiattaforma " +
             "BETWEEN :start AND :end")
@@ -32,26 +32,34 @@ public interface AziendaRepository extends JpaRepository<Azienda, Integer> {
     /**
      * Questa query restituisce tutti i clienti iscritti ad almeno un programma fedeltà dell'azienda
      *
-     * @param aziendaID l'ID dell'azienda
-     *
+     * @param id l'ID dell'azienda
      * @return la lista di clienti
      */
-    @Query( "SELECT DISTINCT  cliente " +
+    @Query("SELECT DISTINCT cliente " +
             "FROM Cliente cliente , ProgrammaFedelta programmaFedelta, ProgrammaFedeltaDelCliente programmaFedeltaDelCliente " +
             "WHERE :aziendaID = programmaFedelta.azienda.id " +
             "AND programmaFedelta.id = programmaFedeltaDelCliente.programmaFedeltaID " +
             "AND cliente.tessera = programmaFedeltaDelCliente.tessera")
-    List<Cliente> getClientiAffiliati(@Param("aziendaID") Integer aziendaID);
+    List<Cliente> getClientiAffiliati(@Param("id") Integer id);
 
     /**
      * Questa query restituisce tutti gli stabilimenti di un'azienda.
      *
-     * @param aziendaID l'ID dell'azienda
-     *
+     * @param id l'ID dell'azienda
      * @return la lista di stabilimenti
      */
     @Query("SELECT stabilimento " +
             "FROM Stabilimento stabilimento " +
             "WHERE stabilimento.aziendaID = :aziendaID")
-    List<Stabilimento> getStabilimenti(@Param("aziendaID") Integer aziendaID);
+    List<Stabilimento> getStabilimenti(@Param("id") Integer id);
+
+    /**
+     * Questa query restituisce la lista di programmi fedeltà dell'azienda che viene inserita tramite parametro.
+     *
+     * @param id l'ID dell'azienda
+     * @return la lista dei programmi fedeltà
+     */
+    @Query("SELECT pf FROM ProgrammaFedelta pf " +
+            "WHERE pf.azienda.id = :aziendaID")
+    List<ProgrammaFedelta> findProgrammiFedeltaDellAzienda(@Param("id") Integer id);
 }

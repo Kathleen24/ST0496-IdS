@@ -85,9 +85,4 @@ public class ClienteService {
                 .filter(pf -> pf.getProgrammaFedeltaID().equals(pfID))
                 .findFirst().orElse(null);
     }
-
-    public void addProgrammaFedeltaToCliente(Integer tessera, Integer pfID) {
-        getCliente(tessera).addProgrammaFedelta(getProgrammaFedeltaOf(tessera, pfID));
-    }
-
 }

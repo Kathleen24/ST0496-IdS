@@ -13,6 +13,8 @@ public class RecensioneID implements Serializable {
 
 
     //region Costruttori
+    public RecensioneID() {}
+
     public RecensioneID(Integer aziendaID, Integer tessera) {
         this.aziendaID = aziendaID;
         this.tessera = tessera;
@@ -21,7 +23,6 @@ public class RecensioneID implements Serializable {
 
 
     //region Getter e Setter
-
     public Integer getAziendaID() {
         return aziendaID;
     }

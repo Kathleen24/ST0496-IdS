@@ -38,13 +38,13 @@ public class ProgrammaFedeltaService {
         return programmaFedeltaRepository.findById(id).orElse(null);
     }
 
-    public ProgrammaFedelta addProgrammaFedelta(Integer aziendaID, List<Integer> bonus, List<Integer> soglie) {
+    public ProgrammaFedelta addProgrammaFedelta(Integer aziendaID, List<Integer> bonus, List<Integer> soglie, Boolean attivo) {
         return programmaFedeltaRepository.save(new ProgrammaFedelta(
                 aziendaRepository.findById(aziendaID).orElseThrow(),
                 bonus.stream().map(bonusRepository::findById)
                         .map(Optional::orElseThrow)
                         .toList(),
-                soglie
+                soglie, attivo
         ));
     }
 
@@ -54,9 +54,5 @@ public class ProgrammaFedeltaService {
 
     public void deleteProgrammaFedelta(Integer id) {
         programmaFedeltaRepository.deleteById(id);
-    }
-
-    public List<ProgrammaFedelta> getAllProgrammiFedeltaOf(Integer aziendaID) {
-        return programmaFedeltaRepository.findProgrammiFedeltaDellAzienda(aziendaID);
     }
 }

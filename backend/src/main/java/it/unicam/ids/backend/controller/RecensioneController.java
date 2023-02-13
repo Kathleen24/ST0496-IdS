@@ -16,16 +16,18 @@ public class RecensioneController implements EntityValidator<Recensione> {
     private final RecensioneService recensioneService;
     private final AziendaService aziendaService;
 
+
     public RecensioneController(RecensioneService recensioneService, AziendaService aziendaService) {
         this.recensioneService = recensioneService;
         this.aziendaService = aziendaService;
     }
 
+
     @Override
     public void validateEntity(Recensione recensione) {
         if (recensione == null)
             throw new NullPointerException("L'oggetto recensione è nullo");
-        if(recensione.getVoto() <1||recensione.getVoto()>5)
+        if(recensione.getVoto() < 1 || recensione.getVoto() > 5)
             throw new IllegalArgumentException("Il voto deve essere compreso tra 1 e 5");
 
         if(aziendaService.getAzienda(recensione.getAziendaID()) == null)
@@ -38,7 +40,7 @@ public class RecensioneController implements EntityValidator<Recensione> {
     }
 
     @GetMapping("/{tessera}@{aziendaID}")
-    public Recensione getRecensione(@PathVariable RecensioneID id) {
+    public Recensione getRecensione(RecensioneID id) {
         return recensioneService.getRecensione(id);
     }
 
@@ -55,5 +57,4 @@ public class RecensioneController implements EntityValidator<Recensione> {
     public void deleteRecensione(RecensioneID id) {
         recensioneService.deleteRecensione(id);
     }
-
 }

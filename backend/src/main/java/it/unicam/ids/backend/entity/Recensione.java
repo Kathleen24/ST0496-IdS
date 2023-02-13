@@ -17,8 +17,11 @@ public class Recensione {
 
     @Column(nullable = false)
     private Integer voto;
-
     private String descrizione;
+
+
+    //region Costruttori
+    public Recensione() {}
 
     public Recensione(Integer aziendaID, Integer tessera, Integer voto, String descrizione) {
         this.aziendaID = aziendaID;
@@ -26,7 +29,10 @@ public class Recensione {
         this.voto = voto;
         this.descrizione = descrizione;
     }
+    //endregion
 
+
+    //region Getter e Setter
     public Integer getAziendaID() {
         return aziendaID;
     }
@@ -58,19 +64,25 @@ public class Recensione {
     public void setDescrizione(String descrizione) {
         this.descrizione = descrizione;
     }
+    //endregion
 
+    //region Equals e hashCode
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Recensione that = (Recensione) o;
-        return Objects.equals(aziendaID, that.aziendaID) && Objects.equals(tessera, that.tessera) && Objects.equals(voto, that.voto) && Objects.equals(descrizione, that.descrizione);
+        return Objects.equals(aziendaID, that.aziendaID) &&
+                Objects.equals(tessera, that.tessera) &&
+                Objects.equals(voto, that.voto) &&
+                Objects.equals(descrizione, that.descrizione);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(aziendaID, tessera, voto, descrizione);
     }
+    //endregion
 }
 
 

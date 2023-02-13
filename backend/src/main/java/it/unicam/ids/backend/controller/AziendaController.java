@@ -2,6 +2,7 @@ package it.unicam.ids.backend.controller;
 
 import it.unicam.ids.backend.entity.Azienda;
 import it.unicam.ids.backend.entity.Cliente;
+import it.unicam.ids.backend.entity.ProgrammaFedelta;
 import it.unicam.ids.backend.entity.Stabilimento;
 import it.unicam.ids.backend.service.AziendaService;
 import it.unicam.ids.backend.util.EntityValidator;
@@ -55,6 +56,11 @@ public class AziendaController implements EntityValidator<Azienda> {
         return aziendaService.updateAzienda(azienda);
     }
 
+    @DeleteMapping("/{id}")
+    public void deleteAzienda(@PathVariable Integer id) {
+        aziendaService.deleteAzienda(id);
+    }
+
     /**
      * Restituisce le aziende iscritte alla piattaforma nel intervallo
      * di tempo inserito come parametro.
@@ -71,27 +77,33 @@ public class AziendaController implements EntityValidator<Azienda> {
     /**
      * Restituisce tutti i clienti iscritti ad almeno un programma fedeltà dell'azienda.
      *
-     * @param aziendaID l'ID dell'azienda
+     * @param id l'ID dell'azienda
      * @return la lista di Clienti
      */
-    @GetMapping("/getClientiAffiliati")
-    public List<Cliente> getClientiAfiiliati(@RequestParam Integer aziendaID) {
-        return aziendaService.getClientiAffiliati(aziendaID);
+    @GetMapping("/{id}/clienti")
+    public List<Cliente> getClientiAffiliati(@PathVariable Integer id) {
+        return aziendaService.getClientiAffiliati(id);
     }
 
     /**
      * Restituisce tutti gli stabilimenti di un'azienda.
      *
-     * @param aziendaID l'ID dell'azienda
+     * @param id l'ID dell'azienda
      * @return la lista di Stabilimenti
      */
-    @GetMapping("/getStabilimenti")
-    public List<Stabilimento> getStabilimenti(@RequestParam Integer aziendaID) {
-        return aziendaService.getStabilimenti(aziendaID);
+    @GetMapping("/{id}/stabilimenti")
+    public List<Stabilimento> getStabilimenti(@PathVariable Integer id) {
+        return aziendaService.getStabilimenti(id);
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteAzienda(@PathVariable Integer id) {
-        aziendaService.deleteAzienda(id);
+    /**
+     * Restituisce tutti i programmi fedeltà di un'azienda.
+     *
+     * @param id l'ID dell'azienda
+     * @return la lista di Programmi Fedeltà
+     */
+    @GetMapping("/{id}/programmiFedelta")
+    public List<ProgrammaFedelta> getAllProgrammiFedeltaOf(@PathVariable Integer id) {
+        return aziendaService.getAllProgrammiFedeltaOf(id);
     }
 }

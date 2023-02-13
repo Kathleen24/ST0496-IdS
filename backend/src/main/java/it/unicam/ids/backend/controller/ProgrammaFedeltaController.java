@@ -30,6 +30,8 @@ public class ProgrammaFedeltaController implements EntityValidator<ProgrammaFede
     public void validateEntity(ProgrammaFedelta programmaFedelta) {
         if (programmaFedelta == null)
             throw new NullPointerException("L'oggetto programma fedeltà è nullo");
+        if (programmaFedelta.getBonus().size() != programmaFedelta.getSoglie().size())
+            throw new IllegalArgumentException("Il programma fedeltà ha liste non parallele");
 
         if (aziendaService.getAzienda(programmaFedelta.getAzienda().getId()) == null)
             throw new IllegalArgumentException("L'azienda inserita non è esistente");
@@ -49,9 +51,10 @@ public class ProgrammaFedeltaController implements EntityValidator<ProgrammaFede
     public ProgrammaFedelta addProgrammaFedelta(
             @RequestParam Integer aziendaID,
             @RequestParam List<Integer> bonus,
-            @RequestParam List<Integer> soglie
+            @RequestParam List<Integer> soglie,
+            @RequestParam Boolean attivo
     ) {
-        return programmaFedeltaService.addProgrammaFedelta(aziendaID, bonus, soglie);
+        return programmaFedeltaService.addProgrammaFedelta(aziendaID, bonus, soglie, attivo);
     }
 
     public void updateProgrammaFedelta(ProgrammaFedelta pf) {
@@ -63,11 +66,8 @@ public class ProgrammaFedeltaController implements EntityValidator<ProgrammaFede
         programmaFedeltaService.deleteProgrammaFedelta(id);
     }
 
-    public List<Bonus> getAllBonusOf(Integer pfID) {
-        return getProgrammaFedelta(pfID).getBonus();
-    }
-
-    public List<ProgrammaFedelta> getAllProgrammiFedeltaOf(Integer aziendaID) {
-        return programmaFedeltaService.getAllProgrammiFedeltaOf(aziendaID);
+    @GetMapping("/{id}/bonus")
+    public List<Bonus> getAllBonusOf(@PathVariable Integer id) {
+        return getProgrammaFedelta(id).getBonus();
     }
 }

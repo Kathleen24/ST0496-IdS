@@ -25,18 +25,17 @@ public class ProgrammaFedelta {
     private List<Bonus> bonus = new ArrayList<>();
     @ElementCollection
     private List<Integer> soglie = new ArrayList<>();
+    private Boolean attivo;
 
 
     //region Costruttori
     public ProgrammaFedelta() {}
 
-    public ProgrammaFedelta(Azienda azienda, List<Bonus> bonus, List<Integer> soglie) {
-        if (bonus.size() != soglie.size())
-            throw new IllegalArgumentException("Liste non parallele");
-
+    public ProgrammaFedelta(Azienda azienda, List<Bonus> bonus, List<Integer> soglie, Boolean attivo) {
         this.azienda = azienda;
         this.bonus = bonus;
         this.soglie = soglie;
+        this.attivo = attivo;
     }
 
     public ProgrammaFedelta(ProgrammaFedelta programmaFedelta) {
@@ -44,6 +43,7 @@ public class ProgrammaFedelta {
         this.azienda = programmaFedelta.getAzienda();
         this.bonus.addAll(programmaFedelta.getBonus());
         this.soglie.addAll(programmaFedelta.getSoglie());
+        this.attivo = programmaFedelta.getAttivo();
     }
     //endregion
 
@@ -80,6 +80,14 @@ public class ProgrammaFedelta {
     public void setSoglie(List<Integer> soglie) {
         this.soglie = soglie;
     }
+
+    public Boolean getAttivo() {
+        return attivo;
+    }
+
+    public void setAttivo(Boolean attivo) {
+        this.attivo = attivo;
+    }
     //endregion
 
     //region equals e hashCode
@@ -87,12 +95,16 @@ public class ProgrammaFedelta {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof ProgrammaFedelta that)) return false;
-        return id.equals(that.id) && azienda.equals(that.azienda) && bonus.equals(that.bonus) && soglie.equals(that.soglie);
+        return id.equals(that.id) &&
+                azienda.equals(that.azienda) &&
+                bonus.equals(that.bonus) &&
+                soglie.equals(that.soglie) &&
+                attivo.equals(that.attivo);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, azienda, bonus, soglie);
+        return Objects.hash(id, azienda, bonus, soglie, attivo);
     }
     //endregion
 }

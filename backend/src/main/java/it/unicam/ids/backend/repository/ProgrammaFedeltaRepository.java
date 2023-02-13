@@ -10,16 +10,5 @@ import java.util.List;
 
 @Repository
 public interface ProgrammaFedeltaRepository extends JpaRepository<ProgrammaFedelta, Integer> {
-
-    /**
-     * Questa query restituisce la lista di programmi fedeltà dell'azienda che viene inserita tramite parametro.
-     *
-     * @param aziendaID ID dell'azienda
-     *
-     * @return la lista dei programmi fedeltà
-     */
-    @Query("SELECT pf FROM ProgrammaFedelta pf, ProgrammaFedeltaDelCliente pfdc " +
-            "WHERE pf.azienda.id = :aziendaID ")
-    List<ProgrammaFedelta> findProgrammiFedeltaDellAzienda(@Param("aziendaID") Integer aziendaID);
 }
 

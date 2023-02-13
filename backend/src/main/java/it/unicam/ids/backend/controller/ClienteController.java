@@ -23,7 +23,11 @@ public class ClienteController implements EntityValidator<Cliente> {
     private final RecensioneService recensioneService;
 
 
-    public ClienteController(ClienteService clienteService, QRCodeService qrCodeService, RecensioneService recensioneService) {
+    public ClienteController(
+            ClienteService clienteService,
+            QRCodeService qrCodeService,
+            RecensioneService recensioneService
+    ) {
         this.clienteService = clienteService;
         this.qrCodeService = qrCodeService;
         this.recensioneService = recensioneService;
@@ -81,7 +85,12 @@ public class ClienteController implements EntityValidator<Cliente> {
     }
 
     @PostMapping("/addRecensione")
-    public void addRecensione(@RequestParam Integer tessera, @RequestParam Integer aziendaID, @RequestParam int voto, @RequestParam String descrizione) {
+    public void addRecensione(
+            @RequestParam Integer tessera,
+            @RequestParam Integer aziendaID,
+            @RequestParam int voto,
+            @RequestParam String descrizione
+    ) {
         recensioneService.addRecensione(new Recensione(tessera, aziendaID, voto, descrizione));
     }
 
