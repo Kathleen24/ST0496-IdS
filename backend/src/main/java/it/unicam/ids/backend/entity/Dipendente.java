@@ -16,13 +16,14 @@ public class Dipendente {
     private Integer aziendaID;
 
     @ManyToOne
-    @JoinColumn(name = "utentePiattaforma", referencedColumnName = "codFis")
+    @JoinColumn(name = "utentePiattaforma", referencedColumnName = "codFis", nullable = false)
     private UtentePiattaforma utentePiattaforma;
     @ManyToOne
     @MapsId("aziendaID")
-    @JoinColumn(name = "aziendaID", referencedColumnName = "id")
+    @JoinColumn(name = "aziendaID", referencedColumnName = "id", nullable = false)
     private Azienda azienda;
 
+    @Column(nullable = false)
     private String password;
     private Boolean gestorePunti;
     private Boolean gestoreDipendenti;
@@ -34,12 +35,16 @@ public class Dipendente {
     //region Costruttori
     public Dipendente() {}
 
-    public Dipendente(String nomeUtente, Integer aziendaID, String password, UtentePiattaforma utentePiattaforma, Azienda azienda, Boolean gestorePunti, Boolean gestoreDipendenti, Boolean gestoreInformazioni, Boolean gestoreProgrammiFedelta, Boolean responsabile) {
+    public Dipendente(String nomeUtente, UtentePiattaforma utentePiattaforma, Azienda azienda, String password) {
+        this(nomeUtente, azienda.getId(), utentePiattaforma, azienda, password, false, false, false, false, false);
+    }
+
+    public Dipendente(String nomeUtente, Integer aziendaID, UtentePiattaforma utentePiattaforma, Azienda azienda, String password, Boolean gestorePunti, Boolean gestoreDipendenti, Boolean gestoreInformazioni, Boolean gestoreProgrammiFedelta, Boolean responsabile) {
         this.nomeUtente = nomeUtente;
         this.aziendaID = aziendaID;
-        this.password = password;
         this.utentePiattaforma = utentePiattaforma;
         this.azienda = azienda;
+        this.password = password;
         this.gestorePunti = gestorePunti;
         this.gestoreDipendenti = gestoreDipendenti;
         this.gestoreInformazioni = gestoreInformazioni;
@@ -47,17 +52,17 @@ public class Dipendente {
         this.responsabile = responsabile;
     }
 
-    public Dipendente(Dipendente d) {
-        this.nomeUtente = d.getNomeUtente();
-        this.aziendaID = d.getAziendaID();
-        this.password = d.getPassword();
-        this.utentePiattaforma = d.getUtentePiattaforma();
-        this.azienda = d.getAzienda();
-        this.gestorePunti = d.getGestorePunti();
-        this.gestoreDipendenti = d.getGestoreDipendenti();
-        this.gestoreInformazioni = d.getGestoreInformazioni();
-        this.gestoreProgrammiFedelta = d.getGestoreProgrammiFedelta();
-        this.responsabile = d.getResponsabile();
+    public Dipendente(Dipendente dipendente) {
+        this.nomeUtente = dipendente.getNomeUtente();
+        this.aziendaID = dipendente.getAziendaID();
+        this.password = dipendente.getPassword();
+        this.utentePiattaforma = dipendente.getUtentePiattaforma();
+        this.azienda = dipendente.getAzienda();
+        this.gestorePunti = dipendente.getGestorePunti();
+        this.gestoreDipendenti = dipendente.getGestoreDipendenti();
+        this.gestoreInformazioni = dipendente.getGestoreInformazioni();
+        this.gestoreProgrammiFedelta = dipendente.getGestoreProgrammiFedelta();
+        this.responsabile = dipendente.getResponsabile();
     }
     //endregion
 

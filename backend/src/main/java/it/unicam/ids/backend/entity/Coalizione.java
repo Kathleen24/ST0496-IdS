@@ -9,7 +9,7 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
-@Table(name="Coalizione")
+@Table(name = "Coalizione")
 public class Coalizione {
 
     @Id
@@ -17,16 +17,19 @@ public class Coalizione {
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "programmaFedeltaID", referencedColumnName = "id")
+    @JoinColumn(name = "programmaFedeltaID", referencedColumnName = "id", nullable = false)
     private ProgrammaFedelta programmaFedelta;
     @ManyToOne
-    @JoinColumn(name = "aziendaDestinataria", referencedColumnName = "id")
+    @JoinColumn(name = "aziendaDestinataria", referencedColumnName = "id", nullable = false)
     private Azienda aziendaDestinataria;
 
     @JsonFormat(pattern = "dd-MM-yyyy")
+    @Column(nullable = false)
     private LocalDate dataInizio;
     @JsonFormat(pattern = "dd-MM-yyyy")
+    @Column(nullable = false)
     private LocalDate dataFine;
+    @Column(nullable = false)
     private Stato stato;
 
 
@@ -34,15 +37,6 @@ public class Coalizione {
     public Coalizione() {}
 
     public Coalizione(ProgrammaFedelta programmaFedelta, Azienda aziendaDestinataria, LocalDate dataInizio, LocalDate dataFine) {
-        this.programmaFedelta = programmaFedelta;
-        this.aziendaDestinataria = aziendaDestinataria;
-        this.dataInizio = dataInizio;
-        this.dataFine = dataFine;
-        this.stato = Stato.INATTESA_INATTIVA;
-    }
-
-    public Coalizione(Integer id, ProgrammaFedelta programmaFedelta, Azienda aziendaDestinataria, LocalDate dataInizio, LocalDate dataFine) {
-        this.id = id;
         this.programmaFedelta = programmaFedelta;
         this.aziendaDestinataria = aziendaDestinataria;
         this.dataInizio = dataInizio;

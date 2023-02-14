@@ -15,15 +15,18 @@ public class Coupon {
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "aziendaID", referencedColumnName = "id")
+    @JoinColumn(name = "aziendaID", referencedColumnName = "id", nullable = false)
     private Azienda azienda;
     @ManyToOne
-    @JoinColumn(name = "tessera", referencedColumnName = "tessera")
+    @JoinColumn(name = "tessera", referencedColumnName = "tessera", nullable = false)
     private Cliente cliente;
 
+    @Column(nullable = false)
     private Integer valore;
+    @Column(nullable = false)
     private Boolean usato;
     @JsonFormat(pattern = "dd-MM-yyyy")
+    @Column(nullable = false)
     private LocalDate dataScadenza;
 
 

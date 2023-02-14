@@ -43,12 +43,12 @@ public class Abbonamento {
     }
 
     public Abbonamento(Abbonamento abbonamento) {
-        this.id = getId();
-        this.pianoTariffario = getPianoTariffario();
-        this.descrizione = getDescrizione();
-        this.dataIscrizione = getDataIscrizione();
-        this.dataUltimoPagamento = getDataUltimoPagamento();
-        this.attivo = getAttivo();
+        this.id = abbonamento.getId();
+        this.pianoTariffario = abbonamento.getPianoTariffario();
+        this.descrizione = abbonamento.getDescrizione();
+        this.dataIscrizione = abbonamento.getDataIscrizione();
+        this.dataUltimoPagamento = abbonamento.getDataUltimoPagamento();
+        this.attivo = abbonamento.getAttivo();
     }
     //endregion
 

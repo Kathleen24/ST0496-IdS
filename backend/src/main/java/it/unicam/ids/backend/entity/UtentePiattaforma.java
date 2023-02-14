@@ -31,8 +31,17 @@ public class UtentePiattaforma {
     private String cap;
     private String cellulare;
 
+
     //region Costruttori
     public UtentePiattaforma() {}
+
+    public UtentePiattaforma(String codFis, String nome, String cognome, LocalDate dataNascita, String luogoNascita) {
+        this.codFis = codFis;
+        this.nome = nome;
+        this.cognome = cognome;
+        this.dataNascita = dataNascita;
+        this.luogoNascita = luogoNascita;
+    }
 
     public UtentePiattaforma(String codFis, String nome, String cognome, LocalDate dataNascita, String luogoNascita, String indirizzo, String citta, String provincia, String cap, String cellulare) {
         this.codFis = codFis;

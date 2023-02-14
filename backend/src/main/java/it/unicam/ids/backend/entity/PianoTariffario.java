@@ -25,9 +25,7 @@ public class PianoTariffario {
     //region Costruttori
     public PianoTariffario() {}
 
-    public PianoTariffario(
-            Double costo, Boolean newsLetterService, Boolean emailService, Boolean calendarService, Boolean smsService
-    ) {
+    public PianoTariffario(Double costo, Boolean newsLetterService, Boolean emailService, Boolean calendarService, Boolean smsService) {
         this.costo = costo;
         this.newsLetterService = newsLetterService;
         this.emailService = emailService;
@@ -35,10 +33,7 @@ public class PianoTariffario {
         this.smsService = smsService;
     }
 
-    public PianoTariffario(
-            Integer id, Double costo, Boolean newsLetterService,
-            Boolean emailService, Boolean calendarService, Boolean smsService
-    ) {
+    public PianoTariffario(Integer id, Double costo, Boolean newsLetterService, Boolean emailService, Boolean calendarService, Boolean smsService) {
         this.id = id;
         this.costo = costo;
         this.newsLetterService = newsLetterService;

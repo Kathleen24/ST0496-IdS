@@ -15,7 +15,7 @@ public class ProgrammaFedelta {
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "aziendaID", referencedColumnName = "id")
+    @JoinColumn(name = "aziendaID", referencedColumnName = "id", nullable = false)
     private Azienda azienda;
     @OneToMany
     @JoinColumns({
@@ -25,6 +25,7 @@ public class ProgrammaFedelta {
     private List<Bonus> bonus = new ArrayList<>();
     @ElementCollection
     private List<Integer> soglie = new ArrayList<>();
+    @Column(nullable = false)
     private Boolean attivo;
 
 

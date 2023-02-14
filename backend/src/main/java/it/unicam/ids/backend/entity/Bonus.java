@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name="Bonus")
+@Table(name = "Bonus")
 public class Bonus {
 
     @Id
@@ -31,20 +31,16 @@ public class Bonus {
         this.descrizione = descrizione;
         this.tipo = tipo;
     }
+
+    public Bonus(Bonus bonus) {
+        this.id = bonus.getId();
+        this.azienda = bonus.getAzienda();
+        this.valore = bonus.getValore();
+        this.descrizione = bonus.getDescrizione();
+        this.tipo = bonus.getTipo();
+    }
     //endregion
 
-
-    /**
-     * Copia tutti gli attributi tranne l'id da un'altra istanza della classe
-     *
-     * @param other un'altra istanza di <code>Bonus</code>
-     */
-    public void copyFrom(Bonus other) {
-        //setAzienda(other.getAzienda());
-        setValore(other.getValore());
-        setDescrizione(other.getDescrizione());
-        setTipo(other.getTipo());
-    }
 
     //region Getter e Setter
     public Integer getId() {

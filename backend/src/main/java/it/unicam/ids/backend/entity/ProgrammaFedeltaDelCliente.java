@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @Entity
 @IdClass(ProgrammaFedeltaDelClienteID.class)
-@Table(name="ProgrammaFedeltaDelCliente")
+@Table(name = "ProgrammaFedeltaDelCliente")
 public class ProgrammaFedeltaDelCliente {
 
     @Id
@@ -26,9 +26,12 @@ public class ProgrammaFedeltaDelCliente {
     })
     private ProgrammaFedelta programmaFedelta;
 
+    @Column(nullable = false)
     private Integer puntiRaccolti;
-    private boolean sonoXp;
+    @Column(nullable = false)
+    private Boolean sonoXp;
     @JsonFormat(pattern = "dd-MM-yyyy")
+    @Column(nullable = false)
     private LocalDate dataIscrizione;
 
 

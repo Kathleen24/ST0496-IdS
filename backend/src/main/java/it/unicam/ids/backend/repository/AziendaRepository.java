@@ -32,7 +32,7 @@ public interface AziendaRepository extends JpaRepository<Azienda, Integer> {
     /**
      * Questa query restituisce tutti i clienti iscritti ad almeno un programma fedeltà dell'azienda
      *
-     * @param id l'ID dell'azienda
+     * @param aziendaID l'ID dell'azienda
      * @return la lista di clienti
      */
     @Query("SELECT DISTINCT cliente " +
@@ -40,26 +40,26 @@ public interface AziendaRepository extends JpaRepository<Azienda, Integer> {
             "WHERE :aziendaID = programmaFedelta.azienda.id " +
             "AND programmaFedelta.id = programmaFedeltaDelCliente.programmaFedeltaID " +
             "AND cliente.tessera = programmaFedeltaDelCliente.tessera")
-    List<Cliente> getClientiAffiliati(@Param("id") Integer id);
+    List<Cliente> getClientiAffiliati(@Param("aziendaID") Integer aziendaID);
 
     /**
      * Questa query restituisce tutti gli stabilimenti di un'azienda.
      *
-     * @param id l'ID dell'azienda
+     * @param aziendaID l'ID dell'azienda
      * @return la lista di stabilimenti
      */
     @Query("SELECT stabilimento " +
             "FROM Stabilimento stabilimento " +
             "WHERE stabilimento.aziendaID = :aziendaID")
-    List<Stabilimento> getStabilimenti(@Param("id") Integer id);
+    List<Stabilimento> getStabilimenti(@Param("aziendaID") Integer aziendaID);
 
     /**
      * Questa query restituisce la lista di programmi fedeltà dell'azienda che viene inserita tramite parametro.
      *
-     * @param id l'ID dell'azienda
+     * @param aziendaID l'ID dell'azienda
      * @return la lista dei programmi fedeltà
      */
-    @Query("SELECT pf FROM ProgrammaFedelta pf " +
+    @Query("SELECT pf FROM ProgrammaFedelta pf, ProgrammaFedeltaDelCliente pfdc " +
             "WHERE pf.azienda.id = :aziendaID")
-    List<ProgrammaFedelta> findProgrammiFedeltaDellAzienda(@Param("id") Integer id);
+    List<ProgrammaFedelta> findProgrammiFedeltaDellAzienda(@Param("aziendaID") Integer aziendaID);
 }

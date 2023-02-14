@@ -7,7 +7,7 @@ import java.util.Objects;
 
 @Entity
 @IdClass(StabilimentoID.class)
-@Table(name="Stabilimento")
+@Table(name = "Stabilimento")
 public class Stabilimento {
 
     @Id

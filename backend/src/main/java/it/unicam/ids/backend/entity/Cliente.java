@@ -17,23 +17,33 @@ public class Cliente {
     private Integer tessera;
 
     @OneToOne
-    @JoinColumn(name = "utentePiattaformaID", referencedColumnName = "codFis")
+    @JoinColumn(name = "utentePiattaformaID", referencedColumnName = "codFis", nullable = false)
     private UtentePiattaforma utentePiattaforma;
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String nomeUtente;
+    @Column(nullable = false)
     private String password;
+    @Column(nullable = false)
     private String email;
     @OneToMany
     @JoinColumn(name = "tessera") // la colonna tessera sta nella tabella ProgrammaFedeltaDelCliente
     private Set<ProgrammaFedeltaDelCliente> programmiFedelta = new HashSet<>();
 
     @JsonFormat(pattern = "dd-MM-yyyy")
+    @Column(nullable = false)
     private LocalDate dataIscrizionePiattaforma = LocalDate.now();
 
 
     //region Costruttori
     public Cliente() {}
+
+    public Cliente(UtentePiattaforma utentePiattaforma, String nomeUtente, String password, String email) {
+        this.utentePiattaforma = utentePiattaforma;
+        this.nomeUtente = nomeUtente;
+        this.password = password;
+        this.email = email;
+    }
 
     public Cliente(UtentePiattaforma utentePiattaforma, String nomeUtente, String password, String email, Set<ProgrammaFedeltaDelCliente> programmiFedelta, LocalDate dataIscrizionePiattaforma) {
         this.utentePiattaforma = utentePiattaforma;

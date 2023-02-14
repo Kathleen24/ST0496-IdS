@@ -7,7 +7,7 @@ import jakarta.persistence.Table;
 import java.util.Objects;
 
 @Entity
-@Table(name="AmministratorePiattaforma")
+@Table(name = "AmministratorePiattaforma")
 public class AmministratorePiattaforma {
 
     @Id
