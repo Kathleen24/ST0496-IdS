@@ -4,6 +4,7 @@ import it.unicam.ids.backend.entity.Azienda;
 import it.unicam.ids.backend.entity.Cliente;
 import it.unicam.ids.backend.entity.ProgrammaFedelta;
 import it.unicam.ids.backend.entity.Stabilimento;
+import it.unicam.ids.backend.repository.AbbonamentoRepository;
 import it.unicam.ids.backend.repository.AziendaRepository;
 import org.springframework.stereotype.Service;
 
@@ -14,10 +15,15 @@ import java.util.List;
 public class AziendaService {
 
     private final AziendaRepository aziendaRepository;
+    private final AbbonamentoRepository abbonamentoRepository;
 
 
-    public AziendaService(AziendaRepository aziendaRepository) {
+    public AziendaService(
+            AziendaRepository aziendaRepository,
+            AbbonamentoRepository abbonamentoRepository
+    ) {
         this.aziendaRepository = aziendaRepository;
+        this.abbonamentoRepository = abbonamentoRepository;
     }
 
 
@@ -29,8 +35,11 @@ public class AziendaService {
         return aziendaRepository.findById(id).orElse(null);
     }
 
-    public Azienda addAzienda(String nome, String terminiLegali, String infoAttivita, String link) {
-        return aziendaRepository.save(new Azienda(nome, terminiLegali, infoAttivita, link));
+    public Azienda addAzienda(Integer abbonamentoId, String nome, String terminiLegali, String infoAttivita, String link) {
+        return aziendaRepository.save(new Azienda(
+                abbonamentoRepository.findById(abbonamentoId).orElseThrow(),
+                nome, terminiLegali, infoAttivita, link
+        ));
     }
 
     public Azienda updateAzienda(Azienda azienda) {
@@ -49,15 +58,15 @@ public class AziendaService {
      * @param end la data di fine per eseguire il controllo
      * @return la lista di aziende
      */
-    public List<Azienda> findAziendeNellIntervalloDiTempo(LocalDate start, LocalDate end){
+    public List<Azienda> findAziendeNellIntervalloDiTempo(LocalDate start, LocalDate end) {
         return aziendaRepository.findAziendeNellIntervalloDiTempo(start, end);
     }
 
     /**
      * Restituisce tutti i clienti iscritti ad almeno un programma fedeltà dell'azienda.
      *
-     * @param id l'ID dell'azienda.
-     * @return la lista di clienti.
+     * @param id l'ID dell'azienda
+     * @return la lista di clienti
      */
     public List<Cliente> getClientiAffiliati(Integer id) {
         return aziendaRepository.getClientiAffiliati(id);

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/pianoTariffario")
+@RequestMapping("/pianiTariffari")
 public class PianoTariffarioController implements EntityValidator<PianoTariffario> {
 
     private final PianoTariffarioService pianoTariffarioService;
@@ -40,12 +40,12 @@ public class PianoTariffarioController implements EntityValidator<PianoTariffari
     @PostMapping("/add")
     public PianoTariffario addPianoTariffario(
             @RequestParam Double costo,
-            @RequestParam Boolean newLetterService,
+            @RequestParam Boolean newsLetterService,
             @RequestParam Boolean emailService,
             @RequestParam Boolean calendarService,
             @RequestParam Boolean smsService
     ) {
-        return pianoTariffarioService.addPianoTariffario(costo, newLetterService, emailService, calendarService, smsService);
+        return pianoTariffarioService.addPianoTariffario(costo, newsLetterService, emailService, calendarService, smsService);
     }
 
     @PostMapping("/update")

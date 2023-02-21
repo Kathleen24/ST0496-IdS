@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Objects;
 
 @RestController
-@RequestMapping("/amministratorePiattaforma")
+@RequestMapping("/amministratoriPiattaforma")
 public class AmministratorePiattaformaController implements EntityValidator<AmministratorePiattaforma> {
 
     private final AmministratorePiattaformaService amministratorePiattaformaService;

@@ -43,12 +43,13 @@ public class AziendaController implements EntityValidator<Azienda> {
 
     @PostMapping("/add")
     public Azienda addAzienda(
+            @RequestParam Integer abbonamentoId,
             @RequestParam String nome,
             @RequestParam String terminiLegali,
             @RequestParam(defaultValue = "") String infoAttivita,
             @RequestParam(defaultValue = "") String link
     ) {
-        return aziendaService.addAzienda(nome, terminiLegali, infoAttivita, link);
+        return aziendaService.addAzienda(abbonamentoId, nome, terminiLegali, infoAttivita, link);
     }
 
     @PostMapping("/update")

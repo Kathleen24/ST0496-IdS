@@ -1,8 +1,8 @@
 package it.unicam.ids.backend.service;
 
 import it.unicam.ids.backend.entity.Abbonamento;
-import it.unicam.ids.backend.entity.PianoTariffario;
 import it.unicam.ids.backend.repository.AbbonamentoRepository;
+import it.unicam.ids.backend.repository.PianoTariffarioRepository;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -13,10 +13,15 @@ import java.util.List;
 public class AbbonamentoService {
 
     private final AbbonamentoRepository abbonamentoRepository;
+    private final PianoTariffarioRepository pianoTariffarioRepository;
 
 
-    public AbbonamentoService(AbbonamentoRepository abbonamentoRepository) {
+    public AbbonamentoService(
+            AbbonamentoRepository abbonamentoRepository,
+            PianoTariffarioRepository pianoTariffarioRepository
+    ) {
         this.abbonamentoRepository = abbonamentoRepository;
+        this.pianoTariffarioRepository = pianoTariffarioRepository;
     }
 
 
@@ -32,8 +37,11 @@ public class AbbonamentoService {
         return abbonamentoRepository.findById(id).orElseThrow();
     }
 
-    public Abbonamento addAbbonamento(PianoTariffario pianoTariffario, String descrizione, Boolean attivo) {
-        return abbonamentoRepository.save(new Abbonamento(pianoTariffario, descrizione, attivo));
+    public Abbonamento addAbbonamento(Integer pianoTariffarioId, String descrizione, Boolean attivo) {
+        return abbonamentoRepository.save(new Abbonamento(
+                pianoTariffarioRepository.findById(pianoTariffarioId).orElseThrow(),
+                descrizione, attivo
+        ));
     }
 
     public void updateAbbonamento(Abbonamento abbonamento) {
@@ -43,6 +51,7 @@ public class AbbonamentoService {
     public void deleteAbbonamento(Integer id) {
         abbonamentoRepository.deleteById(id);
     }
+
 
     @Scheduled(cron = "@daily")
     private void checkAbbonamenti() {

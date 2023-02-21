@@ -1,7 +1,6 @@
 package it.unicam.ids.backend.controller;
 
 import it.unicam.ids.backend.entity.Abbonamento;
-import it.unicam.ids.backend.entity.PianoTariffario;
 import it.unicam.ids.backend.service.AbbonamentoService;
 import it.unicam.ids.backend.service.PianoTariffarioService;
 import it.unicam.ids.backend.util.EntityValidator;
@@ -10,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/abbonamento")
+@RequestMapping("/abbonamenti")
 public class AbbonamentoController implements EntityValidator<Abbonamento> {
 
     private final AbbonamentoService abbonamentoService;
@@ -51,11 +50,11 @@ public class AbbonamentoController implements EntityValidator<Abbonamento> {
 
     @PostMapping("/add")
     public Abbonamento addAbbonamento(
-            @RequestParam PianoTariffario pianoTariffario,
+            @RequestParam Integer pianoTariffarioId,
             @RequestParam String descrizione,
             @RequestParam Boolean attivo
     ) {
-        return abbonamentoService.addAbbonamento(pianoTariffario, descrizione, attivo);
+        return abbonamentoService.addAbbonamento(pianoTariffarioId, descrizione, attivo);
     }
 
     @PostMapping("/update")

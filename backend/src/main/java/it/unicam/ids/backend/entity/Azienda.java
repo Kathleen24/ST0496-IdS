@@ -1,11 +1,7 @@
 package it.unicam.ids.backend.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.util.Objects;
@@ -18,6 +14,9 @@ public class Azienda {
     @GeneratedValue
     private Integer id;
 
+    @ManyToOne
+    @JoinColumn(name = "abbonamento", referencedColumnName = "id")
+    private Abbonamento abbonamento;
     @JsonFormat(pattern = "dd-MM-yyyy")
     @Column(nullable = false)
     private LocalDate dataIscrizionePiattaforma = LocalDate.now();
@@ -30,7 +29,8 @@ public class Azienda {
     //region Costruttori
     public Azienda() {}
 
-    public Azienda(String nomeAzienda, String terminiLegali, String infoAttivita, String link) {
+    public Azienda(Abbonamento abbonamento, String nomeAzienda, String terminiLegali, String infoAttivita, String link) {
+        this.abbonamento = abbonamento;
         this.dataIscrizionePiattaforma = LocalDate.now();
         this.nomeAzienda = nomeAzienda;
         this.terminiLegali = terminiLegali;
@@ -40,6 +40,7 @@ public class Azienda {
 
     public Azienda(Azienda azienda) {
         this.id = azienda.getId();
+        this.abbonamento = azienda.getAbbonamento();
         this.dataIscrizionePiattaforma = azienda.getDataIscrizionePiattaforma();
         this.nomeAzienda = azienda.getNomeAzienda();
         this.terminiLegali = azienda.getNomeAzienda();
@@ -56,6 +57,14 @@ public class Azienda {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Abbonamento getAbbonamento() {
+        return abbonamento;
+    }
+
+    public void setAbbonamento(Abbonamento abbonamento) {
+        this.abbonamento = abbonamento;
     }
 
     public LocalDate getDataIscrizionePiattaforma() {
@@ -105,6 +114,8 @@ public class Azienda {
         if (this == o) return true;
         if (!(o instanceof Azienda azienda)) return false;
         return id.equals(azienda.id) &&
+                abbonamento.equals(azienda.abbonamento) &&
+                dataIscrizionePiattaforma.equals(azienda.dataIscrizionePiattaforma) &&
                 nomeAzienda.equals(azienda.nomeAzienda) &&
                 terminiLegali.equals(azienda.terminiLegali) &&
                 Objects.equals(infoAttivita, azienda.infoAttivita) &&
@@ -113,7 +124,7 @@ public class Azienda {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nomeAzienda, terminiLegali, infoAttivita, link);
+        return Objects.hash(id, abbonamento, dataIscrizionePiattaforma, nomeAzienda, terminiLegali, infoAttivita, link);
     }
     //endregion
 }
